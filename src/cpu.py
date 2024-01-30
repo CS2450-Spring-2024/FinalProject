@@ -7,38 +7,38 @@ class CPU:
     def run_instruction(operation, data):
         pass
 
-    def read(data): # Tanner
+    def read(self, data): # Tanner
         pass
 
-    def write(data): # Tanner
+    def write(self, data): # Tanner
         pass
 
-    def load(data): # Tanner
+    def load(self, data): # Tanner
         pass
 
-    def store(data): # Frank
+    def store(self, data): # Frank
         pass
 
-    def add(data): # Frank
+    def add(self, data): # Frank
         pass
 
-    def subtract(data): # Frank
+    def subtract(self, data): # Frank
         pass
 
-    def divide(data): # Kevin
+    def divide(self, data): # Kevin
         pass
 
-    def multiply(data): # Kevin
+    def multiply(self, data): # Kevin
         pass
 
-    def branch(data): # Kevin
+    def branch(self, data): # Kevin
         pass
 
-    def branchneg(data): # Noah
+    def branchneg(self, data): # Noah
         pass
 
-    def branchzero(data): # Noah
+    def branchzero(self, data): # Noah
         pass
 
-    def halt(data): # Noah
+    def halt(self, data): # Noah
         pass
