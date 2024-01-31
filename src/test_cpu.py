@@ -1,4 +1,3 @@
-
 # Feel free to copy this test and modify it to test your function
 def test_line_to_op_data():
     from cpu import CPU
