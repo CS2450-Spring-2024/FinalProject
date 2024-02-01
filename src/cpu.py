@@ -3,6 +3,7 @@ class CPU:
         self.accumulator = 0
         self.current_address = 0
         self.memory = memory
+        self.running = True
 
     def line_to_op_data(line):
         data = line % 100
@@ -33,7 +34,7 @@ class CPU:
             41: lambda: self.branchneg(data),
             42: lambda: self.branchzero(data),
             43: lambda: self.halt(data)
-        }.get(data, panic)()
+        }.get(opcode, panic)()
 
     def read(self, data): # Tanner
         pass
@@ -63,10 +64,16 @@ class CPU:
         pass
 
     def branchneg(self, data): # Noah
-        pass
+        if self.accumulator < 0:
+            self.current_address = data
+        else:
+            self.current_address += 1
 
     def branchzero(self, data): # Noah
-        pass
+        if self.accumulator == 0:
+            self.current_address = data
+        else:
+            self.current_address += 1
 
-    def halt(self, __data): # Noah
-        pass
+    def halt(self, data): # Noah
+        self.running = False
