@@ -3,7 +3,7 @@ class CPU:
         self.accumulator = 0
         self.current_address = 0
         self.memory = memory
-        self.running = True
+        self.halted = False
 
     def line_to_op_data(line):
         data = line % 100
@@ -15,7 +15,7 @@ class CPU:
         opcode, data = CPU.line_to_op_data(line)
 
         def panic():
-            print(f"Illegal instruction {opcode}!")
+            print(f"Illegal instruction {opcode} at ${self.current_address}: {line}!")
             exit()
 
         # Apologies if this section is convoluted, I could have used a bunch of if-else, but I think this is cleaner.
@@ -76,4 +76,4 @@ class CPU:
             self.current_address += 1
 
     def halt(self, data): # Noah
-        self.running = False
+        self.halted = True
