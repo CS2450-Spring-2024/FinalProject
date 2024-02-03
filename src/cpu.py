@@ -25,7 +25,7 @@ class CPU:
             10: lambda: self.read(data),
             11: lambda: self.write(data),
             20: lambda: self.load(data),
-            21: lambda: self.store(data),
+            21: lambda: self.store(data),   
             30: lambda: self.add(data),
             31: lambda: self.subtract(data),
             32: lambda: self.divide(data),
@@ -55,13 +55,13 @@ class CPU:
         pass
 
     def divide(self, data): # Kevin
-        pass
+        self.accumulator /= self.memory[data]
 
     def multiply(self, data): # Kevin
-        pass
+        self.accumulator *= self.memory[data]
 
     def branch(self, data): # Kevin
-        pass
+        self.current_address = data
 
     def branchneg(self, data): # Noah
         if self.accumulator < 0:

@@ -28,3 +28,43 @@ def test_line_to_op_data():
 
     for input, expected in test_cases.items():
         assert test_fn(input) == expected, f"Failed on input {input}: expected {expected}, got {test_fn(input)}"
+
+def test_multiply():
+    from cpu import CPU
+    test_mu = CPU([5,10,20])
+    #idx : (accumulator,expected)
+    test_cases ={
+        0:(2,10),
+        1:(3,30),
+        2:(4,80)
+    }
+
+    for input, expected in test_cases.items():
+        test_mu.accumulator = expected[0]
+        test_mu.multiply(input)
+        assert test_mu.accumulator == expected[1], f"Expected {expected[0]}, Got{test_mu.accumulator}"
+
+def test_divide():
+    from cpu import CPU
+    test_di = CPU([2,3,4])
+    #idx : (accumulator,expected)
+    test_cases ={
+        0:(10,5),
+        1:(30,10),
+        2:(80,20)
+    }
+
+    for input, expected in test_cases.items():
+        test_di.accumulator = expected[0]
+        test_di.divide(input)
+        assert test_di.accumulator == expected[1], f"Expected {expected[0]}, Got{test_di.accumulator}"
+
+
+def test_branch():
+    pass
+
+def test_branchneg():
+    pass
+
+
+
