@@ -14,7 +14,9 @@ class CPU:
         return (opcode, data)
 
     def run_until_halt(self):
-        while (not self.halted) and self.current_address < 101:
+        while True:
+            if self.halted or self.current_address > 99:
+                break
             self.run_one_instruction()
 
     def run_one_instruction(self):
