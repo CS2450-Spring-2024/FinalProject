@@ -1,3 +1,6 @@
+from opcodes import *
+
+
 class CPU:
     def __init__(self, memory):
         self.accumulator = 0
@@ -7,33 +10,37 @@ class CPU:
 
     def line_to_op_data(line):
         data = line % 100
-        opcode = line // 100
+        opcode = line - data
         return (opcode, data)
+
+    def run_until_halt(self):
+        while (not self.halted) and self.current_address < 101:
+            self.run_one_instruction()
 
     def run_one_instruction(self):
         line = self.memory[self.current_address]
         opcode, data = CPU.line_to_op_data(line)
 
         def panic():
-            print(f"Illegal instruction {opcode} at ${self.current_address}: {line}!")
+            print(f"Illegal opcode {opcode} at ${self.current_address}: {line}")
             exit()
 
         # Apologies if this section is convoluted, I could have used a bunch of if-else, but I think this is cleaner.
-        # All this section does is match an opcode to the function that needs to be run.
+        # All this section does is match the opcode from memory to the function that needs to be run.
         # If the opcode doesn't match any of our defined operations, we call panic().
         {
-            10: lambda: self.read(data),
-            11: lambda: self.write(data),
-            20: lambda: self.load(data),
-            21: lambda: self.store(data),   
-            30: lambda: self.add(data),
-            31: lambda: self.subtract(data),
-            32: lambda: self.divide(data),
-            33: lambda: self.multiply(data),
-            40: lambda: self.branch(data),
-            41: lambda: self.branchneg(data),
-            42: lambda: self.branchzero(data),
-            43: lambda: self.halt(data)
+            READ: lambda: self.read(data),
+            WRITE: lambda: self.write(data),
+            LOAD: lambda: self.load(data),
+            STORE: lambda: self.store(data),
+            ADD: lambda: self.add(data),
+            SUBTRACT: lambda: self.subtract(data),
+            DIVIDE: lambda: self.divide(data),
+            MULTIPLY: lambda: self.multiply(data),
+            BRANCH: lambda: self.branch(data),
+            BRANCHNEG: lambda: self.branchneg(data),
+            BRANCHZERO: lambda: self.branchzero(data),
+            HALT: lambda: self.halt(data)
         }.get(opcode, panic)()
 
     def read(self, data): # Tanner
