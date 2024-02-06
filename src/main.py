@@ -4,7 +4,7 @@
 from cpu import CPU
 
 
-def get_program_from_file():
+def get_program_from_file(path):
     pass
 
 def get_program_from_cli():
