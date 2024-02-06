@@ -46,41 +46,41 @@ class CPU:
         }.get(opcode, panic)()
 
     def read(self, data): # Tanner
-        
         try:
             user_input = input("Enter a word: ")
             # might need to check to see the length of the word.... cant be over len == 4?
-            # how does the + or - fit into the project?  
-            self.memory[data] = int(user_input) 
-            
+            # how does the + or - fit into the project?
+            self.memory[data] = int(user_input)
+
         except ValueError:
             print("Invalid input. Please enter a valid word or number.")
-            
+
         self.current_address += 1
 
     def write(self, data): # Tanner
-        
         word_to_write = self.memory[data]
         print(f"Word from memory: {word_to_write}" )
 
-        self.current_address += 1 
+        self.current_address += 1
 
     def load(self, data): # Tanner
-        
         self.accumulator = self.memory[data]
         self.current_address += 1
 
     def store(self, data):
         # Store the value of the accumulator into the  memory location.
         self.memory[data]= self.accumulator # Frank
-        
+        self.current_address += 1
+
     def add(self, data): # Frank
      #Add the value at the memory location to the accumulator.
         self.accumulator += self.memory[data]
+        self.current_address += 1
 
     def subtract(self, data):
     # Subtract the value at the specified memory location from the accumulator.
         self.accumulator -= self.memory[data] # Frank
+        self.current_address += 1
 
     def divide(self, data): # Kevin
         self.accumulator /= self.memory[data]
