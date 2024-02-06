@@ -37,13 +37,29 @@ class CPU:
         }.get(opcode, panic)()
 
     def read(self, data): # Tanner
-        pass
+        
+        try:
+            user_input = input("Enter a word: ")
+            # might need to check to see the length of the word.... cant be over len == 4?
+            # how does the + or - fit into the project?  
+            self.memory[data] = int(user_input) 
+            
+        except ValueError:
+            print("Invalid input. Please enter a valid word or number.")
+            
+        self.current_address += 1
 
     def write(self, data): # Tanner
-        pass
+        
+        word_to_write = self.memory[data]
+        print(f"Word from memory: {word_to_write}" )
+
+        self.current_address += 1 
 
     def load(self, data): # Tanner
-        pass
+        
+        self.accumulator = self.memory[data]
+        self.current_address += 1
 
     def store(self, data): # Frank
         pass
