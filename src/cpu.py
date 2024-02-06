@@ -70,14 +70,17 @@ class CPU:
         self.accumulator = self.memory[data]
         self.current_address += 1
 
-    def store(self, data): # Frank
-        pass
-
+    def store(self, data):
+        # Store the value of the accumulator into the  memory location.
+        self.memory[data]= self.accumulator # Frank
+        
     def add(self, data): # Frank
-        pass
+     #Add the value at the memory location to the accumulator.
+        self.accumulator += self.memory[data]
 
-    def subtract(self, data): # Frank
-        pass
+    def subtract(self, data):
+    # Subtract the value at the specified memory location from the accumulator.
+        self.accumulator -= self.memory[data] # Frank
 
     def divide(self, data): # Kevin
         self.accumulator /= self.memory[data]
