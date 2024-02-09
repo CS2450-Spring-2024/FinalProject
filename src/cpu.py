@@ -1,8 +1,7 @@
 from opcodes import *
-from main import parse_word
+from parse import parse_word
+from constants import MEM_SIZE
 
-MEM_SIZE = 100
-TERMINAL_WORD = -99999
 
 class CPU:
     def __init__(self, memory):

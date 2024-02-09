@@ -1,6 +1,7 @@
-from cpu import CPU, MEM_SIZE, TERMINAL_WORD
+from cpu import CPU
+from constants import MEM_SIZE, TERMINAL_WORD
 import argparse
-
+from parse import parse_word
 
 def get_program_from_file(path) -> [int]:
     '''Get program from file'''
@@ -23,12 +24,7 @@ def get_program_from_cli() -> [int]:
         if len(program) > MEM_SIZE:
             raise AssertionError(f"Invalid program, must be terminated with {TERMINAL_WORD}!\nProgram:{program}")
 
-def parse_word(word: str, addr: int) -> int:
-    try:
-        val = int(word)
-    except ValueError as e:
-        raise ValueError(f"Could not parse ${addr}: {word}")
-    return val
+
 
 def validate_program(program: [int]):
     assert program[-1] == TERMINAL_WORD, f"Invalid program, must be terminated with {TERMINAL_WORD}!\nProgram:{program}"
@@ -40,7 +36,6 @@ def run_program(program):
 
 def run_program_from_file(path):
     program = get_program_from_file(path)
-    print(program)
     validate_program(program)
     run_program(program)
 
@@ -48,6 +43,9 @@ def run_program_from_cli():
     program = get_program_from_cli()
     validate_program(program)
     run_program(program)
+
+
+
 
 def main():
     parser = argparse.ArgumentParser(description="UVSimulator is a barebones computer simulator. Run a program from a file or by entering it line by line.")
