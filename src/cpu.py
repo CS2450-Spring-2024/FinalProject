@@ -1,5 +1,6 @@
 from opcodes import *
 
+MEM_SIZE = 100
 
 class CPU:
     def __init__(self, memory):
@@ -15,7 +16,7 @@ class CPU:
 
     def run_until_halt(self):
         while True:
-            if self.halted or self.current_address > 99:
+            if self.halted or self.current_address > MEM_SIZE - 1:
                 break
             self.run_one_instruction()
 
@@ -24,7 +25,7 @@ class CPU:
         opcode, data = CPU.line_to_op_data(line)
 
         def panic():
-            print(f"Illegal opcode {opcode} at ${self.current_address}: {line}")
+            print(f"Illegal opcode {opcode} at ${self.current_address}!")
             exit()
 
         # Apologies if this section is convoluted, I could have used a bunch of if-else, but I think this is cleaner.
@@ -73,20 +74,22 @@ class CPU:
         self.current_address += 1
 
     def add(self, data): # Frank
-     #Add the value at the memory location to the accumulator.
+        #Add the value at the memory location to the accumulator.
         self.accumulator += self.memory[data]
         self.current_address += 1
 
     def subtract(self, data):
-    # Subtract the value at the specified memory location from the accumulator.
+        # Subtract the value at the specified memory location from the accumulator.
         self.accumulator -= self.memory[data] # Frank
         self.current_address += 1
 
     def divide(self, data): # Kevin
         self.accumulator /= self.memory[data]
+        self.current_address += 1
 
     def multiply(self, data): # Kevin
         self.accumulator *= self.memory[data]
+        self.current_address += 1
 
     def branch(self, data): # Kevin
         self.current_address = data
@@ -105,3 +108,4 @@ class CPU:
 
     def halt(self, data): # Noah
         self.halted = True
+        self.current_address += 1
