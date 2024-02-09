@@ -1,4 +1,4 @@
-from cpu import CPU, MEM_SIZE
+from cpu import CPU, MEM_SIZE, TERMINAL_WORD
 import argparse
 
 
@@ -17,11 +17,11 @@ def get_program_from_cli() -> [int]:
         word = parse_word(input(f"{len(program)} ? "), len(program))
         program.append(word)
 
-        if word == -99999: # Terminate if -99999
+        if word == TERMINAL_WORD: # Terminate if -99999
             return program
 
         if len(program) > MEM_SIZE:
-            raise AssertionError("Invalid program, must be terminated with -99999!")
+            raise AssertionError(f"Invalid program, must be terminated with {TERMINAL_WORD}!\nProgram:{program}")
 
 def parse_word(word: str, addr: int) -> int:
     try:
@@ -32,8 +32,8 @@ def parse_word(word: str, addr: int) -> int:
     return val
 
 def validate_program(program: [int]):
-    assert program[-1] == -99999, f"Invalid program, must be terminated with -99999!\nProgram:{program}"
-    assert len(program) <= MEM_SIZE, f"Invalid program, must be 100 lines or less!\nProgram:{program}"
+    assert program[-1] == -99999, f"Invalid program, must be terminated with {TERMINAL_WORD}!\nProgram:{program}"
+    assert len(program) <= MEM_SIZE, f"Invalid program, must be {MEM_SIZE} lines or less!\nProgram:{program}"
 
 def run_program(program):
     d = CPU(program)
@@ -52,15 +52,12 @@ def run_program_from_cli():
 
 def main():
     parser = argparse.ArgumentParser(description="UVSimulator is a barebones computer simulator. Run a program from a file or by entering it line by line.")
-    parser.add_argument("-c", "--cli", help="Enter a program from the command line. (Default)", action="store_true", default=True)
-    parser.add_argument("-f", "--file", help="Reads a program from a file.")
+    parser.add_argument("-c", "--cli", help=f"Enter a program from the command line. Programs must be at most {MEM_SIZE} words. (Default)", action="store_true", default=True)
+    parser.add_argument("-f", "--file", help=f"Reads a program from a file. Programs must be at most {MEM_SIZE} words.")
     parser.add_argument("-o", "--opcode", nargs='?', const=True, default=False, help="Show opcode documentation. May be in the form \"STORE\", or may be an integer. Use with no value to see all opcodes.")
     args = parser.parse_args()
 
-    if args.file:
-        path = args.file
-        run_program_from_file(path)
-    elif args.opcode:
+    if args.opcode:
         if type(args.opcode) == bool:
             print("""10: READ
 11: WRITE
@@ -102,6 +99,9 @@ def main():
                     print("HALT: Opcode 43. Pause the program.")
                 case _:
                     print("Unrecognized opcode, run -o with no value to see all options.")
+    elif args.file:
+        path = args.file
+        run_program_from_file(path)
     elif args.cli:
         run_program_from_cli()
 

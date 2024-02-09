@@ -1,6 +1,7 @@
 from opcodes import *
 
 MEM_SIZE = 100
+TERMINAL_WORD = -99999
 
 class CPU:
     def __init__(self, memory):
