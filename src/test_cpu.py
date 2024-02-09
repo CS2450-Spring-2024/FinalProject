@@ -1,4 +1,4 @@
-from cpu import CPU
+from constants import CPU
 from opcodes import *
 
 # Feel free to copy this test and modify it to test your function
