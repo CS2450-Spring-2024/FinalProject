@@ -61,7 +61,27 @@ def test_divide():
 
 
 def test_branch():
-    pass
+    tests = [
+        # (accumulator, branchneg_arg, current_address, post_expected_current_address)
+        (-1, 10, 4, 10),  # accumulator is negative
+        (0, 10, 4, 10),  # accumulator is zero
+        (1, 10, 4, 10),  # accumulator is positive
+        (-1, 0, 4, 0),  # accumulator is negative, branchneg_arg is minimum
+        (-1, 99, 4, 99),  # accumulator is negative, branchneg_arg is maximum
+        (0, 0, 4, 0),  # accumulator is zero, branchneg_arg is minimum
+        (0, 99, 4, 99),  # accumulator is zero, branchneg_arg is maximum
+        (-1, 10, 4, 10),  # accumulator is just below 0
+        (0, 10, 4, 10),  # accumulator is 0
+        (1, 10, 4, 10),  # accumulator is just above 0
+        (-1, 50, 4, 50),  # accumulator is negative, large positive step
+    ]
+
+    for (accum, arg, addr, expected) in tests:
+        cpu = CPU([0] * 100)
+        cpu.accumulator = accum
+        cpu.current_address = addr
+        cpu.branch(arg)
+        assert cpu.current_address == expected
 
 
 def test_branchneg():
