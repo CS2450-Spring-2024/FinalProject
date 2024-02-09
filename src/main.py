@@ -27,8 +27,7 @@ def parse_word(word: str, addr: int) -> int:
     try:
         val = int(word)
     except ValueError as e:
-        print(f"Could not parse ${addr}: {word}")
-        exit()
+        raise ValueError(f"Could not parse ${addr}: {word}")
     return val
 
 def validate_program(program: [int]):
