@@ -26,8 +26,7 @@ class CPU:
         opcode, data = CPU.line_to_op_data(line)
 
         def panic():
-            print(f"Illegal opcode {opcode} at ${self.current_address}!")
-            exit()
+            raise SyntaxError(f"Illegal opcode {opcode} at ${self.current_address}!")
 
         # Apologies if this section is convoluted, I could have used a bunch of if-else, but I think this is cleaner.
         # All this section does is match the opcode from memory to the function that needs to be run.
