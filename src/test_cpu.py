@@ -121,28 +121,28 @@ def test_halt():
 
 
 def test_read(): # 10 Read a word from the keyboard into a specific location in memory.
-    
+
     test_rd = CPU([0] * 100)
-    
+
     test_cases ={
         0: (+1023),
-        1: (+1034), 
+        1: (+1034),
         2: (-4356),
         55: (+5789),
         99: (+5786)
     }
 
     for args, expected in test_cases.items():
-        test_rd.read(args, expected) #figure out a way to test the function that doesn't change the structure of the original function. 
+        test_rd.read(args, expected) #figure out a way to test the function that doesn't change the structure of the original function.
         assert test_rd.memory[args] == expected
 
 
 def test_write(): # 11 Write a word from a specific location in memory to screen.
     test_wrt = CPU([0] * 100)
-    
+
     test_cases ={
         0: (+0000),
-        1: (+1034), 
+        1: (+1034),
         2: (-4356),
         55: (+5789),
         99: (+5786)
@@ -151,14 +151,14 @@ def test_write(): # 11 Write a word from a specific location in memory to screen
     for args, expected in test_cases.items():
         test_wrt.read(args, expected)
         assert test_wrt.write(args) == f"Word from memory: {expected}"
-        
-    
+
+
 def test_load(): # 20 Load a word from a specific location in memory into the accumulator.
     test_wrt = CPU([0] * 100)
-    
+
     test_cases ={
         0: (+0000),
-        1: (+1034), 
+        1: (+1034),
         2: (-4356),
         55: (+5789),
         99: (+5786)
