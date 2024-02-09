@@ -54,7 +54,7 @@ def main():
     parser = argparse.ArgumentParser(description="UVSimulator is a barebones computer simulator. Run a program from a file or by entering it line by line.")
     parser.add_argument("-c", "--cli", help="Enter a program from the command line. (Default)", action="store_true", default=True)
     parser.add_argument("-f", "--file", help="Reads a program from a file.")
-    parser.add_argument("-o", "--opcode", nargs='?', const=True, default=False, help="Show all available opcodes. May be in the form \"STORE\", or may be an integer. Use with no value to see all options.")
+    parser.add_argument("-o", "--opcode", nargs='?', const=True, default=False, help="Show opcode documentation. May be in the form \"STORE\", or may be an integer. Use with no value to see all opcodes.")
     args = parser.parse_args()
 
     if args.file:
