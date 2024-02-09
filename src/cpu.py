@@ -47,13 +47,15 @@ class CPU:
             HALT: lambda: self.halt(data)
         }.get(opcode, panic)()
 
-    def read(self, data): # Tanner
+    def read(self, data, user_input): # Tanner #  I should not have to add user_input as a parameter
         try:
-            user_input = input("Enter a word: ")
+            
+            #user_input = input("Enter a word: ")
+            
             # might need to check to see the length of the word.... cant be over len == 4?
             # how does the + or - fit into the project?
             self.memory[data] = int(user_input)
-
+            
         except ValueError:
             print("Invalid input. Please enter a valid word or number.")
 
@@ -64,10 +66,11 @@ class CPU:
         print(f"Word from memory: {word_to_write}" )
 
         self.current_address += 1
+        return f"Word from memory: {word_to_write}" ## not sure if this is right. I just did this for testing. 
 
     def load(self, data): # Tanner
         self.accumulator = self.memory[data]
-        self.current_address += 1
+        self.current_address += 1 
 
     def store(self, data):
         # Store the value of the accumulator into the  memory location.
