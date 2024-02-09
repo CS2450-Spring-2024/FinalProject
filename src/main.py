@@ -32,7 +32,7 @@ def parse_word(word: str, addr: int) -> int:
     return val
 
 def validate_program(program: [int]):
-    assert program[-1] == -99999, f"Invalid program, must be terminated with {TERMINAL_WORD}!\nProgram:{program}"
+    assert program[-1] == TERMINAL_WORD, f"Invalid program, must be terminated with {TERMINAL_WORD}!\nProgram:{program}"
     assert len(program) <= MEM_SIZE, f"Invalid program, must be {MEM_SIZE} lines or less!\nProgram:{program}"
 
 def run_program(program):
