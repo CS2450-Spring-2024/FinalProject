@@ -58,18 +58,18 @@ def main():
 
     if args.opcode:
         if type(args.opcode) == bool:
-            print("""10: READ
-11: WRITE
-20: LOAD
-21: STORE
-30: ADD
-31: SUBTRACT
-32: DIVIDE
-33: MULTIPLY
-40: BRANCH
-41: BRANCHNEG
-42: BRANCHZERO
-43: HALT""")
+            print("10: READ")
+            print("11: WRITE")
+            print("20: LOAD")
+            print("21: STORE")
+            print("30: ADD")
+            print("31: SUBTRACT")
+            print("32: DIVIDE")
+            print("33: MULTIPLY")
+            print("40: BRANCH")
+            print("41: BRANCHNEG")
+            print("42: BRANCHZERO")
+            print("43: HALT")
         else:
             match args.opcode:
                 case "10" | "READ":
