@@ -2,6 +2,9 @@ from opcodes import *
 from parse import parse_word
 from constants import MEM_SIZE
 
+def run_program(program):
+    d = CPU(program)
+    d.run_until_halt()
 
 class CPU:
     def __init__(self, memory):
@@ -24,9 +27,8 @@ class CPU:
     def run_one_instruction(self):
         line = self.memory[self.current_address]
         opcode, data = CPU.line_to_op_data(line)
-
         def panic():
-            raise SyntaxError(f"Illegal opcode {opcode} at ${self.current_address}!")
+            raise SyntaxError(f"Illegal opcode {line} at ${self.current_address}!")
 
         # Apologies if this section is convoluted, I could have used a bunch of if-else, but I think this is cleaner.
         # All this section does is match the opcode from memory to the function that needs to be run.

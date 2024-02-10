@@ -1,50 +1,7 @@
-from cpu import CPU
+from cpu import run_program
 from constants import MEM_SIZE, TERMINAL_WORD
 import argparse
-from parse import parse_word
-
-def get_program_from_file(path) -> [int]:
-    '''Get program from file'''
-
-    with open(path, 'r') as in_file:
-        program = [parse_word(itm.strip('\n'), i) for i, itm in enumerate(in_file.readlines())]
-    return program
-
-def get_program_from_cli() -> [int]:
-    '''Get program from CLI'''
-
-    program = []
-    while True:
-        word = parse_word(input(f"{len(program)} ? "), len(program))
-        program.append(word)
-
-        if word == TERMINAL_WORD: # Terminate if -99999
-            return program
-
-        if len(program) > MEM_SIZE:
-            raise AssertionError(f"Invalid program, must be terminated with {TERMINAL_WORD}!\nProgram:{program}")
-
-
-
-def validate_program(program: [int]):
-    assert program[-1] == TERMINAL_WORD, f"Invalid program, must be terminated with {TERMINAL_WORD}!\nProgram:{program}"
-    assert len(program) <= MEM_SIZE, f"Invalid program, must be {MEM_SIZE} lines or less!\nProgram:{program}"
-
-def run_program(program):
-    d = CPU(program)
-    d.run_until_halt()
-
-def run_program_from_file(path):
-    program = get_program_from_file(path)
-    validate_program(program)
-    run_program(program)
-
-def run_program_from_cli():
-    program = get_program_from_cli()
-    validate_program(program)
-    run_program(program)
-
-
+from parse import get_program_from_cli, get_program_from_file
 
 
 def main():
@@ -55,53 +12,60 @@ def main():
     args = parser.parse_args()
 
     if args.opcode:
-        if type(args.opcode) == bool:
-            print("10: READ")
-            print("11: WRITE")
-            print("20: LOAD")
-            print("21: STORE")
-            print("30: ADD")
-            print("31: SUBTRACT")
-            print("32: DIVIDE")
-            print("33: MULTIPLY")
-            print("40: BRANCH")
-            print("41: BRANCHNEG")
-            print("42: BRANCHZERO")
-            print("43: HALT")
-        else:
-            match args.opcode:
-                case "10" | "READ":
-                    print("READ: Opcode 10. Read a word from the keyboard into a specific location in memory.")
-                case "11" | "WRITE":
-                    print("WRITE: Opcode 11. Write a word from a specific location in memory to screen.")
-                case "20" | "LOAD":
-                    print("LOAD: Opcode 20. Load a word from a specific location in memory into the accumulator.")
-                case "21" | "STORE":
-                    print("STORE: Opcode 21. Store a word from the accumulator into a specific location in memory.")
-                case "30" | "ADD":
-                    print("ADD: Opcode 30. Add a word from a specific location in memory to the word in the accumulator (leave the result in the accumulator).")
-                case "31" | "SUBTRACT":
-                    print("SUBTRACT: Opcode 31. Subtract a word from a specific location in memory from the word in the accumulator (leave the result in the accumulator).")
-                case "32" | "DIVIDE":
-                    print("DIVIDE: Opcode 32. Divide the word in the accumulator by a word from a specific location in memory (leave the result in the accumulator).")
-                case "33" | "MULTIPLY":
-                    print("MULTIPLY: Opcode 33. multiply a word from a specific location in memory to the word in the accumulator (leave the result in the accumulator).")
-                case "40" | "BRANCH":
-                    print("BRANCH: Opcode 40. Branch to a specific location in memory.")
-                case "41" | "BRANCHNEG":
-                    print("BRANCHNEG: Opcode 41. Branch to a specific location in memory if the accumulator is negative.")
-                case "42" | "BRANCHZERO":
-                    print("BRANCHZERO: Opcode 42. Branch to a specific location in memory if the accumulator is zero.")
-                case "43" | "HALT":
-                    print("HALT: Opcode 43. Pause the program.")
-                case _:
-                    print("Unrecognized opcode, run -o with no value to see all options.")
+        help_opcodes(args.opcode)
+
     elif args.file:
         path = args.file
-        run_program_from_file(path)
-    elif args.cli:
-        run_program_from_cli()
+        program = get_program_from_file(path)
+        run_program(program)
 
+    elif args.cli:
+        program = get_program_from_cli()
+        run_program(program)
+
+
+def help_opcodes(arg):
+    if type(arg) == bool:
+        print("10: READ")
+        print("11: WRITE")
+        print("20: LOAD")
+        print("21: STORE")
+        print("30: ADD")
+        print("31: SUBTRACT")
+        print("32: DIVIDE")
+        print("33: MULTIPLY")
+        print("40: BRANCH")
+        print("41: BRANCHNEG")
+        print("42: BRANCHZERO")
+        print("43: HALT")
+    else:
+        match arg:
+            case "10" | "READ":
+                print("READ: Opcode 10. Read a word from the keyboard into a specific location in memory.")
+            case "11" | "WRITE":
+                print("WRITE: Opcode 11. Write a word from a specific location in memory to screen.")
+            case "20" | "LOAD":
+                print("LOAD: Opcode 20. Load a word from a specific location in memory into the accumulator.")
+            case "21" | "STORE":
+                print("STORE: Opcode 21. Store a word from the accumulator into a specific location in memory.")
+            case "30" | "ADD":
+                print("ADD: Opcode 30. Add a word from a specific location in memory to the word in the accumulator (leave the result in the accumulator).")
+            case "31" | "SUBTRACT":
+                print("SUBTRACT: Opcode 31. Subtract a word from a specific location in memory from the word in the accumulator (leave the result in the accumulator).")
+            case "32" | "DIVIDE":
+                print("DIVIDE: Opcode 32. Divide the word in the accumulator by a word from a specific location in memory (leave the result in the accumulator).")
+            case "33" | "MULTIPLY":
+                print("MULTIPLY: Opcode 33. multiply a word from a specific location in memory to the word in the accumulator (leave the result in the accumulator).")
+            case "40" | "BRANCH":
+                print("BRANCH: Opcode 40. Branch to a specific location in memory.")
+            case "41" | "BRANCHNEG":
+                print("BRANCHNEG: Opcode 41. Branch to a specific location in memory if the accumulator is negative.")
+            case "42" | "BRANCHZERO":
+                print("BRANCHZERO: Opcode 42. Branch to a specific location in memory if the accumulator is zero.")
+            case "43" | "HALT":
+                print("HALT: Opcode 43. Pause the program.")
+            case _:
+                print("Unrecognized opcode, run -o with no value to see all options.")
 
 if __name__ == "__main__":
     main()

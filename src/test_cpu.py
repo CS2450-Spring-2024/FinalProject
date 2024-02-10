@@ -1,5 +1,8 @@
+from constants import TERMINAL_WORD
 from cpu import CPU
+from main import run_program
 from opcodes import *
+from parse import validate_program
 
 # Feel free to copy this test and modify it to test your function
 def test_line_to_op_data():
@@ -188,3 +191,8 @@ def test_load(monkeypatch): # 20 Load a word from a specific location in memory 
         test_wrt.read(args, expected)
         test_wrt.load(args)
         assert test_wrt.accumulator == expected
+
+def test_read_write_mem_outside_program_input():
+    program = [WRITE + 5, HALT, TERMINAL_WORD]
+    program = validate_program(program)
+    run_program(program)
