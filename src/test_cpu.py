@@ -156,34 +156,35 @@ def test_read(): # 10 Read a word from the keyboard into a specific location in 
         assert test_rd.memory[args] == expected
 
 
-# def test_write(): # 11 Write a word from a specific location in memory to screen.
-#     test_wrt = CPU([0] * 100)
-#
-#     test_cases ={
-#         0: (+0000),
-#         1: (+1034),
-#         2: (-4356),
-#         55: (+5789),
-#         99: (+5786)
-#     }
-#
-#     for args, expected in test_cases.items():
-#         test_wrt.read(args, expected)
-#         assert test_wrt.write(args) == f"Word from memory: {expected}"
+def test_write(monkeypatch): # 11 Write a word from a specific location in memory to screen.
+    test_wrt = CPU([0] * 100)
+    test_cases ={
+        0: (+0000),
+        1: (+1034),
+        2: (-4356),
+        55: (+5789),
+        99: (+5786)
+    }
+
+    for args, expected in test_cases.items():
+        monkeypatch.setattr("builtins.input", lambda _:args)
+        test_wrt.read(args, expected)
+        assert test_wrt.write(args) == f"Word from memory: {expected}"
 
 
-# def test_load(): # 20 Load a word from a specific location in memory into the accumulator.
-#     test_wrt = CPU([0] * 100)
-#
-#     test_cases ={
-#         0: (+0000),
-#         1: (+1034),
-#         2: (-4356),
-#         55: (+5789),
-#         99: (+5786)
-#     }
-#
-#     for args, expected in test_cases.items():
-#         test_wrt.read(args, expected)
-#         test_wrt.load(args)
-#         assert test_wrt.accumulator == expected
+def test_load(monkeypatch): # 20 Load a word from a specific location in memory into the accumulator.
+    test_wrt = CPU([0] * 100)
+
+    test_cases ={
+        0: (+0000),
+        1: (+1034),
+        2: (-4356),
+        55: (+5789),
+        99: (+5786)
+    }
+
+    for args, expected in test_cases.items():
+        monkeypatch.setattr("builtins.input", lambda _:args)
+        test_wrt.read(args, expected)
+        test_wrt.load(args)
+        assert test_wrt.accumulator == expected
