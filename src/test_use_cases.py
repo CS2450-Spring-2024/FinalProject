@@ -1,4 +1,4 @@
-from constants import MEM_SIZE, TERMINAL_WORD
+from constants import MEM_SIZE
 from cpu import CPU
 from opcodes import *
 
@@ -88,8 +88,7 @@ def test_accumulator_store_instruction(monkeypatch, capsys):
                LOAD + 7,
                STORE + 8,
                WRITE + 8,
-               HALT,
-               TERMINAL_WORD]
+               HALT]
 
     for i, instruction in enumerate(program):
         uv_sim.memory[i] = instruction
@@ -103,7 +102,7 @@ def test_accumulator_store_instruction(monkeypatch, capsys):
 
 def test_performing_add_operation(monkeypatch, capsys):
     monkeypatch.setattr("builtins.input", lambda _: "10")
-    program = [READ + 7, READ + 8, LOAD + 7, ADD + 8, STORE + 9, WRITE + 9, HALT, TERMINAL_WORD]
+    program = [READ + 7, READ + 8, LOAD + 7, ADD + 8, STORE + 9, WRITE + 9, HALT]
     cpu = CPU([0]*100)
     for i, instruction in enumerate(program):
         cpu.memory[i] = instruction
@@ -113,7 +112,7 @@ def test_performing_add_operation(monkeypatch, capsys):
 
 def test_performing_subtract_operation(monkeypatch, capsys):
     monkeypatch.setattr("builtins.input", lambda _: "10")
-    program = [READ + 7, READ + 8, LOAD + 7, SUBTRACT + 8, STORE + 9, WRITE + 9, HALT, TERMINAL_WORD]
+    program = [READ + 7, READ + 8, LOAD + 7, SUBTRACT + 8, STORE + 9, WRITE + 9, HALT]
     cpu = CPU([0]*100)
     for i, instruction in enumerate(program):
         cpu.memory[i] = instruction
@@ -123,7 +122,7 @@ def test_performing_subtract_operation(monkeypatch, capsys):
 
 def test_performing_multiply_operation(monkeypatch, capsys):
     monkeypatch.setattr("builtins.input", lambda _: "10")
-    program = [READ + 7, READ + 8, LOAD + 7, MULTIPLY + 8, STORE + 9, WRITE + 9, HALT, TERMINAL_WORD]
+    program = [READ + 7, READ + 8, LOAD + 7, MULTIPLY + 8, STORE + 9, WRITE + 9, HALT]
     cpu = CPU([0]*100)
     for i, instruction in enumerate(program):
         cpu.memory[i] = instruction
@@ -133,7 +132,7 @@ def test_performing_multiply_operation(monkeypatch, capsys):
 
 def test_performing_divide_operation(monkeypatch, capsys):
     monkeypatch.setattr("builtins.input", lambda _: "10")
-    program = [READ + 7, READ + 8, LOAD + 7, DIVIDE + 8, STORE + 9, WRITE + 9, HALT, TERMINAL_WORD]
+    program = [READ + 7, READ + 8, LOAD + 7, DIVIDE + 8, STORE + 9, WRITE + 9, HALT]
     cpu = CPU([0]*100)
     for i, instruction in enumerate(program):
         cpu.memory[i] = instruction
