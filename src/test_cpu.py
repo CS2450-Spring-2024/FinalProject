@@ -49,18 +49,36 @@ def test_multiply():
         assert test_mu.accumulator == expected[1], f"Expected {expected[0]}, Got{test_mu.accumulator}"
 
 def test_divide():
-    test_di = CPU([2,3,4])
+    test_di = CPU([2,3,4,4])
     #idx : (accumulator,expected)
     test_cases ={
         0:(10,5),
         1:(30,10),
-        2:(80,20)
+        2:(80,20),
+        3:(0, 0), # Check zero Division
     }
 
     for args, expected in test_cases.items():
         test_di.accumulator = expected[0]
         test_di.divide(args)
         assert test_di.accumulator == expected[1], f"Expected {expected[0]}, Got{test_di.accumulator}"
+
+def test_multiply_fail():
+    test_mu = CPU([1,-2,10, 30, 4])
+    #idx : (accumulator,expected)
+    test_cases ={
+        0:(-1, 1),
+        1:(-2, -4),
+        2:(0,10),
+        3:(1,300),
+        4:(0.25, 8),
+    }
+
+    for args, expected in test_cases.items():
+        test_mu.accumulator = expected[0]
+        test_mu.multiply(args)
+        assert test_mu.accumulator != expected[1], f"Expected {expected[0]}, Got{test_mu.accumulator}"
+
 
 
 def test_branch():

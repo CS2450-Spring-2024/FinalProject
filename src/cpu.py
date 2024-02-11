@@ -88,7 +88,10 @@ class CPU:
         self.current_address += 1
 
     def divide(self, data): # Kevin
-        self.accumulator /= self.memory[data]
+        try:
+            self.accumulator /= self.memory[data]
+        except ZeroDivisionError:
+            print("Zero division.")
         self.current_address += 1
 
     def multiply(self, data): # Kevin
