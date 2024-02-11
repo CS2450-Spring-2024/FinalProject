@@ -1,7 +1,7 @@
 """
 In this file, there are constants defined for all our opcodes. This way, we can
 more easily write programs, like this:
-
+```
 program = [
     WRITE + 1, # Because WRITE = 11 * 100, this puts 1101 in $0
     123, # This puts 123 in $1
@@ -9,6 +9,7 @@ program = [
 ]
 CPU(program)
 CPU.run_until_halt()
+```
 
 When this program is run, it will print 123, then halt.
 """

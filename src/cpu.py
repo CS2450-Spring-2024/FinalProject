@@ -2,10 +2,6 @@ from opcodes import *
 from parse import parse_word
 from constants import MEM_SIZE
 
-def run_program(program):
-    d = CPU(program)
-    d.run_until_halt()
-
 class CPU:
     def __init__(self, memory):
         self.accumulator = 0
@@ -20,7 +16,9 @@ class CPU:
 
     def run_until_halt(self):
         while True:
-            if self.halted or self.current_address > MEM_SIZE - 1:
+            if self.current_address > MEM_SIZE - 1:
+                self.halted = True
+            if self.halted:
                 break
             self.run_one_instruction()
 
@@ -28,7 +26,8 @@ class CPU:
         line = self.memory[self.current_address]
         opcode, data = CPU.line_to_op_data(line)
         def panic():
-            raise SyntaxError(f"Illegal opcode {line} at ${self.current_address}!")
+            print(f"Illegal opcode {line} at ${self.current_address}!")
+            self.halted = True
 
         # Apologies if this section is convoluted, I could have used a bunch of if-else, but I think this is cleaner.
         # All this section does is match the opcode from memory to the function that needs to be run.
@@ -57,7 +56,7 @@ class CPU:
             self.memory[data] = parse_word(user_input, self.current_address)
 
         except ValueError:
-            print("Invalid input. Please enter a valid word or number.")
+            print("Halted on Invalid input. Please enter a valid word or number.")
 
         self.current_address += 1
 
@@ -88,10 +87,11 @@ class CPU:
         self.current_address += 1
 
     def divide(self, data): # Kevin
-        try:
-            self.accumulator /= self.memory[data]
-        except ZeroDivisionError:
-            print("Zero division.")
+        if self.memory[data] == 0:
+            print(f"Halted for attempt to divide by zero at {self.current_address}!")
+            self.halted = True
+            return
+        self.accumulator /= self.memory[data]
         self.current_address += 1
 
     def multiply(self, data): # Kevin
@@ -116,3 +116,13 @@ class CPU:
     def halt(self, data): # Noah
         self.halted = True
         self.current_address += 1
+
+    def reset(self):
+        self.memory = [0] * MEM_SIZE
+        self.halted = False
+        self.current_address = 0
+        self.accumulator = 0
+
+    def resume(self):
+        self.halted = False
+        self.run_until_halt()

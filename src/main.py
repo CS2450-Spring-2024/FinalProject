@@ -1,4 +1,4 @@
-from cpu import run_program
+from cpu import CPU
 from constants import MEM_SIZE, TERMINAL_WORD
 import argparse
 from parse import get_program_from_cli, get_program_from_file
@@ -17,11 +17,13 @@ def main():
     elif args.file:
         path = args.file
         program = get_program_from_file(path)
-        run_program(program)
+        c = CPU(program)
+        c.run_until_halt()
 
     elif args.cli:
         program = get_program_from_cli()
-        run_program(program)
+        c = CPU(program)
+        c.run_until_halt()
 
 
 def help_opcodes(arg):

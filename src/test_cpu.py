@@ -1,6 +1,5 @@
 from constants import TERMINAL_WORD
 from cpu import CPU
-from main import run_program
 from opcodes import *
 from parse import validate_program
 
@@ -210,7 +209,8 @@ def test_load(monkeypatch): # 20 Load a word from a specific location in memory 
         test_wrt.load(args)
         assert test_wrt.accumulator == expected
 
-def test_read_write_mem_outside_program_input():
+def test_read_write_mem_outside_program_space():
     program = [WRITE + 5, HALT, TERMINAL_WORD]
     program = validate_program(program)
-    run_program(program)
+    c = CPU(program)
+    c.run_until_halt()
