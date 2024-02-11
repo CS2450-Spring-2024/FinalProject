@@ -10,14 +10,14 @@ UVSim is a simulator for a simple computer. It has a memory size of 100 words, a
 2. `cd FinalProject`
 3. `python3 -m pip install pytest` (Optional)
 
-# Running
-## Running in CLI mode
+# Running UVSim
+### Running in CLI mode
 Run `python3 src/main.py --cli` in the command line.
 
-## Running in file mode
+### Running in file mode
 Run `python3 src/main.py --file FILE` in the command line.
 
-## Showing opcode information
+### Showing opcode information
 Run `python3 src/main.py --opcode [OPCODE]` in the command line.
 
 For more information, run `python3 src/main.py --help`
