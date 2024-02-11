@@ -5,8 +5,8 @@ from opcodes import *
 from parse import parse_str, parse_word, validate_program
 
 def test_parsing_test_programs():
-    get_program_from_file("test_programs/Test1.txt")
-    get_program_from_file("test_programs/Test2.txt")
+    get_program_from_file("example_programs/Test1.txt")
+    get_program_from_file("example_programs/Test2.txt")
 
 def test_max_length():
     program = [BRANCH + i + 1 for i in range(constants.MEM_SIZE + 10)]

@@ -1,8 +1,39 @@
-# FinalProject
+# UVSim
+UVSim is a simulator for a simple computer. It has a memory size of 100 words, and operates on signed integers.
 
-[Videos](https://uvu.instructure.com/courses/576566/pages/class-videos-week-4?module_item_id=12156032)
+# Requirements
+- Windows/Linux/MacOS (Others are untested)
+- Python 3.10+
 
-# Instructions
+# Installation
+1. `git clone https://github.com/CS2450-Spring-2024/FinalProject.git`
+2. `cd FinalProject`
+3. `python3 -m pip install pytest` (Optional)
+
+# Running
+## Running in CLI mode
+Run `python3 src/main.py --cli` in the command line.
+
+## Running in file mode
+Run `python3 src/main.py --file FILE` in the command line.
+
+## Showing opcode information
+Run `python3 src/main.py --opcode [OPCODE]` in the command line.
+
+For more information, run `python3 src/main.py --help`
+
+# Programming
+Programs are written in [BasicML](#basicml-instructions). Programs can be read from a file, or line by line as they are entered in the CLI.
+The basic format for instruction words are 2 base 10 digits for the opcode, followed by two base 10 digits for the data. For example, to `LOAD` the contents of memory address `12` into the accumulator, the instruction word would be `2012`. All programs should contain a `HALT` instruction, but this is not necessary if the program runs to the end of memory.
+Every BasicML program should be terminated with the word `-99999`.
+If the simulator tries to execute a word that is not an opcode, the simulation ends.
+Each word should be preceded by either + or -. However, this is not enforced. In any case, the simulator interprets words with no preceding sign character as positive.
+Program files are plain text files.
+Program files should have 1 trailing newline.
+
+For example programs, see the example_programs directory in the root of the repository.
+
+## BasicML Instructions
 
 | Type    | Name       | Op | Description                                                                                                                |
 |---------|------------|----|----------------------------------------------------------------------------------------------------------------------------|
