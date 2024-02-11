@@ -1,5 +1,7 @@
 import unittest
-from cpu import CPU, MEM_SIZE, TERMINAL_WORD
+from constants import MEM_SIZE
+from cpu import CPU
+
 
 class TestCPUOperations(unittest.TestCase):
 
