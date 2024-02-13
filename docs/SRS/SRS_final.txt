@@ -1,0 +1,32 @@
+Functional Tests
+
+read memory from a text file (Menu>Open)
+Write memory to a text file (Menu>Save/Save As)
+run cpu for one instruction (Step)
+run cpu until specific address (Breakpoint)
+run cpu until halt (Run)
+Be able to close (Menu>Exit)
+read input from user to memory (READ instruction)
+write number to screen from memory (WRITE instruction)
+edit a line of memory
+show/edit accumulator
+show/edit program counter
+show/edit memory
+close the program (Menu>Exit)
+Pause the program while running
+Read programs line by line from user input
+The BasicML program must be loaded into the main memory starting at location 00 before executing.
+The program will allocate space for 100 words.
+the program will have a function that resets the memory (New)
+the program will have a graphical user interface
+Able to maximize
+Help menu
+Cause a pop up error
+Able to minimize
+
+Nonfunctional:
+Should not pause the GUI while cpu runs
+Should not freeze
+Runs on Windows/Mac/Linux
+Must have the ability to handle errors without breaking
+Must have files be secured on the clients system

@@ -1,0 +1,21 @@
+Functional Tests
+Be able to have a save,
+Be able to save as
+Be able to change the address
+Be able to close
+Execute one line
+Execute till find Halt
+Display memory (Harder than seems)
+Able to maximize
+Be able to input into memory
+Be able to delete into memory
+Save memory out into a file
+Reset Memory
+Help menu
+Cause a pop up error
+Able to minimize
+
+Non-Functional
+Must have the ability to handle errors without breaking
+Must have files be secured on the clients system
+Must have the ability to take in large programs past the 100 mem

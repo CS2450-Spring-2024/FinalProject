@@ -1,0 +1,10 @@
+Must be able to read a file of words.
+Must be able to take user input
+The BasicML program must be loaded into the main memory starting at location 00 before executing.
+The program will allocate space for 100 words.
+The program will be able to display a word from a location in memory to an output console.
+the program will be able to run one command
+the program will have an option to execute all commands from the file until halt is called.
+the program will have a function that resets the memory.
+the program will have a graphical user interface
+the user will be able to modify data at a specific location in memeory

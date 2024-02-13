@@ -1,0 +1,20 @@
+read memory from a text file (Menu>Open)
+Write memory to a text file (Menu>Save/Save As)
+run cpu for one instruction (Step)
+run cpu until specific address (Breakpoint)
+run cpu until halt (Run)
+edit a line of memory
+show/edit accumulator
+show/edit program counter
+show/edit memory
+read input from user to memory
+write number to screen from memory
+reset memory
+close the program (Menu>Exit)
+Pause the program while running
+Read programs line by line from user input
+
+Nonfunctional:
+Should not pause the GUI while cpu runs
+Should not freeze
+Runs on Windows/Mac/Linux
