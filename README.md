@@ -12,15 +12,15 @@ UVSim is a simulator for a simple computer. It has a memory size of 100 words, a
 
 # Running UVSim
 ### Running in CLI mode
-Run `python3 src/main.py --cli` in the command line.
+Run `python3 -m uvsim --cli` in the command line.
 
 ### Running in file mode
-Run `python3 src/main.py --file FILE` in the command line.
+Run `python3 -m uvsim --file FILE` in the command line.
 
 ### Showing opcode information
-Run `python3 src/main.py --opcode [OPCODE]` in the command line.
+Run `python3 -m uvsim --opcode [OPCODE]` in the command line.
 
-For more information, run `python3 src/main.py --help`
+For more information, run `python3 -m uvsim --help`
 
 # Programming
 Programs are written in [BasicML](#basicml-instructions). Programs can be read from a file, or line by line as they are entered in the CLI.
