@@ -1,4 +1,4 @@
-from constants import MEM_SIZE, TERMINAL_WORD
+from uvsim.constants import MEM_SIZE, TERMINAL_WORD
 
 
 def get_program_from_file(path) -> list[int]:

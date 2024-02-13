@@ -1,8 +1,8 @@
 import pytest
-from main import get_program_from_file
-import constants
-from opcodes import *
-from parse import parse_str, parse_word, validate_program
+from uvsim.main import get_program_from_file
+import uvsim.constants as constants
+from uvsim.opcodes import *
+from uvsim.parse import parse_str, parse_word, validate_program
 
 def test_parsing_test_programs():
     get_program_from_file("example_programs/Test1.txt")

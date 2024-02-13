@@ -1,7 +1,7 @@
-from cpu import CPU
-from constants import MEM_SIZE, TERMINAL_WORD
+from uvsim.cpu import CPU
+from uvsim.constants import MEM_SIZE, TERMINAL_WORD
 import argparse
-from parse import get_program_from_cli, get_program_from_file
+from uvsim.parse import get_program_from_cli, get_program_from_file
 
 
 def main():

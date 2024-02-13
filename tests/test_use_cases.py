@@ -1,6 +1,6 @@
-from constants import MEM_SIZE
-from cpu import CPU
-from opcodes import *
+from uvsim.constants import MEM_SIZE
+from uvsim.cpu import CPU
+from uvsim.opcodes import *
 
 
 def test_loading_a_program(monkeypatch, capsys):

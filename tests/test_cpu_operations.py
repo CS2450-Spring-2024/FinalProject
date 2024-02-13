@@ -1,6 +1,6 @@
 import unittest
-from constants import MEM_SIZE
-from cpu import CPU
+from uvsim.constants import MEM_SIZE
+from uvsim.cpu import CPU
 
 
 class TestCPUOperations(unittest.TestCase):

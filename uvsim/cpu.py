@@ -1,6 +1,6 @@
-from opcodes import *
-from parse import parse_word
-from constants import MEM_SIZE
+from uvsim.opcodes import *
+from uvsim.parse import parse_word
+from uvsim.constants import MEM_SIZE
 
 class CPU:
     def __init__(self, memory):

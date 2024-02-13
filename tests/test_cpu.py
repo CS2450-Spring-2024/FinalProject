@@ -1,7 +1,7 @@
-from constants import TERMINAL_WORD
-from cpu import CPU
-from opcodes import *
-from parse import validate_program
+from uvsim.constants import TERMINAL_WORD
+from uvsim.cpu import CPU
+from uvsim.opcodes import *
+from uvsim.parse import validate_program
 
 # Feel free to copy this test and modify it to test your function
 def test_line_to_op_data():
