@@ -4,7 +4,6 @@ import argparse
 from uvsim.parse import get_program_from_cli, get_program_from_file
 from uvsim.gui import App
 
-
 def main():
     parser = argparse.ArgumentParser(description="UVSimulator is a simple computer simulator. Run a program from a file or by entering it line by line.")
     parser.add_argument("-g", "--gui", help=f"Run the GUI", action="store_true", default=True)
@@ -28,8 +27,7 @@ def main():
         c.run_until_halt()
 
     elif args.gui:
-        App()
-        print("Run GUI here")
+        App(CPU([0] * 100))
 
 
 def help_opcodes(arg):
