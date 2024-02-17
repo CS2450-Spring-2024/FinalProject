@@ -2,6 +2,7 @@ from uvsim.cpu import CPU
 from uvsim.constants import MEM_SIZE, TERMINAL_WORD
 import argparse
 from uvsim.parse import get_program_from_cli, get_program_from_file
+from uvsim.gui import App
 
 
 def main():
@@ -27,6 +28,7 @@ def main():
         c.run_until_halt()
 
     elif args.gui:
+        App()
         print("Run GUI here")
 
 
