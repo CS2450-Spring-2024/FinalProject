@@ -1,4 +1,4 @@
-from uvsim.cpu import CPU
+from uvsim.cpu import CPU, OK
 from uvsim.constants import MEM_SIZE, TERMINAL_WORD
 import argparse
 from uvsim.parse import get_program_from_cli, get_program_from_file
@@ -24,10 +24,12 @@ def main():
     elif args.cli:
         program = get_program_from_cli()
         c = CPU(program)
-        c.run_until_halt()
+        result = c.run_until_halt()
+        if result != OK:
+            print(c.error_code_to_text(result))
 
     elif args.gui:
-        App(CPU([0] * 100))
+        App([0] * 100)
 
 
 def help_opcodes(arg):

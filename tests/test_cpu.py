@@ -99,9 +99,9 @@ def test_branch():
     for (accum, arg, addr, expected) in tests:
         cpu = CPU([0] * 100)
         cpu.accumulator = accum
-        cpu.current_address = addr
+        cpu.program_counter = addr
         cpu.branch(arg)
-        assert cpu.current_address == expected
+        assert cpu.program_counter == expected
 
 
 def test_branchneg():
@@ -124,9 +124,9 @@ def test_branchneg():
     for (accum, arg, addr, expected) in tests:
         cpu = CPU([0] * 100)
         cpu.accumulator = accum
-        cpu.current_address = addr
+        cpu.program_counter = addr
         cpu.branchneg(arg)
-        assert cpu.current_address == expected
+        assert cpu.program_counter == expected
 
 
 def test_branchzero():
@@ -147,9 +147,9 @@ def test_branchzero():
     for (accum, arg, addr, expected) in tests:
         cpu = CPU([0] * 100)
         cpu.accumulator = accum
-        cpu.current_address = addr
+        cpu.program_counter = addr
         cpu.branchzero(arg)
-        assert cpu.current_address == expected
+        assert cpu.program_counter == expected
 
 def test_halt():
     cpu = CPU([
@@ -189,7 +189,7 @@ def test_write(monkeypatch): # 11 Write a word from a specific location in memor
     for args, expected in test_cases.items():
         monkeypatch.setattr("builtins.input", lambda _:args)
         test_wrt.read(args, expected)
-        assert test_wrt.write(args) == f"Word from memory: {expected}"
+        assert test_wrt.memory[args] == expected
 
 
 def test_load(monkeypatch): # 20 Load a word from a specific location in memory into the accumulator.

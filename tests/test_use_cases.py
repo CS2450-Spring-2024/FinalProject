@@ -179,14 +179,14 @@ def test_program_reset_and_memory_clear():
 
     cpu.memory[5] = 12
     cpu.accumulator = 5
-    cpu.current_address = 10
+    cpu.program_counter = 10
     cpu.halted = True
 
     cpu.reset()
 
     assert all(mem == 0 for mem in cpu.memory)
     assert cpu.accumulator == 0
-    assert cpu.current_address == 0
+    assert cpu.program_counter == 0
     assert not cpu.halted
 
     # Step 3: UVSim is now ready for a new program to be loaded and executed.
