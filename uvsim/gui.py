@@ -54,14 +54,14 @@ class App(CPU, tk.Tk):
         # Left side widgets
         width = 15
 
-        self.program_counter = tk.IntVar(value=0)
-        self.accumulator = tk.IntVar(value=0)
+        self._program_counter = tk.IntVar(value=0)
+        self._accumulator = tk.IntVar(value=0)
 
         vcmd = (self.register(self.onValidateData), '%P')
-        self.accumulator_entry = tk.Entry(self.left_menu_frame, font=FONT, width=width, justify=tk.CENTER, validate='key', validatecommand=vcmd, textvariable=self.accumulator)
+        self.accumulator_entry = tk.Entry(self.left_menu_frame, font=FONT, width=width, justify=tk.CENTER, validate='key', validatecommand=vcmd, textvariable=self._accumulator)
 
         vcmd = (self.register(self.onValidateProgramCounter), '%P')
-        self.program_counter_entry = tk.Entry(self.left_menu_frame, font=FONT, width=width, justify=tk.CENTER, validate='key', validatecommand=vcmd, textvariable=self.program_counter)
+        self.program_counter_entry = tk.Entry(self.left_menu_frame, font=FONT, width=width, justify=tk.CENTER, validate='key', validatecommand=vcmd, textvariable=self._program_counter)
 
         self.left_side_elems = [
             tk.Label(self.left_menu_frame, font=FONT, width=width, justify=tk.CENTER, text="Accumulator"),
@@ -144,3 +144,19 @@ class App(CPU, tk.Tk):
         if result != OK:
             text = self.error_code_to_text(result)
             messagebox.showinfo(title="Error", message=text)
+
+    @property
+    def program_counter(self):
+        return self._program_counter.get()
+
+    @program_counter.setter
+    def program_counter(self, value):
+        self._program_counter.set(value)
+
+    @property
+    def accumulator(self):
+        return self._accumulator.get()
+
+    @accumulator.setter
+    def accumulator(self, value):
+        self._accumulator.set(value)

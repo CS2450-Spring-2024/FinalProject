@@ -8,9 +8,14 @@ class Memory(tk.Frame):
         for i, frame in enumerate(self.memory_frames):
             frame.grid(row=i // 10, column=i % 10, sticky="nesw", padx=2, pady=2)
 
-
     def __getitem__(self, key):
-        return self.memory_vars[key].get()
+        if type(key) is int:
+            return self.memory_vars[key].get()
+        else:
+            return self.memory_vars[key.get()].get()
 
     def __setitem__(self, key: str, value) -> None:
-        return self.memory_vars[key].set(value)
+        if type(key) is int:
+            return self.memory_vars[key].set(value)
+        else:
+            return self.memory_vars[key.get()].set(value)
