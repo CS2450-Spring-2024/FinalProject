@@ -9,7 +9,7 @@ numeric_regex = re.compile('[+-]?\d*')
 is_numeric = lambda text: numeric_regex.fullmatch(text) is not None
 
 FONT = None
-# FONT = ("Arial", 12)
+# FONT = ("Arial", 12)P
 
 class App(CPU, tk.Tk):
     def __init__(self, memory: list[int], screenName: str | None = None, baseName: str | None = None, className: str = "Tk", useTk: bool = True, sync: bool = False, use: str | None = None) -> None:
@@ -26,7 +26,7 @@ class App(CPU, tk.Tk):
         self.file_menu = tk.Menu(self.menu_bar, tearoff=0) # Create a file menu
         self.file_menu.add_command(label="Open", command=self.open_file, font=FONT) # Add an open file option ## TODO implement the open function.
         self.file_menu.add_command(label="Save", command=exit, font=FONT) # Add an open file option ## TODO implement the Save AS function.
-        self.file_menu.add_command(label="Save As", command=exit, font=FONT) # Add an open file option ## TODO implement the Save AS function.
+        self.file_menu.add_command(label="Save As", command=self.save_as, font=FONT) # Add an open file option ## TODO implement the Save AS function.
         self.file_menu.add_separator()
         self.file_menu.add_command(label="Exit", command=exit, font=FONT) # Add an open file option ## TODO implement the Save AS function.
         self.menu_bar.add_cascade(menu=self.file_menu, label="File", font=FONT)
@@ -90,8 +90,6 @@ class App(CPU, tk.Tk):
         # self.output_text = tk.Text(self.master_frame, wrap="word")
         # self.output_text.grid(row=0, column=1, sticky="nsew", pady=2)
 
-
-
                     #________ Bottom Frame End ________
         vcmd = (self.register(self.onValidateData), '%P')
         self.memory = Memory(memory, self.master_frame, vcmd=vcmd)
@@ -137,6 +135,20 @@ class App(CPU, tk.Tk):
 
             # Insert the file content into the Text widget
             self.output_text.insert(tk.END, content)
+
+    def save_as(self): # Kevin
+        files =[("All Files", "*.*"),
+                ("Text Document","*.txt")]
+        filepath = filedialog.asksaveasfile(filetypes=files, defaultextension='.txt')
+        
+        try:
+            # with open(filepath, 'w') as in_file:
+            for item in [self.memory.__getitem__(i) for i in range(100)]:
+                if item < 1000:
+                    continue
+                filepath.write(f"{str(item)}\n")
+            #     in_file.write(text_content)
+            
 
     def step(self):
         result = self.run_one_instruction()
