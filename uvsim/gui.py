@@ -27,7 +27,7 @@ class App(CPU, tk.Tk):
         self.file_menu.add_command(label="Open", command=self.open_file, font=FONT) # Add an open file option ## TODO implement the open function.
         self.file_menu.add_command(label="Save", command=exit, font=FONT) # Add an open file option ## TODO implement the Save AS function.
         self.file_menu.add_command(label="Save As", command=self.save_as, font=FONT) # Add an open file option ## TODO implement the Save AS function.
-        self.file_menu.add_separator()  
+        self.file_menu.add_separator()
         self.file_menu.add_command(label="Exit", command=self.exit_program, font=FONT) # Add an open file option ## TODO implement the Save AS function.
         self.menu_bar.add_cascade(menu=self.file_menu, label="File", font=FONT)
 
@@ -48,7 +48,7 @@ class App(CPU, tk.Tk):
 
 
         #________ Left Menu Panel _________
-        self.left_menu_frame = tk.Frame(self.master_frame, bg="green")
+        self.left_menu_frame = tk.Frame(self.master_frame)
         self.left_menu_frame.grid(row=0, column=0, sticky="nw", padx=3, pady=3)
 
         # Left side widgets
@@ -134,11 +134,11 @@ class App(CPU, tk.Tk):
                     content.append(i)
 
                 for i in range(len(content)):
-                    self.memory.__setitem__(i, int(content[i]))
+                    self.memory[i] = int(content[i])
 
     def reset_gui(self): #Kevin
         for idx, ele in enumerate([0]*100):
-            self.memory.__setitem__(idx, ele)
+            self.memory[idx] = ele
 
         self.reset()
 
@@ -151,7 +151,7 @@ class App(CPU, tk.Tk):
         files =[("All Files", "*.*"),
                 ("Text Document","*.txt")]
         filepath = filedialog.asksaveasfile(filetypes=files, defaultextension='.txt')
-        
+
         try:
             end_idx = False
             mem = [self.memory.__getitem__(i) for i in range(100)]
@@ -163,7 +163,7 @@ class App(CPU, tk.Tk):
             filepath.writelines([f"{str(i)}\n" for i in mem[:end_idx]])
             filepath.write(f"{str(mem[end_idx])}")
             messagebox.showinfo(":)","Succesfully Saved!")
-        
+
         except Exception as error_info:
             messagebox.showerror("Uh Oh", f"Error: {error_info}")
 

@@ -51,12 +51,12 @@ def parse_str(program: str) -> int:
 
     return program
 
-def validate_program(program: list[int]):
+def validate_program(program: list[int]) -> list[int]:
     assert program[-1] == TERMINAL_WORD, f"Invalid program, must be terminated with {TERMINAL_WORD}!\nProgram:{program}"
     program.pop() # pop TERMINAL_WORD
 
     assert len(program) <= MEM_SIZE, f"Invalid program, must be {MEM_SIZE} lines or less!\nProgram:{program}"
 
-    program.extend([0] * 100)
-    program = program[:100]
+    program.extend([0] * MEM_SIZE)
+    program = program[:MEM_SIZE]
     return program
