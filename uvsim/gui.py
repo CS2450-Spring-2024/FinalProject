@@ -27,14 +27,14 @@ class App(CPU, tk.Tk):
         self.file_menu.add_command(label="Open", command=self.open_file, font=FONT) # Add an open file option ## TODO implement the open function.
         self.file_menu.add_command(label="Save", command=exit, font=FONT) # Add an open file option ## TODO implement the Save AS function.
         self.file_menu.add_command(label="Save As", command=self.save_as, font=FONT) # Add an open file option ## TODO implement the Save AS function.
-        self.file_menu.add_separator()
+        self.file_menu.add_separator()  
         self.file_menu.add_command(label="Exit", command=self.exit_program, font=FONT) # Add an open file option ## TODO implement the Save AS function.
         self.menu_bar.add_cascade(menu=self.file_menu, label="File", font=FONT)
 
 
         self.config(menu=self.menu_bar) # Add the menu bar to the window
 
-        self.label = tk.Label(self, text="UVSim", font=FONT)
+        self.label = tk.Label(self,  text="UVSim", font=FONT)
         self.label.pack(padx=20, pady=5)
 
         # master layout frame
