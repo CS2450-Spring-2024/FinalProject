@@ -136,6 +136,9 @@ class App(CPU, tk.Tk):
                 for i in range(len(content)):
                     self.memory.__setitem__(i, int(content[i]))
 
+    def reset_mem(self): #Kevin
+        for idx, ele in enumerate([0]*100):
+            self.memory.__setitem__(idx, ele)
     
     def save_as(self): # Kevin
         files =[("All Files", "*.*"),
@@ -146,7 +149,7 @@ class App(CPU, tk.Tk):
             end_idx = -1
             mem = [self.memory.__getitem__(i) for i in range(100)]
             
-            while True: #walk till found last known
+            while True: #walk from end
                 print(end_idx)
                 if mem[end_idx] != 0:
                     end_idx = mem.index(end_idx) #Might be a dumb way of doing this
