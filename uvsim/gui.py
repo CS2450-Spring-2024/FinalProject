@@ -127,15 +127,16 @@ class App(CPU, tk.Tk):
 
         # Check if a file was selected
         if file_path:
-            # Open and read the file
+            # Open and read the file, then set the memory to the file content
             with open(file_path, 'r') as file:
-                content = file.read()
+                content = []
+                for i in file:
+                    content.append(i)
 
-            self.output_text.delete("1.0", tk.END)
+                for i in range(len(content)):
+                    self.memory.__setitem__(i, int(content[i]))
 
-            # Insert the file content into the Text widget
-            self.output_text.insert(tk.END, content)
-
+    
     def save_as(self): # Kevin
         files =[("All Files", "*.*"),
                 ("Text Document","*.txt")]
@@ -148,7 +149,6 @@ class App(CPU, tk.Tk):
                     continue
                 filepath.write(f"{str(item)}\n")
             #     in_file.write(text_content)
-            
 
     def step(self):
         result = self.run_one_instruction()
