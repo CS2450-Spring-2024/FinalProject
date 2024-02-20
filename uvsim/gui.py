@@ -143,12 +143,25 @@ class App(CPU, tk.Tk):
         filepath = filedialog.asksaveasfile(filetypes=files, defaultextension='.txt')
         
         try:
-            # with open(filepath, 'w') as in_file:
-            for item in [self.memory.__getitem__(i) for i in range(100)]:
-                if item < 1000:
-                    continue
-                filepath.write(f"{str(item)}\n")
-            #     in_file.write(text_content)
+            
+            end_idx = -1
+            mem = [self.memory.__getitem__(i) for i in range(100)]
+            
+            while True: #walk till found last known
+                print(end_idx)
+                if mem[end_idx] > 0:
+                    end_idx+=101 #Might be a dumb way of doing this
+                    break
+                end_idx -=1
+            
+            for text in mem[:end_idx]:
+                filepath.write(f"{str(text)}\n")
+            
+            
+
+        except Exception as e:
+            print(f"FAILED TO SAVE!!! {e}")
+
 
     def step(self):
         result = self.run_one_instruction()
