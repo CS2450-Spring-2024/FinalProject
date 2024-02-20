@@ -73,7 +73,7 @@ class App(CPU, tk.Tk):
             tk.Button(self.left_menu_frame, font=FONT, width=width, command=exit, text="Run Until Address"),
             tk.Button(self.left_menu_frame, font=FONT, width=width, command=self.step, text="Step"),
             tk.Button(self.left_menu_frame, font=FONT, width=width, command=exit, text="Halt"),
-            tk.Button(self.left_menu_frame, font=FONT, width=width, command=exit, text="Reset")
+            tk.Button(self.left_menu_frame, font=FONT, width=width, command=self.reset_gui, text="Reset")
         ]
 
         for i, element in enumerate(self.left_side_elems):
@@ -136,10 +136,12 @@ class App(CPU, tk.Tk):
                 for i in range(len(content)):
                     self.memory.__setitem__(i, int(content[i]))
 
-    def reset_mem(self): #Kevin
+    def reset_gui(self): #Kevin
         for idx, ele in enumerate([0]*100):
             self.memory.__setitem__(idx, ele)
-    
+
+        self.reset()
+
     def save_as(self): # Kevin
         files =[("All Files", "*.*"),
                 ("Text Document","*.txt")]
