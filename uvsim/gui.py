@@ -28,7 +28,7 @@ class App(CPU, tk.Tk):
         self.file_menu.add_command(label="Save", command=exit, font=FONT) # Add an open file option ## TODO implement the Save AS function.
         self.file_menu.add_command(label="Save As", command=self.save_as, font=FONT) # Add an open file option ## TODO implement the Save AS function.
         self.file_menu.add_separator()
-        self.file_menu.add_command(label="Exit", command=exit, font=FONT) # Add an open file option ## TODO implement the Save AS function.
+        self.file_menu.add_command(label="Exit", command=self.exit_program, font=FONT) # Add an open file option ## TODO implement the Save AS function.
         self.menu_bar.add_cascade(menu=self.file_menu, label="File", font=FONT)
 
 
@@ -142,27 +142,30 @@ class App(CPU, tk.Tk):
 
         self.reset()
 
+
+    def exit_program(self): #Kevin
+        if messagebox.askyesno(title="Exit Application?", message="Do you really want to exit?"):
+            exit()
+
     def save_as(self): # Kevin
         files =[("All Files", "*.*"),
                 ("Text Document","*.txt")]
         filepath = filedialog.asksaveasfile(filetypes=files, defaultextension='.txt')
         
         try:
-            end_idx = -1
+            end_idx = False
             mem = [self.memory.__getitem__(i) for i in range(100)]
-            
-            while True: #walk from end
-                print(end_idx)
-                if mem[end_idx] != 0:
-                    end_idx = mem.index(end_idx) #Might be a dumb way of doing this
+            for idx in range(len(mem)-1 ,-1 ,-1):
+                print(len(mem),idx)
+                if mem[idx] != 0:
+                    end_idx= idx
                     break
-                end_idx -=1
-            
-            for text in mem[:end_idx]:
-                filepath.write(f"{str(text)}\n")
-
-        except Exception as e:
-            print(f"FAILED TO SAVE!!! {e}")
+            filepath.writelines([f"{str(i)}\n" for i in mem[:end_idx]])
+            filepath.write(f"{str(mem[end_idx])}")
+            messagebox.showinfo(":)","Succesfully Saved!")
+        
+        except Exception as error_info:
+            messagebox.showerror("Uh Oh", f"Error: {error_info}")
 
 
     def step(self):
