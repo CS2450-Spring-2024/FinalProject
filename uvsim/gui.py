@@ -154,9 +154,8 @@ class App(CPU, tk.Tk):
 
         try:
             end_idx = False
-            mem = [self.memory.__getitem__(i) for i in range(100)]
+            mem = [self.memory[i] for i in range(100)]
             for idx in range(len(mem)-1 ,-1 ,-1):
-                print(len(mem),idx)
                 if mem[idx] != 0:
                     end_idx= idx
                     break
