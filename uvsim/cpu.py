@@ -34,7 +34,7 @@ class CPU:
         return text
 
     def line_to_op_data(line):
-        data = line % 100
+        data = line % MEM_SIZE
         opcode = line - data
         return (opcode, data)
 

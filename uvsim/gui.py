@@ -4,6 +4,7 @@ import tkinter as tk
 from tkinter import filedialog, messagebox, ttk
 from PIL import Image, ImageTk
 from pathlib import Path
+from uvsim.constants import MEM_SIZE
 
 from uvsim.cpu import CPU, OK
 from uvsim.gui_memory import Memory
@@ -144,7 +145,7 @@ class App(CPU, tk.Tk):
             self.bell()
             return False
 
-        if int(proposed_new_text) < 100 and int(proposed_new_text) >= 0:
+        if int(proposed_new_text) < MEM_SIZE and int(proposed_new_text) >= 0:
             return True
 
         self.bell()
@@ -176,7 +177,7 @@ class App(CPU, tk.Tk):
 
         if file_path:
             end_idx = False
-            mem = [self.memory[i] for i in range(100)]
+            mem = [self.memory[i] for i in range(MEM_SIZE)]
             for idx in range(len(mem)-1 ,-1 ,-1):
                 if mem[idx] != 0:
                     end_idx= idx
