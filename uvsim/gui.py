@@ -10,7 +10,7 @@ from uvsim.cpu import CPU, OK
 from uvsim.gui_memory import Memory
 
 
-working_dir = Path(os.path.realpath(__file__)).parent.parent
+WORKING_DIR = Path(os.path.realpath(__file__)).parent.parent
 
 numeric_regex = re.compile('[+-]?\d*')
 is_numeric = lambda text: numeric_regex.fullmatch(text) is not None
@@ -24,15 +24,20 @@ class App(CPU, tk.Tk):
     def __init__(self, memory: list[int], screenName: str | None = None, baseName: str | None = None, className: str = "Tk", useTk: bool = True, sync: bool = False, use: str | None = None) -> None:
         tk.Tk.__init__(self, screenName, baseName, className, useTk, sync, use)
 
-        ico = Image.open('uvsim/resources/cpu.png')
+        ico = Image.open('uvsim/resources/cpu_green.png')
         photo = ImageTk.PhotoImage(ico)
         self.wm_iconphoto(True, photo)
 
-        self.geometry("600x300")
+        self.geometry("585x315")
         self.title("UVSim") # Set the window title
         self.configure(bg=UVU_GREEN) # Set the window background color
 
         self.open_file_path = ""
+
+        self._halted = tk.BooleanVar(value=True)
+        self._program_counter = tk.IntVar(value=0)
+        self._accumulator = tk.IntVar(value=0)
+        self._address_run_to = tk.IntVar(value=0)
 
         # Menu Bar
         self.menu_bar = tk.Menu(self) # Create a menu bar
@@ -57,40 +62,33 @@ class App(CPU, tk.Tk):
 
 
         self.master_frame.columnconfigure(0, weight=1)
-        self.master_frame.columnconfigure(1, weight=1)
+        self.master_frame.columnconfigure(1, weight=4)
         #________ Left Menu Panel _________
         self.left_menu_frame = tk.Frame(self.master_frame)
-        self.left_menu_frame.grid(row=0, column=0, sticky="nw", padx=3, pady=3)
+        self.left_menu_frame.grid(row=0, column=0, sticky="news", padx=2, pady=2)
 
         # Left side widgets
-        width = 15
-
-        self._halted = tk.BooleanVar(value=True)
-        self._program_counter = tk.IntVar(value=0)
-        self._accumulator = tk.IntVar(value=0)
-        self._address_run_to = tk.IntVar(value=0)
 
         vcmd = (self.register(self.onValidateData), '%P')
-        self.accumulator_entry = tk.Entry(self.left_menu_frame, font=FONT, width=width, justify=tk.CENTER, validate='key', validatecommand=vcmd, textvariable=self._accumulator)
+        self.accumulator_entry = tk.Entry(self.left_menu_frame, font=FONT, justify=tk.CENTER, validate='key', validatecommand=vcmd, textvariable=self._accumulator)
 
         vcmd = (self.register(self.onValidateAddress), '%P')
-        self.program_counter_entry = tk.Entry(self.left_menu_frame, font=FONT, width=width, justify=tk.CENTER, validate='key', validatecommand=vcmd, textvariable=self._program_counter)
+        self.program_counter_entry = tk.Entry(self.left_menu_frame, font=FONT, justify=tk.CENTER, validate='key', validatecommand=vcmd, textvariable=self._program_counter)
 
         vcmd = (self.register(self.onValidateAddress), '%P')
-        self.address_run_to_entry = tk.Entry(self.left_menu_frame, font=FONT, width=width, justify=tk.CENTER, validate='key', validatecommand=vcmd, textvariable=self._address_run_to, )
+        self.address_run_to_entry = tk.Entry(self.left_menu_frame, font=FONT, justify=tk.CENTER, validate='key', validatecommand=vcmd, textvariable=self._address_run_to, )
 
         self.left_side_elems = [
-            tk.Label(self.left_menu_frame, font=FONT, width=width, justify=tk.CENTER, text="Accumulator"),
+            tk.Label(self.left_menu_frame, font=FONT, justify=tk.CENTER, text="Accumulator"),
             self.accumulator_entry,
-            tk.Label(self.left_menu_frame, font=FONT, width=width, justify=tk.CENTER, text="Program Counter"),
+            tk.Label(self.left_menu_frame, font=FONT, justify=tk.CENTER, text="Program Counter"),
             self.program_counter_entry,
             ttk.Separator(self.left_menu_frame),
-            tk.Button(self.left_menu_frame, font=FONT, width=width, command=self.run_until_halt, text="Run"),
-            tk.Button(self.left_menu_frame, font=FONT, width=width, command=self.run_to_address, text="Run Until Address"),
+            tk.Button(self.left_menu_frame, font=FONT, command=self.run_until_halt, text="Run"),
+            tk.Button(self.left_menu_frame, font=FONT, command=self.run_to_address, text="Run Until Address"),
             self.address_run_to_entry,
-            tk.Button(self.left_menu_frame, font=FONT, width=width, command=self.step, text="Step"),
-            # tk.Button(self.left_menu_frame, font=FONT, width=width, command=exit, text="Halt"),
-            tk.Button(self.left_menu_frame, font=FONT, width=width, command=self.reset, text="Reset")
+            tk.Button(self.left_menu_frame, font=FONT, command=self.step, text="Step"),
+            tk.Button(self.left_menu_frame, font=FONT, command=self.reset, text="Reset")
         ]
 
         for i, element in enumerate(self.left_side_elems):
@@ -117,12 +115,15 @@ class App(CPU, tk.Tk):
             except:
                 pass
             else:
-                self.memory.set_address(val)
+                self.memory.program_counter = val
+
+        def halted_callback(_a, _b, _c):
+            self.memory.halted = self.halted
 
         self._program_counter.trace_add('write', pc_callback)
-        self._halted.trace_add('write', lambda _a, _b, _c: self.memory.set_halted(self.halted))
+        self._halted.trace_add('write', halted_callback)
 
-        self.memory.grid(row=0, column=1, sticky="nsew", pady=2)
+        self.memory.grid(row=0, column=1, sticky="nw", pady=2, padx=2)
         self.master_frame.pack(side="top", fill="both", expand=True) #end of master frame
 
         self.mainloop()
@@ -152,7 +153,7 @@ class App(CPU, tk.Tk):
         return False
 
     def open_file(self):
-        file_path = filedialog.askopenfilename(title="Select a file", filetypes=FILETYPES, initialdir=working_dir)
+        file_path = filedialog.askopenfilename(title="Select a file", filetypes=FILETYPES, initialdir=WORKING_DIR)
 
         # Check if a file was selected
         if file_path:
@@ -173,7 +174,7 @@ class App(CPU, tk.Tk):
             exit()
 
     def save_as(self): # Kevin
-        file_path = filedialog.asksaveasfile(title="Save As", filetypes=FILETYPES, initialdir=working_dir, defaultextension='.txt')
+        file_path = filedialog.asksaveasfile(title="Save As", filetypes=FILETYPES, initialdir=WORKING_DIR, defaultextension='.txt')
 
         if file_path:
             end_idx = False
@@ -217,14 +218,6 @@ class App(CPU, tk.Tk):
         self.halted = True
 
     @property
-    def program_counter(self):
-        return self._program_counter.get()
-
-    @program_counter.setter
-    def program_counter(self, value):
-        self._program_counter.set(value)
-
-    @property
     def accumulator(self):
         return self._accumulator.get()
 
@@ -233,9 +226,19 @@ class App(CPU, tk.Tk):
         self._accumulator.set(value)
 
     @property
+    def program_counter(self):
+        return self._program_counter.get()
+
+    @program_counter.setter
+    def program_counter(self, value):
+        self.memory.program_counter = value
+        self._program_counter.set(value)
+
+    @property
     def halted(self):
         return self._halted.get()
 
     @halted.setter
     def halted(self, value):
         self._halted.set(value)
+        self.memory.halted = self.halted
