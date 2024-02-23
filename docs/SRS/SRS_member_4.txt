@@ -1,0 +1,15 @@
+must be able read memory from a text file 
+must be able to write memory to a text file 
+must be able to run cpu to  specific address 
+must be able to run cpu until halt 
+must be able to read input from user
+must be able to write number to screen from memory
+must be able edit a line of memory
+must be able to show accumulator
+must be able show program counter
+must be able to show/edit memory
+user must be able close the program 
+must be able to pause the program while running
+must be able to read programs line by line from user input
+The BasicML program must be loaded into the main memory starting at location 00 before executing.
+program must be able to  allocate space for 100 words.
