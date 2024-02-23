@@ -153,10 +153,11 @@ class App(CPU, tk.Tk):
 
         self.bell()
         return False
-    
+
     def open_tutorial(self):
         self.new_window = tk.Toplevel()
         HelpMenu(self.new_window)
+
 
     def open_file(self):
         file_path = filedialog.askopenfilename(title="Select a file", filetypes=FILETYPES, initialdir=WORKING_DIR)
