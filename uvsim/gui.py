@@ -8,7 +8,7 @@ from uvsim.constants import MEM_SIZE
 
 from uvsim.cpu import CPU, OK
 from uvsim.gui_memory import Memory
-
+from uvsim.tutorial import HelpMenu
 
 WORKING_DIR = Path(os.path.realpath(__file__)).parent.parent
 
@@ -47,6 +47,8 @@ class App(CPU, tk.Tk):
         self.file_menu.add_command(label="Open", command=self.open_file, font=FONT)
         self.file_menu.add_command(label="Save", command=exit, font=FONT)
         self.file_menu.add_command(label="Save As", command=self.save_as, font=FONT)
+        self.file_menu.add_separator()
+        self.file_menu.add_command(label="Tutorial", command=self.open_tutorial, font=FONT)
         self.file_menu.add_separator()
         self.file_menu.add_command(label="Exit", command=self.exit_program, font=FONT)
         self.menu_bar.add_cascade(menu=self.file_menu, label="File", font=FONT)
@@ -151,6 +153,10 @@ class App(CPU, tk.Tk):
 
         self.bell()
         return False
+    
+    def open_tutorial(self):
+        self.new_window = tk.Toplevel()
+        HelpMenu(self.new_window)
 
     def open_file(self):
         file_path = filedialog.askopenfilename(title="Select a file", filetypes=FILETYPES, initialdir=WORKING_DIR)
