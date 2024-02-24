@@ -224,9 +224,13 @@ class App(CPU, tk.Tk):
         
         # Check if the user clicked 'Cancel'
         if user_input is not None:
-            print("User input:", user_input)
+            #print("User input:", user_input)
             return user_input
-        
+    
+    def write_popup(self, value):
+       messagebox.showinfo(title=f"Output", message=f"Value pulled from memory: {value}")
+       
+       
 
     @property
     def accumulator(self):

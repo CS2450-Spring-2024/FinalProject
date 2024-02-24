@@ -92,11 +92,10 @@ class CPU:
 
     def write(self, data): # Tanner
         word_to_write = self.memory[data]
-        print(f"Word from memory: {word_to_write}" )
-
+        
+        self.write_popup(word_to_write) # write to gui        
         self.program_counter += 1
-
-        # return f"Word from memory: {word_to_write}" ## not sure if this is right. I just did this for testing.
+        
         return OK
 
     def load(self, data): # Tanner
