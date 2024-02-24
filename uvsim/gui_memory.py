@@ -16,14 +16,14 @@ class Memory(tk.Frame):
         for i, frame in enumerate(self.memory_frames):
             frame.grid(row=(i // ROW_WIDTH) + 1, column=(i % ROW_WIDTH) + 1, sticky="nesw", padx=0, pady=0)
 
-        self.vertical_labels = [tk.Label(master=self, text=str(i * ROW_WIDTH)) for i in range(ROW_WIDTH)]
-        for i, frame in enumerate(self.vertical_labels):
-            frame.grid(row=i + 1, column = 0, sticky="nesw", padx=2, pady=2)
+        self.vertical_labels = [tk.Label(master=self, text=f"{i * ROW_WIDTH:04}", bg='lightgrey', font=('Arial', 10, 'bold')) for i in range(COLS)]
+        for i, label in enumerate(self.vertical_labels):
+            label.grid(row=i + 1, column=0, sticky="nesw", padx=2, pady=2)
 
-        self.horizontal_labels = [tk.Label(master=self, text=str(i)) for i in range(COLS)]
-        for i, frame in enumerate(self.horizontal_labels):
-            frame.grid(row=0, column=i + 1, sticky="nesw", padx=2, pady=2)
-
+        self.horizontal_labels = [tk.Label(master=self, text=f"{i:02}", bg='lightgrey', font=('Arial', 10, 'bold')) for i in range(ROW_WIDTH)]
+        for i, label in enumerate(self.horizontal_labels):
+            label.grid(row=0, column=i + 1, sticky="nesw", padx=2, pady=2)
+            
         self._program_counter = 0
         self._halted = True
 
