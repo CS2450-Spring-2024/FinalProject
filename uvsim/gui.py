@@ -47,7 +47,7 @@ class App(CPU, tk.Tk):
         # File
         self.file_menu = tk.Menu(self.menu_bar, tearoff=0) # Create a file menu
         self.file_menu.add_command(label="Open", command=self.open_file, font=FONT)
-        self.file_menu.add_command(label="Save", command=exit, font=FONT)
+        self.file_menu.add_command(label="Save", command=self.save, font=FONT)
         self.file_menu.add_command(label="Save As", command=self.save_as, font=FONT)
         self.file_menu.add_separator()
         self.file_menu.add_command(label="Tutorial", command=self.open_tutorial, font=FONT)
@@ -117,6 +117,7 @@ class App(CPU, tk.Tk):
 
         self._program_counter.trace_add('write', pc_callback)
         self._halted.trace_add('write', halted_callback)
+        self._file_path=None
 
         self.memory.grid(row=0, column=1, sticky="nw", pady=2, padx=2)
         self.master_frame.pack(side="top", fill="both", expand=True) #end of master frame
@@ -173,6 +174,26 @@ class App(CPU, tk.Tk):
     def exit_program(self): #Kevin
         if messagebox.askyesno(title="Exit Application?", message="Do you really want to exit?"):
             exit()
+
+
+    def save(self):
+        if self._file_path:
+            end_idx = False
+            mem = [self.memory[i] for i in range(MEM_SIZE)]
+            for idx in range(len(mem)-1 ,-1 ,-1):
+                if mem[idx] != 0:
+                    end_idx= idx
+                    break
+
+            try:
+                self._file_path.writelines([f"{str(i)}\n" for i in mem[:end_idx]])
+                self._file_path.write(f"{str(mem[end_idx])}")
+
+            except Exception as error_info:
+                messagebox.showerror("Error", f"Error saving file: {error_info}")
+        else:
+            self.save_as()
+
 
     def save_as(self): # Kevin
         file_path = filedialog.asksaveasfile(title="Save As", filetypes=FILETYPES, initialdir=WORKING_DIR, defaultextension='.txt')
