@@ -7,10 +7,10 @@ from PIL import Image, ImageTk
 from pathlib import Path
 from uvsim.constants import MEM_SIZE
 
-from uvsim.cpu import CPU, OK
+from uvsim.cpu import CPU, ERROR_INVALID_INPUT, OK
 from uvsim.gui_memory import Memory
-from uvsim.tutorial import HelpMenu
-from uvsim.parse import validate_program
+from uvsim.tutorial import Tutorial
+from uvsim.parse import parse_word, validate_program
 
 WORKING_DIR = Path(os.path.realpath(__file__)).parent.parent
 
@@ -149,7 +149,7 @@ class App(CPU, tk.Tk):
 
     def open_tutorial(self):
         self.new_window = tk.Toplevel()
-        HelpMenu(self.new_window)
+        Tutorial(self.new_window)
 
 
     def open_file(self):
@@ -217,20 +217,39 @@ class App(CPU, tk.Tk):
             result = self.step()
 
         self.halted = True
-        
+
     def read_popup(self):
 
         user_input = simpledialog.askstring("Input", "Enter a word: ")
-        
+
         # Check if the user clicked 'Cancel'
         if user_input is not None:
             #print("User input:", user_input)
             return user_input
-    
+
     def write_popup(self, value):
        messagebox.showinfo(title=f"Output", message=f"Value pulled from memory: {value}")
-       
-       
+
+    def read(self, data, user_input=False):  # Tanner
+        if not user_input:  # if user_input is not set, get input from cli.
+            user_input = self.read_popup()
+        try:
+            self.memory[data] = parse_word(user_input, self.program_counter)
+
+        except ValueError:
+            # Couldn't parse input
+            return ERROR_INVALID_INPUT
+
+        self.program_counter += 1
+        return OK
+
+    def write(self, data):  # Tanner
+        word_to_write = self.memory[data]
+
+        self.write_popup(word_to_write)  # write to gui
+        self.program_counter += 1
+
+        return OK
 
     @property
     def accumulator(self):

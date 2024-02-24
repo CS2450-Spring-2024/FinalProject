@@ -5,6 +5,7 @@ from uvsim.constants import MEM_SIZE
 ROW_WIDTH = 10
 COLS = MEM_SIZE // ROW_WIDTH
 
+
 class Memory(tk.Frame):
     def __init__(self, memory: list[int], master: tk.Misc | None, vcmd) -> None:
         super().__init__(master)
@@ -12,18 +13,50 @@ class Memory(tk.Frame):
         self.label.grid(row=0, column=0)
 
         self.memory_vars = [tk.IntVar(master=self, value=i) for i in memory]
-        self.memory_frames = [tk.Entry(master=self, font=None, validate='key', validatecommand=vcmd, textvariable=var, width=6, borderwidth=1) for var in self.memory_vars]
+        self.memory_frames = [
+            tk.Entry(
+                master=self,
+                font=None,
+                validate="key",
+                validatecommand=vcmd,
+                textvariable=var,
+                width=6,
+                borderwidth=1,
+            )
+            for var in self.memory_vars
+        ]
         for i, frame in enumerate(self.memory_frames):
-            frame.grid(row=(i // ROW_WIDTH) + 1, column=(i % ROW_WIDTH) + 1, sticky="nesw", padx=0, pady=0)
+            frame.grid(
+                row=(i // ROW_WIDTH) + 1,
+                column=(i % ROW_WIDTH) + 1,
+                sticky="nesw",
+                padx=0,
+                pady=0,
+            )
 
-        self.vertical_labels = [tk.Label(master=self, text=f"{i * ROW_WIDTH:04}", bg='lightgrey', font=('Arial', 10, 'bold')) for i in range(COLS)]
+        self.vertical_labels = [
+            tk.Label(
+                master=self,
+                text=f"{i * ROW_WIDTH:04}",
+                bg="lightgrey",
+                font=("Arial", 10, "bold"),
+            )
+            for i in range(COLS)
+        ]
         for i, label in enumerate(self.vertical_labels):
             label.grid(row=i + 1, column=0, sticky="nesw", padx=2, pady=2)
 
-        self.horizontal_labels = [tk.Label(master=self, text=f"{i:02}", bg='lightgrey', font=('Arial', 10, 'bold')) for i in range(ROW_WIDTH)]
+        self.horizontal_labels = [
+            tk.Label(
+                master=self, text=f"{i:02}", bg="lightgrey", font=("Arial", 10, "bold")
+            )
+            for i in range(ROW_WIDTH)
+        ]
         for i, label in enumerate(self.horizontal_labels):
             label.grid(row=0, column=i + 1, sticky="nesw", padx=2, pady=2)
-            
+
+        self.defaultbg = self.memory_frames[0].cget("bg")
+
         self._program_counter = 0
         self._halted = True
 
@@ -48,8 +81,10 @@ class Memory(tk.Frame):
 
     @program_counter.setter
     def program_counter(self, value):
-        self.memory_frames[self._program_counter].configure(bg="#D3D3D3") # I'm  getting an error when I have "SystemWindow" here
-        self.memory_frames[value].configure(bg="#FFAAAA" if self._halted else "#D3D3D3")
+        self.memory_frames[self._program_counter].configure(bg=self.defaultbg)
+        self.memory_frames[value].configure(
+            bg="#FFAAAA" if self._halted else self.defaultbg
+        )
         self._program_counter = value
 
     @property
@@ -59,4 +94,6 @@ class Memory(tk.Frame):
     @halted.setter
     def halted(self, value):
         self._halted = value
-        self.memory_frames[self._program_counter].configure(bg="#FFAAAA" if self.halted else "#D3D3D3")  # I'm  getting an error when I have "SystemWindow" here
+        self.memory_frames[self._program_counter].configure(
+            bg="#FFAAAA" if self.halted else self.defaultbg
+        )

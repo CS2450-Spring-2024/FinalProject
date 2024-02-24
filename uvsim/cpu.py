@@ -74,17 +74,16 @@ class CPU:
             BRANCH: lambda: self.branch(data),
             BRANCHNEG: lambda: self.branchneg(data),
             BRANCHZERO: lambda: self.branchzero(data),
-            HALT: lambda: self.halt(data)
+            HALT: lambda: self.halt(data),
         }.get(opcode, panic)()
 
     def read(self, data, user_input=False): # Tanner
         if not user_input: # if user_input is not set, get input from cli.
-            user_input = self.read_popup()
+            user_input = input("Enter a word: ")
         try:
             self.memory[data] = parse_word(user_input, self.program_counter)
 
         except ValueError:
-            # Couldn't parse input
             return ERROR_INVALID_INPUT
 
         self.program_counter += 1
@@ -92,36 +91,36 @@ class CPU:
 
     def write(self, data): # Tanner
         word_to_write = self.memory[data]
-        
-        self.write_popup(word_to_write) # write to gui        
+        print(f"Word from memory: {word_to_write}" )
+
         self.program_counter += 1
-        
+
         return OK
 
-    def load(self, data): # Tanner
+    def load(self, data):  # Tanner
         self.accumulator = self.memory[data]
         self.program_counter += 1
         return OK
 
     def store(self, data):
         # Store the value of the accumulator into the  memory location.
-        self.memory[data]= self.accumulator # Frank
+        self.memory[data] = self.accumulator  # Frank
         self.program_counter += 1
         return OK
 
-    def add(self, data): # Frank
-        #Add the value at the memory location to the accumulator.
+    def add(self, data):  # Frank
+        # Add the value at the memory location to the accumulator.
         self.accumulator += self.memory[data]
         self.program_counter += 1
         return OK
 
     def subtract(self, data):
         # Subtract the value at the specified memory location from the accumulator.
-        self.accumulator -= self.memory[data] # Frank
+        self.accumulator -= self.memory[data]  # Frank
         self.program_counter += 1
         return OK
 
-    def divide(self, data): # Kevin
+    def divide(self, data):  # Kevin
         if self.memory[data] == 0:
             # print(f"Halted for attempt to divide by zero at {self.program_counter}!")
             return ERROR_DIVIDE_BY_ZERO
@@ -129,30 +128,30 @@ class CPU:
         self.program_counter += 1
         return OK
 
-    def multiply(self, data): # Kevin
+    def multiply(self, data):  # Kevin
         self.accumulator *= self.memory[data]
         self.program_counter += 1
         return OK
 
-    def branch(self, data): # Kevin
+    def branch(self, data):  # Kevin
         self.program_counter = data
         return OK
 
-    def branchneg(self, data): # Noah
+    def branchneg(self, data):  # Noah
         if self.accumulator < 0:
             self.program_counter = data
         else:
             self.program_counter += 1
         return OK
 
-    def branchzero(self, data): # Noah
+    def branchzero(self, data):  # Noah
         if self.accumulator == 0:
             self.program_counter = data
         else:
             self.program_counter += 1
         return OK
 
-    def halt(self, data): # Noah
+    def halt(self, data):  # Noah
         self.halted = True
         self.program_counter += 1
         return OK
