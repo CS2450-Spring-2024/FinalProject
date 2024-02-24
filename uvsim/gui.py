@@ -1,7 +1,8 @@
 import os
 import re
 import tkinter as tk
-from tkinter import filedialog, messagebox, ttk
+from tkinter import filedialog, messagebox, ttk, simpledialog
+
 from PIL import Image, ImageTk
 from pathlib import Path
 from uvsim.constants import MEM_SIZE
@@ -9,6 +10,7 @@ from uvsim.constants import MEM_SIZE
 from uvsim.cpu import CPU, OK
 from uvsim.gui_memory import Memory
 from uvsim.tutorial import HelpMenu
+from uvsim.parse import validate_program
 
 WORKING_DIR = Path(os.path.realpath(__file__)).parent.parent
 
@@ -28,7 +30,7 @@ class App(CPU, tk.Tk):
         photo = ImageTk.PhotoImage(ico)
         self.wm_iconphoto(True, photo)
 
-        self.geometry("585x315")
+        self.geometry("1000x1000")#  "585x315")
         self.title("UVSim") # Set the window title
         self.configure(bg=UVU_GREEN) # Set the window background color
 
@@ -165,6 +167,7 @@ class App(CPU, tk.Tk):
                     content.append(i)
 
                 for i in range(len(content)):
+                    #validate_program(content)
                     self.memory[i] = int(content[i])
 
     def exit_program(self): #Kevin
@@ -214,6 +217,16 @@ class App(CPU, tk.Tk):
             result = self.step()
 
         self.halted = True
+        
+    def read_popup(self):
+
+        user_input = simpledialog.askstring("Input", "Enter a word: ")
+        
+        # Check if the user clicked 'Cancel'
+        if user_input is not None:
+            print("User input:", user_input)
+            return user_input
+        
 
     @property
     def accumulator(self):

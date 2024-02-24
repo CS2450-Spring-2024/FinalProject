@@ -48,8 +48,8 @@ class Memory(tk.Frame):
 
     @program_counter.setter
     def program_counter(self, value):
-        self.memory_frames[self._program_counter].configure(bg="SystemWindow")
-        self.memory_frames[value].configure(bg="#FFAAAA" if self._halted else "SystemWindow")
+        self.memory_frames[self._program_counter].configure(bg="#D3D3D3") # I'm  getting an error when I have "SystemWindow" here
+        self.memory_frames[value].configure(bg="#FFAAAA" if self._halted else "#D3D3D3")
         self._program_counter = value
 
     @property
@@ -59,4 +59,4 @@ class Memory(tk.Frame):
     @halted.setter
     def halted(self, value):
         self._halted = value
-        self.memory_frames[self._program_counter].configure(bg="#FFAAAA" if self.halted else "SystemWindow")
+        self.memory_frames[self._program_counter].configure(bg="#FFAAAA" if self.halted else "#D3D3D3")  # I'm  getting an error when I have "SystemWindow" here

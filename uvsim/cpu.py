@@ -79,10 +79,8 @@ class CPU:
 
     def read(self, data, user_input=False): # Tanner
         if not user_input: # if user_input is not set, get input from cli.
-            user_input = input("Enter a word: ")
+            user_input = self.read_popup()
         try:
-            # might need to check to see the length of the word.... cant be over len == 4?
-            # how does the + or - fit into the project?
             self.memory[data] = parse_word(user_input, self.program_counter)
 
         except ValueError:
