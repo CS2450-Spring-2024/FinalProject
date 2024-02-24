@@ -29,7 +29,7 @@ def main():
             print(c.error_code_to_text(result))
 
     elif args.gui:
-        App([0] * 100)
+        App([0] * MEM_SIZE)
 
 
 def help_opcodes(arg):

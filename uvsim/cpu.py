@@ -18,7 +18,7 @@ class CPU:
         self.accumulator = 0
         self.program_counter = 0
         self.memory = memory
-        self.halted = False
+        self.halted = True
 
     def error_code_to_text(self, code):
         text = ""
@@ -34,11 +34,12 @@ class CPU:
         return text
 
     def line_to_op_data(line):
-        data = line % 100
+        data = line % MEM_SIZE
         opcode = line - data
         return (opcode, data)
 
     def run_until_halt(self):
+        self.halted = False
         while True:
             if self.program_counter > MEM_SIZE - 1:
                 self.halted = True
@@ -160,8 +161,9 @@ class CPU:
         return OK
 
     def reset(self):
-        self.memory = [0] * MEM_SIZE
-        self.halted = False
+        for i in range(MEM_SIZE):
+            self.memory[i] = 0
+        self.halted = True
         self.program_counter = 0
         self.accumulator = 0
 
