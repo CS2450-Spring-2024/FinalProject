@@ -6,10 +6,10 @@ UVSim is a virtual machine simulator designed for computer Engineering students 
 
 ## User Stories
 ### Story 1: As a Computer Engineering Student
-As a computer Engineering student, I want to be able to write BasicML programs and execute them on UVSim so that I can learn about machine language and computer architecture. This includes inputting data, performing arithmetic operations, and controlling the flow of the program.
+A computer Engineering student, wants to be able to write BasicML programs and execute them on UVSim so that they can learn about machine language and computer architecture. This includes inputting data, performing arithmetic operations, and controlling the flow of the program.
 
 ### Story 2: As an Instructor
-As an instructor, I want to provide a tool like UVSim to my students so they can practice and understand the concepts of machine language and computer architecture in a controlled environment. This tool should help them understand how instructions are executed by the CPU, how data is managed in memory, and how arithmetic and control operations affect program execution.
+As an instructor, they want to provide a tool like UVSim to their students so they can practice and understand the concepts of machine language and computer architecture in a controlled environment. This tool should help them understand how instructions are executed by the CPU, how data is managed in memory, and how arithmetic and control operations affect program execution.
 
 ## Use Cases
 ### Use Case 1: Loading a Program
