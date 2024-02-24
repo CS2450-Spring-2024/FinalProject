@@ -60,3 +60,8 @@ def validate_program(program: list[int]):
     program.extend([0] * 100)
     program = program[:100]
     return program
+
+# have open file run through this before setting the memory  
+
+# read might have to be on its own thread. but only if it is absolutely necessary.
+
