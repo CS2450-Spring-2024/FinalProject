@@ -98,16 +98,7 @@ class App(CPU, tk.Tk):
 
                     #________ End Left Menu Panel _________
 
-                    #________ Bottom Frame Start ________
 
-        # self.memory = tk.Frame(self.master_frame, bg="blue")
-        # self.memory.grid(row=0, column=1, sticky="nsew", padx=5, pady=5)
-
-
-        # self.output_text = tk.Text(self.master_frame, wrap="word")
-        # self.output_text.grid(row=0, column=1, sticky="nsew", pady=2)
-
-                    #________ Bottom Frame End ________
         vcmd = (self.register(self.onValidateData), '%P')
         self.memory = Memory(memory, self.master_frame, vcmd=vcmd)
 
