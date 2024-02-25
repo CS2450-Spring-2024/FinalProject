@@ -2,7 +2,7 @@ import tkinter as tk
 from PIL import ImageTk, Image
 import os
 
-from uvsim.gui import FONT
+from uvsim.constants import FONT
 
 
 class Tutorial:
