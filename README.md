@@ -1,4 +1,4 @@
-# Running GUI and modules needed 
+# Note on running GUI
 https://youtu.be/ivGIeuorvso
 
 # UVSim
@@ -7,23 +7,26 @@ UVSim is a simulator for a simple computer. It has a memory size of 100 words, a
 # Requirements
 - Windows/Linux/MacOS (Others are untested)
 - Python 3.10+
+- Pillow Python library
 
 # Installation
 1. `git clone https://github.com/CS2450-Spring-2024/FinalProject.git`
 2. `cd FinalProject`
-3. `python3 -m pip install pil`
-4. `python3 -m pip install tkinter`
+3. `python3 -m pip install pillow`
 5. `python3 -m pip install pytest` (Optional)
 
 # Running UVSim
-### Running in CLI mode
-Run `python3 -m uvsim --cli` in the command line.
+### Running in GUI mode
+Run `python3 -m uvsim` in the root directory of the project.
 
-### Running in file mode
-Run `python3 -m uvsim --file FILE` in the command line.
+### Running in CLI line by line mode
+Run `python3 -m uvsim --cli` in the root directory of the project.
+
+### Running in CLI file mode
+Run `python3 -m uvsim --file FILE` in the root directory of the project.
 
 ### Showing opcode information
-Run `python3 -m uvsim --opcode [OPCODE]` in the command line.
+Run `python3 -m uvsim --opcode [OPCODE]` in the root directory of the project.
 
 For more information, run `python3 -m uvsim --help`
 
@@ -57,4 +60,4 @@ For example programs, see the example_programs directory in the root of the repo
 
 # Testing
 
-To run a test, run `pytest` in the command line in the root directory of the project.
+To run the project tests, run `pytest` in the command line in the root directory of the project.
