@@ -52,7 +52,7 @@ class App(CPU, tk.Tk):
         self.menu_bar.add_cascade(menu=self.file_menu, label="File", font=FONT)
 
         self.help_menu = tk.Menu(self.menu_bar, tearoff=0)
-        self.help_menu.add_command(label="Tutorial", command=self.open_tutorial, font=FONT)
+        self.help_menu.add_command(label="Tutorial", command=lambda: Tutorial(tk.Toplevel()), font=FONT)
         self.menu_bar.add_cascade(menu=self.help_menu, label="Help", font=FONT)
 
         self.config(menu=self.menu_bar) # Add the menu bar to the window
@@ -146,10 +146,6 @@ class App(CPU, tk.Tk):
         self.bell()
         return False
 
-    def open_tutorial(self):
-        self.new_window = tk.Toplevel()
-        Tutorial(self.new_window)
-
     def open(self):
         file_path = filedialog.askopenfilename(title="Open", filetypes=FILETYPES, initialdir=WORKING_DIR)
 
@@ -186,7 +182,6 @@ class App(CPU, tk.Tk):
                 self.title(f"UVSim | {self.open_file_path}")
         else:
             self.save_as()
-
 
     def save_as(self): # Kevin
         file = filedialog.asksaveasfile(title="Save As", filetypes=FILETYPES, initialdir=WORKING_DIR, defaultextension='.txt')
