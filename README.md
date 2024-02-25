@@ -12,14 +12,16 @@ UVSim is a simulator for a simple computer. It has a memory size of 100 words, a
 3. `python3 -m pip install pillow`
 5. `python3 -m pip install pytest` (Optional)
 
-# Note on running the GUI
-The following video explains the process of running the GUI
-
-[![IMAGE ALT TEXT](http://img.youtube.com/vi/ivGIeuorvso/0.jpg)](http://www.youtube.com/watch?v=ivGIeuorvso "Running in GUI mode")
+# Running the UVSim GUI
 
 # Running UVSim
 ### Running in GUI mode
 Run `python3 -m uvsim` in the root directory of the project.
+After the program is running, see Menu > Help > Tutorial for a brief instruction on how to use the GUI.
+
+The following video also explains the process of running the GUI.
+
+[![IMAGE ALT TEXT](http://img.youtube.com/vi/ivGIeuorvso/0.jpg)](http://www.youtube.com/watch?v=ivGIeuorvso "Running in GUI mode")
 
 ### Running in CLI line by line mode
 Run `python3 -m uvsim --cli` in the root directory of the project.
