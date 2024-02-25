@@ -1,3 +1,6 @@
+# Running GUI and modules needed 
+https://youtu.be/ivGIeuorvso
+
 # UVSim
 UVSim is a simulator for a simple computer. It has a memory size of 100 words, and operates on signed integers.
 
@@ -8,7 +11,9 @@ UVSim is a simulator for a simple computer. It has a memory size of 100 words, a
 # Installation
 1. `git clone https://github.com/CS2450-Spring-2024/FinalProject.git`
 2. `cd FinalProject`
-3. `python3 -m pip install pytest` (Optional)
+3. `python3 -m pip install pil`
+4. `python3 -m pip install tkinter`
+5. `python3 -m pip install pytest` (Optional)
 
 # Running UVSim
 ### Running in CLI mode
