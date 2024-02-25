@@ -1,6 +1,3 @@
-# Note on running GUI
-https://youtu.be/ivGIeuorvso
-
 # UVSim
 UVSim is a simulator for a simple computer. It has a memory size of 100 words, and operates on signed integers.
 
@@ -14,6 +11,12 @@ UVSim is a simulator for a simple computer. It has a memory size of 100 words, a
 2. `cd FinalProject`
 3. `python3 -m pip install pillow`
 5. `python3 -m pip install pytest` (Optional)
+
+
+# Note on running the GUI
+[![IMAGE ALT TEXT](http://img.youtube.com/vi/ivGIeuorvso/0.jpg)](http://www.youtube.com/watch?v=ivGIeuorvso "Running in GUI mode")
+
+
 
 # Running UVSim
 ### Running in GUI mode
