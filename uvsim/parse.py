@@ -67,7 +67,7 @@ def validate_program(program: list[int]) -> list[int]:
     ), f"Invalid program, must be {MEM_SIZE} lines or less!\nProgram: {program}"
 
     program.extend([0] * MEM_SIZE)
-    program = program[:MEM_SIZE + 1]
+    program = program[:MEM_SIZE]
     return program
 
 
