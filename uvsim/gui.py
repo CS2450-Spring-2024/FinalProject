@@ -1,26 +1,20 @@
-import os
 import re
 import tkinter as tk
 from tkinter import filedialog, messagebox, ttk, simpledialog
 
 from PIL import Image, ImageTk
-from pathlib import Path
-from uvsim.constants import MEM_SIZE
+from uvsim.constants import FILETYPES, FONT, MEM_SIZE, UVU_GREEN, WORKING_DIR
 
 from uvsim.cpu import CPU, ERROR_INVALID_INPUT, OK
 from uvsim.gui_memory import Memory
 from uvsim.tutorial import Tutorial
-from uvsim.parse import parse_word, validate_program
+from uvsim.parse import get_program_from_file, parse_word, save_memory
 
-WORKING_DIR = Path(os.path.realpath(__file__)).parent.parent
 
-numeric_regex = re.compile('[+-]?\d*')
+numeric_regex = re.compile(r'[+-]?\d*')
 is_numeric = lambda text: numeric_regex.fullmatch(text) is not None
 
-FILETYPES = [("Text files", "*.txt"), ("All files", "*.*")]
-FONT = None
-# FONT = ("Arial", 12)
-UVU_GREEN = "#275D38"
+
 
 class App(CPU, tk.Tk):
     def __init__(self, memory: list[int], screenName: str | None = None, baseName: str | None = None, className: str = "Tk", useTk: bool = True, sync: bool = False, use: str | None = None) -> None:
@@ -30,7 +24,7 @@ class App(CPU, tk.Tk):
         photo = ImageTk.PhotoImage(ico)
         self.wm_iconphoto(True, photo)
 
-        self.geometry("1000x1000")#  "585x315")
+        self.geometry("600x330")#  "585x315")
         self.title("UVSim") # Set the window title
         self.configure(bg=UVU_GREEN) # Set the window background color
 
@@ -46,15 +40,20 @@ class App(CPU, tk.Tk):
 
         # File
         self.file_menu = tk.Menu(self.menu_bar, tearoff=0) # Create a file menu
-        self.file_menu.add_command(label="Open", command=self.open_file, font=FONT)
-        self.file_menu.add_command(label="Save", command=self.save, font=FONT)
-        self.file_menu.add_command(label="Save As", command=self.save_as, font=FONT)
+        self.file_menu.add_command(label="Save", command=self.save, font=FONT, accelerator="Ctrl+S")
+        self.bind_all("<Control-s>", lambda event: self.save())
+        self.file_menu.add_command(label="Save As", command=self.save_as, font=FONT, accelerator="Ctrl+Shift+S")
+        self.bind_all("<Control-S>", lambda event: self.save_as())
+        self.file_menu.add_command(label="Open", command=self.open, font=FONT, accelerator="Ctrl+O")
+        self.bind_all("<Control-o>", lambda event: self.open())
         self.file_menu.add_separator()
-        self.file_menu.add_command(label="Tutorial", command=self.open_tutorial, font=FONT)
-        self.file_menu.add_separator()
-        self.file_menu.add_command(label="Exit", command=self.exit_program, font=FONT)
+        self.file_menu.add_command(label="Exit", command=self.exit_program, font=FONT, accelerator="Ctrl+Q")
+        self.bind_all("<Control-q>", lambda event: self.exit_program())
         self.menu_bar.add_cascade(menu=self.file_menu, label="File", font=FONT)
 
+        self.help_menu = tk.Menu(self.menu_bar, tearoff=0)
+        self.help_menu.add_command(label="Tutorial", command=lambda: Tutorial(tk.Toplevel()), font=FONT)
+        self.menu_bar.add_cascade(menu=self.help_menu, label="Help", font=FONT)
 
         self.config(menu=self.menu_bar) # Add the menu bar to the window
 
@@ -100,7 +99,6 @@ class App(CPU, tk.Tk):
 
                     #________ End Left Menu Panel _________
 
-
         vcmd = (self.register(self.onValidateData), '%P')
         self.memory = Memory(memory, self.master_frame, vcmd=vcmd)
 
@@ -117,7 +115,7 @@ class App(CPU, tk.Tk):
 
         self._program_counter.trace_add('write', pc_callback)
         self._halted.trace_add('write', halted_callback)
-        self._file_path=None
+        self._file_path = None
 
         self.memory.grid(row=0, column=1, sticky="nw", pady=2, padx=2)
         self.master_frame.pack(side="top", fill="both", expand=True) #end of master frame
@@ -148,70 +146,55 @@ class App(CPU, tk.Tk):
         self.bell()
         return False
 
-    def open_tutorial(self):
-        self.new_window = tk.Toplevel()
-        Tutorial(self.new_window)
-
-
-    def open_file(self):
-        file_path = filedialog.askopenfilename(title="Select a file", filetypes=FILETYPES, initialdir=WORKING_DIR)
+    def open(self):
+        file_path = filedialog.askopenfilename(title="Open", filetypes=FILETYPES, initialdir=WORKING_DIR)
 
         # Check if a file was selected
         if file_path:
             self.reset()
-            self.open_file_path = file_path
-            self.title(f"UVSim | {file_path}")
-            # Open and read the file, then set the memory to the file content
-            with open(file_path, 'r') as file:
-                content = []
-                for i in file:
-                    content.append(i)
 
-                for i in range(len(content)):
-                    #validate_program(content)
-                    self.memory[i] = int(content[i])
+            try:
+                # Open and read the file, then set the memory to the file content
+                program = get_program_from_file(file_path)
+
+                for i, val in enumerate(program):
+                    self.memory[i] = val
+
+            except Exception as error:
+                messagebox.showerror("Error", f"Error opening file: {error}")
+
+            else:
+                self.open_file_path = file_path
+                self.title(f"UVSim | {file_path}")
 
     def exit_program(self): #Kevin
         if messagebox.askyesno(title="Exit Application?", message="Do you really want to exit?"):
             exit()
 
-
     def save(self):
-        if self._file_path:
-            end_idx = False
+        if self.open_file_path:
             mem = [self.memory[i] for i in range(MEM_SIZE)]
-            for idx in range(len(mem)-1 ,-1 ,-1):
-                if mem[idx] != 0:
-                    end_idx= idx
-                    break
-
             try:
-                self._file_path.writelines([f"{str(i)}\n" for i in mem[:end_idx]])
-                self._file_path.write(f"{str(mem[end_idx])}")
-
-            except Exception as error_info:
-                messagebox.showerror("Error", f"Error saving file: {error_info}")
+                save_memory(mem, self.open_file_path)
+            except Exception as error:
+                messagebox.showerror("Error", f"Error saving file: {error}")
+            else:
+                self.title(f"UVSim | {self.open_file_path}")
         else:
             self.save_as()
 
-
     def save_as(self): # Kevin
-        file_path = filedialog.asksaveasfile(title="Save As", filetypes=FILETYPES, initialdir=WORKING_DIR, defaultextension='.txt')
+        file = filedialog.asksaveasfile(title="Save As", filetypes=FILETYPES, initialdir=WORKING_DIR, defaultextension='.txt')
 
-        if file_path:
-            end_idx = False
+        if file:
             mem = [self.memory[i] for i in range(MEM_SIZE)]
-            for idx in range(len(mem)-1 ,-1 ,-1):
-                if mem[idx] != 0:
-                    end_idx= idx
-                    break
-
             try:
-                file_path.writelines([f"{str(i)}\n" for i in mem[:end_idx]])
-                file_path.write(f"{str(mem[end_idx])}")
-
-            except Exception as error_info:
-                messagebox.showerror("Error", f"Error saving file: {error_info}")
+                save_memory(mem, file.name)
+            except Exception as error:
+                messagebox.showerror("Error", f"Error saving file: {error}")
+            else:
+                self.open_file_path = file.name
+                self.title(f"UVSim | {self.open_file_path}")
 
     def step(self):
         result = self.run_one_instruction()
@@ -239,26 +222,16 @@ class App(CPU, tk.Tk):
 
         self.halted = True
 
-    def read_popup(self):
-
-        user_input = simpledialog.askstring("Input", "Enter a word: ")
-
-        # Check if the user clicked 'Cancel'
-        if user_input is not None:
-            #print("User input:", user_input)
-            return user_input
-
-    def write_popup(self, value):
-       messagebox.showinfo(title=f"Output", message=f"Value pulled from memory: {value}")
-
     def read(self, data, user_input=False):  # Tanner
-        if not user_input:  # if user_input is not set, get input from cli.
-            user_input = self.read_popup()
+        if not user_input: # if user_input is not set, get input from cli.
+            user_input = simpledialog.askstring("Read", "Enter a word: ")
+
+        if not user_input:
+            return ERROR_INVALID_INPUT
+
         try:
             self.memory[data] = parse_word(user_input, self.program_counter)
-
-        except ValueError:
-            # Couldn't parse input
+        except ValueError: # Couldn't parse input
             return ERROR_INVALID_INPUT
 
         self.program_counter += 1
@@ -267,9 +240,9 @@ class App(CPU, tk.Tk):
     def write(self, data):  # Tanner
         word_to_write = self.memory[data]
 
-        self.write_popup(word_to_write)  # write to gui
-        self.program_counter += 1
+        messagebox.showinfo(title=f"Write", message=f"Value from memory: {word_to_write}")
 
+        self.program_counter += 1
         return OK
 
     @property

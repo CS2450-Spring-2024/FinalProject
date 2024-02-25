@@ -9,7 +9,6 @@ def get_program_from_file(path) -> list[int]:
     program = parse_str(program)
     return program
 
-
 def try_parse_cli(program, tries=0):
     word = input(f"{len(program)} ? ")
     try:
@@ -19,7 +18,6 @@ def try_parse_cli(program, tries=0):
         return try_parse_cli(program, tries + 1)
 
     return word
-
 
 def get_program_from_cli() -> list[int]:
     """Get program from CLI"""
@@ -61,18 +59,27 @@ def parse_str(program: str) -> int:
 def validate_program(program: list[int]) -> list[int]:
     assert (
         program[-1] == TERMINAL_WORD
-    ), f"Invalid program, must be terminated with {TERMINAL_WORD}!\nProgram:{program}"
-    program.pop()  # pop TERMINAL_WORD
+    ), f"Invalid program, must be terminated with {TERMINAL_WORD}!\nProgram: {program}"
+    program.pop() # pop TERMINAL_WORD
 
     assert (
         len(program) <= MEM_SIZE
-    ), f"Invalid program, must be {MEM_SIZE} lines or less!\nProgram:{program}"
+    ), f"Invalid program, must be {MEM_SIZE} lines or less!\nProgram: {program}"
 
     program.extend([0] * MEM_SIZE)
-    program = program[:MEM_SIZE]
+    program = program[:MEM_SIZE + 1]
     return program
 
 
-# have open file run through this before setting the memory
+def save_memory(memory: list[int], path: str):
+    end_idx = MEM_SIZE
+    for idx in range(len(memory) - 1, -1, -1):
+        if memory[idx] != 0:
+            end_idx = idx
+            break
 
-# read might have to be on its own thread. but only if it is absolutely necessary.
+    with open(path, 'w') as file:
+        lines = memory[:end_idx + 1]
+        lines.append(TERMINAL_WORD)
+        output = '\n'.join(map(lambda word: str(word), lines))
+        file.write(output)
