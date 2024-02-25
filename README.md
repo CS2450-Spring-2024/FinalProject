@@ -16,6 +16,7 @@ UVSim is a simulator for a simple computer. It has a memory size of 100 words, a
 # Running UVSim
 ### Running in GUI mode
 Run `python3 -m uvsim` in the root directory of the project.
+
 After the program is running, see Menu > Help > Tutorial for a brief instruction on how to use the GUI.
 
 The following video also explains the process of running the GUI.
