@@ -11,7 +11,7 @@ from uvsim.tutorial import Tutorial
 from uvsim.parse import get_program_from_file, parse_word, save_memory
 
 
-numeric_regex = re.compile('[+-]?\d*')
+numeric_regex = re.compile(r'[+-]?\d*')
 is_numeric = lambda text: numeric_regex.fullmatch(text) is not None
 
 
