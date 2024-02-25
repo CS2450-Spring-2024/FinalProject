@@ -14,6 +14,7 @@ UVSim is a simulator for a simple computer. It has a memory size of 100 words, a
 
 # Note on running the GUI
 The following video explains the process of running the GUI
+
 [![IMAGE ALT TEXT](http://img.youtube.com/vi/ivGIeuorvso/0.jpg)](http://www.youtube.com/watch?v=ivGIeuorvso "Running in GUI mode")
 
 # Running UVSim
