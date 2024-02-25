@@ -12,7 +12,6 @@ UVSim is a simulator for a simple computer. It has a memory size of 100 words, a
 3. `python3 -m pip install pillow`
 5. `python3 -m pip install pytest` (Optional)
 
-# Running the UVSim GUI
 
 # Running UVSim
 ### Running in GUI mode
