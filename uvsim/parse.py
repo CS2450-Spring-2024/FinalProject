@@ -59,16 +59,17 @@ def parse_str(program: str) -> int:
 def validate_program(program: list[int]) -> list[int]:
     assert (
         program[-1] == TERMINAL_WORD
-    ), f"Invalid program, must be terminated with {TERMINAL_WORD}!\nProgram:{program}"
+    ), f"Invalid program, must be terminated with {TERMINAL_WORD}!\nProgram: {program}"
     program.pop() # pop TERMINAL_WORD
 
     assert (
         len(program) <= MEM_SIZE
-    ), f"Invalid program, must be {MEM_SIZE} lines or less!\nProgram:{program}"
+    ), f"Invalid program, must be {MEM_SIZE} lines or less!\nProgram: {program}"
 
     program.extend([0] * MEM_SIZE)
     program = program[:MEM_SIZE + 1]
     return program
+
 
 def save_memory(memory: list[int], path: str):
     end_idx = MEM_SIZE
@@ -79,6 +80,6 @@ def save_memory(memory: list[int], path: str):
 
     with open(path, 'w') as file:
         lines = memory[:end_idx + 1]
-        lines.append(-99999)
+        lines.append(TERMINAL_WORD)
         output = '\n'.join(map(lambda word: str(word), lines))
         file.write(output)
