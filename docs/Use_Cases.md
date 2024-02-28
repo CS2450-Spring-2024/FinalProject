@@ -12,7 +12,7 @@ A computer Engineering student, wants to be able to write BasicML programs and e
 As an instructor, they want to provide a tool like UVSim to their students so they can practice and understand the concepts of machine language and computer architecture in a controlled environment. This tool should help them understand how instructions are executed by the CPU, how data is managed in memory, and how arithmetic and control operations affect program execution.
 
 ## Use Cases
-### Use Case 1: Loading a Program
+### Use Case 1: Load a Program
 Actor: Student
 
 Description: Load a BasicML program into UVSim's memory starting at location 00.
@@ -21,7 +21,7 @@ Steps:
 2) The student loads the program into UVSim's memory.
 3) UVSim validates the program and allocates it starting from memory location 00.
 
-### Use Case 2: Writing Data to Memory
+### Use Case 2: Write Data to Memory
 Actor: Student
 
 Description: Use the READ instruction to input a word from the keyboard into a specific location in memory.
@@ -30,7 +30,7 @@ Steps:
 2) UVSim prompts the student to input a word when the READ instruction is executed.
 3) The student inputs the word, and UVSim stores it in the specified memory location.
 
-### Use Case 3: Displaying Data from Memory
+### Use Case 3: Display Data from Memory
 Actor: Student
 
 Description: Use the WRITE instruction to display a word from a specific memory location on the screen.
@@ -39,7 +39,7 @@ Steps:
 2) When executed, UVSim reads the word from the specified memory location.
 3) UVSim displays the word on the screen.
 
-### Use Case 4: Loading a Word into the Accumulator
+### Use Case 4: Load a Word into the Accumulator
 Actor: Student
 
 Description: Use the LOAD instruction to load a word from memory into the accumulator.
@@ -47,7 +47,7 @@ Steps:
 1) The student inputs a LOAD instruction into their program.
 2) UVSim loads the word from the specified memory location into the accumulator.
 
-### Use Case 5: Storing the Accumulator's Value in Memory
+### Use Case 5: Store the Accumulator's Value in Memory
 Actor: Student
 
 Description: Use the STORE instruction to store the word from the accumulator into a specific memory location.
@@ -55,7 +55,7 @@ Steps:
 1) The student inputs a STORE instruction into their program.
 2) UVSim stores the word from the accumulator into the specified memory location.
 
-### Use Case 6: Performing Arithmetic Operations
+### Use Case 6: Perform Arithmetic Operations
 Actor: Student
 
 Description: Use ADD, SUBTRACT, DIVIDE, and MULTIPLY instructions to perform arithmetic operations with the accumulator and memory.
@@ -63,7 +63,7 @@ Steps:
 1) The student inputs an arithmetic instruction into their program.
 2) UVSim performs the specified operation between the accumulator's word and the word from the specified memory location, storing the result in the accumulator.
 
-### Use Case 7: Branching Execution
+### Use Case 7: Branch Execution
 Actor: Student
 
 Description: Use BRANCH, BRANCHNEG, and BRANCHZERO instructions to control the flow of the program based on the accumulator's state.
@@ -71,7 +71,7 @@ Steps:
 1) The student inputs a branching instruction into their program.
 2) Depending on the accumulator's state and the instruction, UVSim alters the execution flow to the specified memory location.
 
-### Use Case 8: Halting the Program
+### Use Case 8: Halt the Program
 Actor: Student
 
 Description: Use the HALT instruction to pause the program's execution.
