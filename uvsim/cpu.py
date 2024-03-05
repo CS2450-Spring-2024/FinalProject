@@ -8,6 +8,22 @@ ERROR_INVALID_INPUT = 2
 ERROR_DIVIDE_BY_ZERO = 3
 
 
+
+def line_to_op_data(line):
+    data = line % MEM_SIZE
+    opcode = line - data
+    return (opcode, data)
+
+def error_code_to_text(code, program_counter):
+    error_codes = {
+        OK: "",
+        ERROR_ILLEGAL_INSTRUCTION: f"Illegal opcode at ${program_counter}",
+        ERROR_INVALID_INPUT: "Invalid input",
+        ERROR_DIVIDE_BY_ZERO: f"Tried to divide by zero at ${program_counter}",
+    }
+
+    return error_codes[code]
+
 class CPU:
     OK = OK
     ERROR_ILLEGAL_INSTRUCTION = ERROR_ILLEGAL_INSTRUCTION
@@ -19,24 +35,6 @@ class CPU:
         self.program_counter = 0
         self.memory = memory
         self.halted = True
-
-    def error_code_to_text(self, code):
-        text = ""
-        match code:
-            case self.OK:
-                text = ""
-            case self.ERROR_ILLEGAL_INSTRUCTION:
-                text = f"Illegal opcode at ${self.program_counter}"
-            case self.ERROR_INVALID_INPUT:
-                text = "Invalid input"
-            case self.ERROR_DIVIDE_BY_ZERO:
-                text = f"Tried to divide by zero at ${self.program_counter}"
-        return text
-
-    def line_to_op_data(line):
-        data = line % MEM_SIZE
-        opcode = line - data
-        return (opcode, data)
 
     def run_until_halt(self):
         self.halted = False
@@ -54,10 +52,7 @@ class CPU:
 
     def run_one_instruction(self):
         line = self.memory[self.program_counter]
-        opcode, data = CPU.line_to_op_data(line)
-
-        def panic():
-            return ERROR_ILLEGAL_INSTRUCTION
+        opcode, data = line_to_op_data(line)
 
         # Apologies if this section is convoluted, I could have used a bunch of if-else, but I think this is cleaner.
         # All this section does is match the opcode from memory to the function that needs to be run.
@@ -75,7 +70,7 @@ class CPU:
             BRANCHNEG: lambda: self.branchneg(data),
             BRANCHZERO: lambda: self.branchzero(data),
             HALT: lambda: self.halt(data),
-        }.get(opcode, panic)()
+        }.get(opcode, lambda: ERROR_ILLEGAL_INSTRUCTION)()
 
     def read(self, data, user_input=False): # Tanner
         if not user_input: # if user_input is not set, get input from cli.

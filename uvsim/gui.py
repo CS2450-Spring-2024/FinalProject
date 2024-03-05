@@ -14,7 +14,28 @@ from uvsim.parse import get_program_from_file, parse_word, save_memory
 numeric_regex = re.compile(r'[+-]?\d*')
 is_numeric = lambda text: numeric_regex.fullmatch(text) is not None
 
+exit_program = lambda: exit() if messagebox.askyesno(title="Exit Application?", message="Do you really want to exit?") else None
 
+def onValidateData(proposed_new_text):
+    if proposed_new_text in ['', '-', '+']:
+        return True
+
+    if is_numeric(proposed_new_text):
+        return True
+
+    return False
+
+def onValidateAddress(proposed_new_text):
+    if proposed_new_text in ['', '-', '+']:
+        return True
+
+    if not is_numeric(proposed_new_text):
+        return False
+
+    if int(proposed_new_text) < MEM_SIZE and int(proposed_new_text) >= 0:
+        return True
+
+    return False
 
 class App(CPU, tk.Tk):
     def __init__(self, memory: list[int], screenName: str | None = None, baseName: str | None = None, className: str = "Tk", useTk: bool = True, sync: bool = False, use: str | None = None) -> None:
@@ -24,7 +45,7 @@ class App(CPU, tk.Tk):
         photo = ImageTk.PhotoImage(ico)
         self.wm_iconphoto(True, photo)
 
-        self.geometry("600x330")#  "585x315")
+        self.geometry("600x330")
         self.title("UVSim") # Set the window title
         self.configure(bg=UVU_GREEN) # Set the window background color
 
@@ -47,8 +68,8 @@ class App(CPU, tk.Tk):
         self.file_menu.add_command(label="Open", command=self.open, font=FONT, accelerator="Ctrl+O")
         self.bind_all("<Control-o>", lambda event: self.open())
         self.file_menu.add_separator()
-        self.file_menu.add_command(label="Exit", command=self.exit_program, font=FONT, accelerator="Ctrl+Q")
-        self.bind_all("<Control-q>", lambda event: self.exit_program())
+        self.file_menu.add_command(label="Exit", command=exit_program, font=FONT, accelerator="Ctrl+Q")
+        self.bind_all("<Control-q>", lambda event: exit_program())
         self.menu_bar.add_cascade(menu=self.file_menu, label="File", font=FONT)
 
         self.help_menu = tk.Menu(self.menu_bar, tearoff=0)
@@ -63,7 +84,6 @@ class App(CPU, tk.Tk):
         # master layout frame
         self.master_frame = tk.Frame(self)
 
-
         self.master_frame.columnconfigure(0, weight=1)
         self.master_frame.columnconfigure(1, weight=4)
         #________ Left Menu Panel _________
@@ -72,13 +92,13 @@ class App(CPU, tk.Tk):
 
         # Left side widgets
 
-        vcmd = (self.register(self.onValidateData), '%P')
+        vcmd = (self.register(onValidateData), '%P')
         self.accumulator_entry = tk.Entry(self.left_menu_frame, font=FONT, justify=tk.CENTER, validate='key', validatecommand=vcmd, textvariable=self._accumulator)
 
-        vcmd = (self.register(self.onValidateAddress), '%P')
+        vcmd = (self.register(onValidateAddress), '%P')
         self.program_counter_entry = tk.Entry(self.left_menu_frame, font=FONT, justify=tk.CENTER, validate='key', validatecommand=vcmd, textvariable=self._program_counter)
 
-        vcmd = (self.register(self.onValidateAddress), '%P')
+        vcmd = (self.register(onValidateAddress), '%P')
         self.address_run_to_entry = tk.Entry(self.left_menu_frame, font=FONT, justify=tk.CENTER, validate='key', validatecommand=vcmd, textvariable=self._address_run_to, )
 
         self.left_side_elems = [
@@ -99,7 +119,7 @@ class App(CPU, tk.Tk):
 
                     #________ End Left Menu Panel _________
 
-        vcmd = (self.register(self.onValidateData), '%P')
+        vcmd = (self.register(onValidateData), '%P')
         self.memory = Memory(memory, self.master_frame, vcmd=vcmd)
 
         def pc_callback(_a, _b, _c):
@@ -122,30 +142,6 @@ class App(CPU, tk.Tk):
 
         self.mainloop()
 
-    def onValidateData(self, proposed_new_text):
-        if proposed_new_text in ['', '-', '+']:
-            return True
-
-        if is_numeric(proposed_new_text):
-            return True
-
-        self.bell()
-        return False
-
-    def onValidateAddress(self, proposed_new_text):
-        if proposed_new_text in ['', '-', '+']:
-            return True
-
-        if not is_numeric(proposed_new_text):
-            self.bell()
-            return False
-
-        if int(proposed_new_text) < MEM_SIZE and int(proposed_new_text) >= 0:
-            return True
-
-        self.bell()
-        return False
-
     def open(self):
         file_path = filedialog.askopenfilename(title="Open", filetypes=FILETYPES, initialdir=WORKING_DIR)
 
@@ -166,10 +162,6 @@ class App(CPU, tk.Tk):
             else:
                 self.open_file_path = file_path
                 self.title(f"UVSim | {file_path}")
-
-    def exit_program(self): #Kevin
-        if messagebox.askyesno(title="Exit Application?", message="Do you really want to exit?"):
-            exit()
 
     def save(self):
         if self.open_file_path:
@@ -199,7 +191,7 @@ class App(CPU, tk.Tk):
     def step(self):
         result = self.run_one_instruction()
         if result != OK:
-            text = self.error_code_to_text(result)
+            text = self.error_code_to_text(result, self.program_counter)
             messagebox.showinfo(title="Error", message=text)
         return result
 
