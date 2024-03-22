@@ -1,0 +1,59 @@
+\doxysection{uvsim.\+opcodes Namespace Reference}
+\label{namespaceuvsim_1_1opcodes}\index{uvsim.opcodes@{uvsim.opcodes}}
+\doxysubsubsection*{Variables}
+\begin{DoxyCompactItemize}
+\item 
+\label{namespaceuvsim_1_1opcodes_a78ef66e5ffc0e3fc9c389d3f6eee49f2} 
+int {\bfseries READ} = 10 $\ast$ 100
+\item 
+\label{namespaceuvsim_1_1opcodes_ab9c56f7cb2e653e1782863f3609b40f1} 
+int {\bfseries WRITE} = 11 $\ast$ 100
+\item 
+\label{namespaceuvsim_1_1opcodes_a1376ca58ec75bf71bbd1cebc75b317ee} 
+int {\bfseries LOAD} = 20 $\ast$ 100
+\item 
+\label{namespaceuvsim_1_1opcodes_a32d7bc9866bf498911e02b8515fcbd1f} 
+int {\bfseries STORE} = 21 $\ast$ 100
+\item 
+\label{namespaceuvsim_1_1opcodes_a6542d99473267ca5db224a85e87d827c} 
+int {\bfseries ADD} = 30 $\ast$ 100
+\item 
+\label{namespaceuvsim_1_1opcodes_a55ff63270bdd8fd9f390f584a9808085} 
+int {\bfseries SUBTRACT} = 31 $\ast$ 100
+\item 
+\label{namespaceuvsim_1_1opcodes_a3596662a2bd03faee832027c4eb5fdc9} 
+int {\bfseries DIVIDE} = 32 $\ast$ 100
+\item 
+\label{namespaceuvsim_1_1opcodes_a6c10cc82f0f58c4b2f6ebc5e4e5b600b} 
+int {\bfseries MULTIPLY} = 33 $\ast$ 100
+\item 
+\label{namespaceuvsim_1_1opcodes_aa5f4312e6fe9f5f1d6cbb02f63bb13e3} 
+int {\bfseries BRANCH} = 40 $\ast$ 100
+\item 
+\label{namespaceuvsim_1_1opcodes_a2c5ed5426a1de7754f9cc399d8f86e57} 
+int {\bfseries BRANCHNEG} = 41 $\ast$ 100
+\item 
+\label{namespaceuvsim_1_1opcodes_aaa76a35f47b53edf751320d4925b5faf} 
+int {\bfseries BRANCHZERO} = 42 $\ast$ 100
+\item 
+\label{namespaceuvsim_1_1opcodes_a7314ea49c3b776f8ef6572c2bf205ea0} 
+int {\bfseries HALT} = 43 $\ast$ 100
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+\begin{DoxyVerb}In this file, there are constants defined for all our opcodes. This way, we can
+more easily write programs, like this:
+```
+program = [
+    WRITE + 1, # Because WRITE = 11 * 100, this puts 1101 in $0
+    123, # This puts 123 in $1
+    HALT
+]
+CPU(program)
+CPU.run_until_halt()
+```
+
+When this program is run, it will print 123, then halt.
+\end{DoxyVerb}
+ 

@@ -1,0 +1,27 @@
+<map id="uvsim.cpu.CPU.halt" name="uvsim.cpu.CPU.halt">
+<area shape="rect" id="Node000001" title=" " alt="" coords="5,257,141,282"/>
+<area shape="rect" id="Node000002" href="$classuvsim_1_1gui_1_1_app.html#a5714c1d8ed0c17f98a0ecc54406455b5" title=" " alt="" coords="234,150,377,175"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="101,254,263,179,265,184,103,259"/>
+<area shape="rect" id="Node000003" href="$classuvsim_1_1gui_1_1_app.html#a30ad607bbce8a208f6454d1918a39042" title=" " alt="" coords="776,75,919,101"/>
+<area shape="poly" id="edge10_Node000001_Node000003" title=" " alt="" coords="75,256,87,218,109,167,142,115,163,91,188,71,226,50,266,32,308,20,351,11,438,3,525,7,609,18,685,34,801,68,800,74,684,39,608,23,525,12,438,9,351,16,309,25,268,37,228,54,191,76,167,95,146,118,114,170,92,220,80,257"/>
+<area shape="rect" id="Node000004" href="$classuvsim_1_1gui__memory_1_1_memory.html#a9b5b674d894e91cb16b5a0e96819c7be" title=" " alt="" coords="469,75,689,101"/>
+<area shape="poly" id="edge11_Node000001_Node000004" title=" " alt="" coords="77,255,91,224,115,184,147,143,166,126,188,111,225,94,264,82,344,68,423,66,492,71,491,76,422,72,345,74,265,87,227,99,191,116,170,130,151,147,119,187,96,227,82,258"/>
+<area shape="rect" id="Node000005" href="$classuvsim_1_1gui__memory_1_1_memory.html#a45bb046a206b8055903f42ece39c2bd1" title=" " alt="" coords="737,177,957,202"/>
+<area shape="poly" id="edge12_Node000001_Node000005" title=" " alt="" coords="141,260,723,200,723,205,142,265"/>
+<area shape="rect" id="Node000006" href="$classuvsim_1_1gui_1_1_app.html#aed1a86502733fccd2cc02a3d2ae0b1bd" title=" " alt="" coords="228,277,383,317"/>
+<area shape="poly" id="edge13_Node000001_Node000006" title=" " alt="" coords="142,275,215,284,214,289,141,280"/>
+<area shape="rect" id="Node000007" href="$classuvsim_1_1gui_1_1_app.html#aa78b680e48d07929ace0c87a9a61137d" title=" " alt="" coords="228,341,383,381"/>
+<area shape="poly" id="edge14_Node000001_Node000007" title=" " alt="" coords="97,280,140,303,190,327,215,336,213,341,188,332,137,308,95,285"/>
+<area shape="rect" id="Node000008" href="$classuvsim_1_1gui__memory_1_1_memory.html#ae1d3a912900644abdad05cec94cafcad" title=" " alt="" coords="189,405,421,445"/>
+<area shape="poly" id="edge15_Node000001_Node000008" title=" " alt="" coords="85,281,126,334,156,365,191,391,202,397,200,402,188,396,153,369,122,338,81,284"/>
+<area shape="rect" id="Node000009" href="$classuvsim_1_1gui__memory_1_1_memory.html#ab502b4ea4d364fd9547ef2cdc1aa56da" title=" " alt="" coords="189,469,421,509"/>
+<area shape="poly" id="edge16_Node000001_Node000009" title=" " alt="" coords="81,281,94,316,117,363,149,413,169,436,191,455,199,461,196,465,188,460,165,440,145,416,112,366,90,318,76,283"/>
+<area shape="poly" id="edge2_Node000002_Node000002" title=" " alt="" coords="268,152,259,142,264,132,279,126,305,123,338,127,350,137,347,141,336,132,305,129,280,131,267,136,265,141,272,148"/>
+<area shape="poly" id="edge3_Node000002_Node000003" title=" " alt="" coords="377,151,689,110,762,99,763,104,690,115,377,157"/>
+<area shape="poly" id="edge4_Node000002_Node000004" title=" " alt="" coords="376,149,538,103,540,108,378,154"/>
+<area shape="poly" id="edge9_Node000002_Node000005" title=" " alt="" coords="377,164,724,181,724,186,377,169"/>
+<area shape="poly" id="edge5_Node000004_Node000002" title=" " alt="" coords="503,103,346,148,345,143,501,98"/>
+<area shape="poly" id="edge6_Node000004_Node000003" title=" " alt="" coords="689,85,762,85,762,91,689,91"/>
+<area shape="poly" id="edge7_Node000004_Node000004" title=" " alt="" coords="536,77,527,67,532,57,550,51,579,49,618,53,628,58,632,64,627,67,624,62,616,58,579,54,551,56,535,61,532,66,540,73"/>
+<area shape="poly" id="edge8_Node000004_Node000005" title=" " alt="" coords="615,98,801,169,799,174,613,103"/>
+</map>

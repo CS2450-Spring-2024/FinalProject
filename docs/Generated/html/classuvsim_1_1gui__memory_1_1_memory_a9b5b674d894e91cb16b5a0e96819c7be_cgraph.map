@@ -1,0 +1,14 @@
+<map id="uvsim.gui_memory.Memory.halted" name="uvsim.gui_memory.Memory.halted">
+<area shape="rect" id="Node000001" title=" " alt="" coords="5,48,225,73"/>
+<area shape="poly" id="edge7_Node000001_Node000001" title=" " alt="" coords="78,49,70,39,74,29,90,23,115,21,148,25,160,34,157,38,146,30,115,26,91,28,78,33,75,38,82,46"/>
+<area shape="rect" id="Node000002" href="$classuvsim_1_1gui_1_1_app.html#a5714c1d8ed0c17f98a0ecc54406455b5" title=" " alt="" coords="273,48,416,73"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="225,67,259,66,260,72,225,72"/>
+<area shape="rect" id="Node000003" href="$classuvsim_1_1gui_1_1_app.html#a30ad607bbce8a208f6454d1918a39042" title=" " alt="" coords="503,24,645,49"/>
+<area shape="poly" id="edge6_Node000001_Node000003" title=" " alt="" coords="146,45,204,25,273,8,334,3,395,5,503,18,503,24,394,10,334,8,274,13,206,30,148,50"/>
+<area shape="rect" id="Node000004" href="$classuvsim_1_1gui__memory_1_1_memory.html#a45bb046a206b8055903f42ece39c2bd1" title=" " alt="" coords="464,73,684,98"/>
+<area shape="poly" id="edge8_Node000001_Node000004" title=" " alt="" coords="181,70,274,83,363,87,450,87,450,93,363,92,273,88,180,76"/>
+<area shape="poly" id="edge4_Node000002_Node000001" title=" " alt="" coords="273,54,239,54,239,49,273,49"/>
+<area shape="poly" id="edge2_Node000002_Node000002" title=" " alt="" coords="307,49,299,39,303,29,319,23,345,21,377,25,389,34,386,38,375,30,345,26,320,28,307,33,304,38,311,46"/>
+<area shape="poly" id="edge3_Node000002_Node000003" title=" " alt="" coords="416,50,489,42,489,48,417,55"/>
+<area shape="poly" id="edge5_Node000002_Node000004" title=" " alt="" coords="417,65,451,69,450,74,416,71"/>
+</map>

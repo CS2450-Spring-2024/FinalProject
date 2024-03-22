@@ -1,0 +1,15 @@
+<map id="uvsim.cpu.CPU.multiply" name="uvsim.cpu.CPU.multiply">
+<area shape="rect" id="Node000001" title=" " alt="" coords="5,144,165,169"/>
+<area shape="rect" id="Node000002" href="$classuvsim_1_1gui_1_1_app.html#af0fac31372fa97972cf2092358ed3924" title=" " alt="" coords="240,5,419,31"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="95,142,141,92,175,63,212,40,228,33,230,38,215,44,178,68,145,96,99,146"/>
+<area shape="rect" id="Node000003" href="$classuvsim_1_1gui_1_1_app.html#a2d6326e55e4cd67221bb31a4e749676f" title=" " alt="" coords="240,55,419,80"/>
+<area shape="poly" id="edge2_Node000001_Node000003" title=" " alt="" coords="107,142,154,116,212,90,243,81,245,86,214,95,156,120,109,146"/>
+<area shape="rect" id="Node000004" href="$classuvsim_1_1gui_1_1_app.html#aed1a86502733fccd2cc02a3d2ae0b1bd" title=" " alt="" coords="252,105,407,145"/>
+<area shape="poly" id="edge3_Node000001_Node000004" title=" " alt="" coords="165,144,238,134,238,139,166,149"/>
+<area shape="rect" id="Node000005" href="$classuvsim_1_1gui_1_1_app.html#aa78b680e48d07929ace0c87a9a61137d" title=" " alt="" coords="252,169,407,209"/>
+<area shape="poly" id="edge4_Node000001_Node000005" title=" " alt="" coords="166,165,238,174,238,179,165,170"/>
+<area shape="rect" id="Node000006" href="$classuvsim_1_1gui__memory_1_1_memory.html#ae1d3a912900644abdad05cec94cafcad" title=" " alt="" coords="213,233,445,273"/>
+<area shape="poly" id="edge5_Node000001_Node000006" title=" " alt="" coords="110,167,157,192,214,218,236,226,235,231,212,223,155,197,107,172"/>
+<area shape="rect" id="Node000007" href="$classuvsim_1_1gui__memory_1_1_memory.html#ab502b4ea4d364fd9547ef2cdc1aa56da" title=" " alt="" coords="213,297,445,337"/>
+<area shape="poly" id="edge6_Node000001_Node000007" title=" " alt="" coords="98,168,144,223,177,255,215,282,227,289,225,294,212,287,174,259,140,227,94,171"/>
+</map>

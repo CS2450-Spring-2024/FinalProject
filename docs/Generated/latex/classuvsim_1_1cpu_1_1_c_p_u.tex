@@ -1,0 +1,678 @@
+\doxysection{uvsim.\+cpu.\+CPU Class Reference}
+\label{classuvsim_1_1cpu_1_1_c_p_u}\index{uvsim.cpu.CPU@{uvsim.cpu.CPU}}
+
+
+Inheritance diagram for uvsim.\+cpu.\+CPU\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=163pt]{classuvsim_1_1cpu_1_1_c_p_u__inherit__graph}
+\end{center}
+\end{figure}
+\doxysubsubsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\textbf{ \+\_\+\+\_\+init\+\_\+\+\_\+} (self, memory)
+\item 
+\textbf{ run\+\_\+until\+\_\+halt} (self)
+\item 
+\textbf{ run\+\_\+one\+\_\+instruction} (self)
+\item 
+\textbf{ read} (self, data, user\+\_\+input=False)
+\item 
+\textbf{ write} (self, data)
+\item 
+\textbf{ load} (self, data)
+\item 
+\textbf{ store} (self, data)
+\item 
+\textbf{ add} (self, data)
+\item 
+\textbf{ subtract} (self, data)
+\item 
+\textbf{ divide} (self, data)
+\item 
+\textbf{ multiply} (self, data)
+\item 
+\textbf{ branch} (self, data)
+\item 
+\textbf{ branchneg} (self, data)
+\item 
+\textbf{ branchzero} (self, data)
+\item 
+\textbf{ halt} (self, data)
+\item 
+\textbf{ reset} (self)
+\item 
+\textbf{ resume} (self)
+\end{DoxyCompactItemize}
+\doxysubsubsection*{Public Attributes}
+\begin{DoxyCompactItemize}
+\item 
+\textbf{ accumulator}
+\item 
+\textbf{ program\+\_\+counter}
+\item 
+\label{classuvsim_1_1cpu_1_1_c_p_u_aa072bc604d3454f2ef5fd4cf8f66e924} 
+{\bfseries memory}
+\item 
+\textbf{ halted}
+\end{DoxyCompactItemize}
+\doxysubsubsection*{Static Public Attributes}
+\begin{DoxyCompactItemize}
+\item 
+\label{classuvsim_1_1cpu_1_1_c_p_u_ab26210d0c0644dfbdd3eb77c8550462f} 
+{\bfseries OK} = OK
+\item 
+\label{classuvsim_1_1cpu_1_1_c_p_u_a10fc3c508ce9e51a42ecedb05c42c59e} 
+{\bfseries ERROR\+\_\+\+ILLEGAL\+\_\+\+INSTRUCTION} = ERROR\+\_\+\+ILLEGAL\+\_\+\+INSTRUCTION
+\item 
+\label{classuvsim_1_1cpu_1_1_c_p_u_ab58cf410e312e491ed333da60ba0395b} 
+{\bfseries ERROR\+\_\+\+INVALID\+\_\+\+INPUT} = ERROR\+\_\+\+INVALID\+\_\+\+INPUT
+\item 
+\label{classuvsim_1_1cpu_1_1_c_p_u_a4a09347a865c0bd13f9d082a66c84728} 
+{\bfseries ERROR\+\_\+\+DIVIDE\+\_\+\+BY\+\_\+\+ZERO} = ERROR\+\_\+\+DIVIDE\+\_\+\+BY\+\_\+\+ZERO
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+\begin{DoxyVerb}CPU Class
+Purpose of the Class
+The CPU class represents a Central Processing Unit that does instructions stored in memory.
+It interacts with memory and does various operations based on the opcode of the current instruction.
+
+Class Attributes:
+    self.accumulator : An integer that stored the data we are working with.
+    self.program_counter : An Integer that counts the steps in the program
+    self.memory : An array that represents the memory of the CPU
+    self.halted : A boolean value that represents the state of the program
+\end{DoxyVerb}
+ 
+
+\doxysubsection{Constructor \& Destructor Documentation}
+\label{classuvsim_1_1cpu_1_1_c_p_u_a6052db2e3500143524b7cb300c70487b} 
+\index{uvsim.cpu.CPU@{uvsim.cpu.CPU}!\_\_init\_\_@{\_\_init\_\_}}
+\index{\_\_init\_\_@{\_\_init\_\_}!uvsim.cpu.CPU@{uvsim.cpu.CPU}}
+\doxysubsubsection{\_\_init\_\_()}
+{\footnotesize\ttfamily uvsim.\+cpu.\+CPU.\+\_\+\+\_\+init\+\_\+\+\_\+ (\begin{DoxyParamCaption}\item[{}]{self,  }\item[{}]{memory }\end{DoxyParamCaption})}
+
+
+
+Reimplemented in \textbf{ uvsim.\+gui.\+App} \doxyref{}{p.}{classuvsim_1_1gui_1_1_app_af8405aabcf83a6cc27440b228ffbcace}.
+
+
+
+\doxysubsection{Member Function Documentation}
+\label{classuvsim_1_1cpu_1_1_c_p_u_abae23c7cb19d7e6fe34300de7625ec5c} 
+\index{uvsim.cpu.CPU@{uvsim.cpu.CPU}!add@{add}}
+\index{add@{add}!uvsim.cpu.CPU@{uvsim.cpu.CPU}}
+\doxysubsubsection{add()}
+{\footnotesize\ttfamily uvsim.\+cpu.\+CPU.\+add (\begin{DoxyParamCaption}\item[{}]{self,  }\item[{}]{data }\end{DoxyParamCaption})}
+
+\begin{DoxyVerb}Purpose:
+    Adds the value at a specified memory location to the accumulator.
+Input Parameters:
+    data: The memory location of the value that will be added.
+Return Value:
+    An error code showing the result of the operation.
+Pre-conditions:
+    The CPU needs to be initialized with a valid memory array.
+Post-conditions:
+    The accumulator is updated with the addition result.
+\end{DoxyVerb}
+ Here is the call graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{classuvsim_1_1cpu_1_1_c_p_u_abae23c7cb19d7e6fe34300de7625ec5c_cgraph}
+\end{center}
+\end{figure}
+Here is the caller graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{classuvsim_1_1cpu_1_1_c_p_u_abae23c7cb19d7e6fe34300de7625ec5c_icgraph}
+\end{center}
+\end{figure}
+\label{classuvsim_1_1cpu_1_1_c_p_u_a12c36455f5ac5f0debc576ac20837c82} 
+\index{uvsim.cpu.CPU@{uvsim.cpu.CPU}!branch@{branch}}
+\index{branch@{branch}!uvsim.cpu.CPU@{uvsim.cpu.CPU}}
+\doxysubsubsection{branch()}
+{\footnotesize\ttfamily uvsim.\+cpu.\+CPU.\+branch (\begin{DoxyParamCaption}\item[{}]{self,  }\item[{}]{data }\end{DoxyParamCaption})}
+
+\begin{DoxyVerb}Purpose:
+    Branches to a specified memory location unconditionally.
+Input Parameters:
+    data: The memory location to branch to.
+Return Value:
+    An error code showing the result of the operation.
+Pre-conditions:
+    The CPU needs to be initialized with a valid memory array.
+Post-conditions:
+The program counter is updated with the branch address.
+\end{DoxyVerb}
+ Here is the call graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{classuvsim_1_1cpu_1_1_c_p_u_a12c36455f5ac5f0debc576ac20837c82_cgraph}
+\end{center}
+\end{figure}
+Here is the caller graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{classuvsim_1_1cpu_1_1_c_p_u_a12c36455f5ac5f0debc576ac20837c82_icgraph}
+\end{center}
+\end{figure}
+\label{classuvsim_1_1cpu_1_1_c_p_u_ab3255a7b6c05b3303b2c663879b81ae9} 
+\index{uvsim.cpu.CPU@{uvsim.cpu.CPU}!branchneg@{branchneg}}
+\index{branchneg@{branchneg}!uvsim.cpu.CPU@{uvsim.cpu.CPU}}
+\doxysubsubsection{branchneg()}
+{\footnotesize\ttfamily uvsim.\+cpu.\+CPU.\+branchneg (\begin{DoxyParamCaption}\item[{}]{self,  }\item[{}]{data }\end{DoxyParamCaption})}
+
+\begin{DoxyVerb}Purpose:
+    Branches to a specified memory location if the accumulator is negative.
+Input Parameters:
+    data: The memory location to branch to if the accumulator is negative.
+Return Value:
+    An error code showing the result of the operation.
+Pre-conditions:
+    The CPU needs to be initialized with a valid memory array.
+Post-conditions:
+    The program counter may be updated based on the accumulator value.
+\end{DoxyVerb}
+ Here is the call graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{classuvsim_1_1cpu_1_1_c_p_u_ab3255a7b6c05b3303b2c663879b81ae9_cgraph}
+\end{center}
+\end{figure}
+Here is the caller graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{classuvsim_1_1cpu_1_1_c_p_u_ab3255a7b6c05b3303b2c663879b81ae9_icgraph}
+\end{center}
+\end{figure}
+\label{classuvsim_1_1cpu_1_1_c_p_u_abd455155c83025c73688b4dc7ad85c1e} 
+\index{uvsim.cpu.CPU@{uvsim.cpu.CPU}!branchzero@{branchzero}}
+\index{branchzero@{branchzero}!uvsim.cpu.CPU@{uvsim.cpu.CPU}}
+\doxysubsubsection{branchzero()}
+{\footnotesize\ttfamily uvsim.\+cpu.\+CPU.\+branchzero (\begin{DoxyParamCaption}\item[{}]{self,  }\item[{}]{data }\end{DoxyParamCaption})}
+
+\begin{DoxyVerb}Purpose:
+    Branches to a specified memory location if the accumulator is zero.
+Input Parameters:
+    data: The memory location to branch to if the accumulator is zero.
+Return Value:
+    An error code showing the result of the operation.
+Pre-conditions:
+    The CPU needs to be initialized with a valid memory array.
+Post-conditions:
+    The program counter may be updated based on the accumulator value.
+\end{DoxyVerb}
+ Here is the call graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{classuvsim_1_1cpu_1_1_c_p_u_abd455155c83025c73688b4dc7ad85c1e_cgraph}
+\end{center}
+\end{figure}
+Here is the caller graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{classuvsim_1_1cpu_1_1_c_p_u_abd455155c83025c73688b4dc7ad85c1e_icgraph}
+\end{center}
+\end{figure}
+\label{classuvsim_1_1cpu_1_1_c_p_u_a858e08c9e747f880edfdc9970634594f} 
+\index{uvsim.cpu.CPU@{uvsim.cpu.CPU}!divide@{divide}}
+\index{divide@{divide}!uvsim.cpu.CPU@{uvsim.cpu.CPU}}
+\doxysubsubsection{divide()}
+{\footnotesize\ttfamily uvsim.\+cpu.\+CPU.\+divide (\begin{DoxyParamCaption}\item[{}]{self,  }\item[{}]{data }\end{DoxyParamCaption})}
+
+\begin{DoxyVerb}Purpose:
+    Divides the accumulator by the value at a specified memory location.
+Input Parameters:
+    data: The memory location of the number that will be divided.
+Return Value:
+    An error code showing the result of the operation.
+Pre-conditions:
+    The CPU needs to be initialized with a valid memory array.
+    The divisor can't be zero.
+Post-conditions:
+    The accumulator is updated with the division result.
+\end{DoxyVerb}
+ Here is the call graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{classuvsim_1_1cpu_1_1_c_p_u_a858e08c9e747f880edfdc9970634594f_cgraph}
+\end{center}
+\end{figure}
+Here is the caller graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{classuvsim_1_1cpu_1_1_c_p_u_a858e08c9e747f880edfdc9970634594f_icgraph}
+\end{center}
+\end{figure}
+\label{classuvsim_1_1cpu_1_1_c_p_u_a14a2ae006d40da81156b8529e2b40358} 
+\index{uvsim.cpu.CPU@{uvsim.cpu.CPU}!halt@{halt}}
+\index{halt@{halt}!uvsim.cpu.CPU@{uvsim.cpu.CPU}}
+\doxysubsubsection{halt()}
+{\footnotesize\ttfamily uvsim.\+cpu.\+CPU.\+halt (\begin{DoxyParamCaption}\item[{}]{self,  }\item[{}]{data }\end{DoxyParamCaption})}
+
+\begin{DoxyVerb}Purpose:
+    Halts the CPU.
+Input Parameters:
+    data:
+Return Value:
+    An error code showing the result of the operation.
+Pre-conditions:
+    The CPU needs to be initialized with a valid memory array.
+Post-conditions:
+    The CPU is halted.
+\end{DoxyVerb}
+ Here is the call graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{classuvsim_1_1cpu_1_1_c_p_u_a14a2ae006d40da81156b8529e2b40358_cgraph}
+\end{center}
+\end{figure}
+Here is the caller graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{classuvsim_1_1cpu_1_1_c_p_u_a14a2ae006d40da81156b8529e2b40358_icgraph}
+\end{center}
+\end{figure}
+\label{classuvsim_1_1cpu_1_1_c_p_u_a1f529790187cf765ea95a77cae7fef92} 
+\index{uvsim.cpu.CPU@{uvsim.cpu.CPU}!load@{load}}
+\index{load@{load}!uvsim.cpu.CPU@{uvsim.cpu.CPU}}
+\doxysubsubsection{load()}
+{\footnotesize\ttfamily uvsim.\+cpu.\+CPU.\+load (\begin{DoxyParamCaption}\item[{}]{self,  }\item[{}]{data }\end{DoxyParamCaption})}
+
+\begin{DoxyVerb}Purpose:
+    Loads a word from memory into the accumulator.
+Input Parameters:
+    data: The memory location of the word that will be loaded.
+Return Value:
+    An error code showing the result of the operation.
+Pre-conditions:
+    The CPU needs to be initialized with a valid memory array.
+Post-conditions:
+    The accumulator is updated with the loaded word.
+\end{DoxyVerb}
+ Here is the call graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{classuvsim_1_1cpu_1_1_c_p_u_a1f529790187cf765ea95a77cae7fef92_cgraph}
+\end{center}
+\end{figure}
+Here is the caller graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{classuvsim_1_1cpu_1_1_c_p_u_a1f529790187cf765ea95a77cae7fef92_icgraph}
+\end{center}
+\end{figure}
+\label{classuvsim_1_1cpu_1_1_c_p_u_ad8a6a14895339c5ae507ea8f57a35990} 
+\index{uvsim.cpu.CPU@{uvsim.cpu.CPU}!multiply@{multiply}}
+\index{multiply@{multiply}!uvsim.cpu.CPU@{uvsim.cpu.CPU}}
+\doxysubsubsection{multiply()}
+{\footnotesize\ttfamily uvsim.\+cpu.\+CPU.\+multiply (\begin{DoxyParamCaption}\item[{}]{self,  }\item[{}]{data }\end{DoxyParamCaption})}
+
+\begin{DoxyVerb}Purpose:
+    Multiplies the accumulator by the value at a specified memory location.
+Input Parameters:
+    data: The memory location of the number that will multiply.
+Return Value:
+    An error code showing the result of the operation.
+Pre-conditions:
+    The CPU needs to be initialized with a valid memory array.
+Post-conditions:
+    The accumulator is updated with the multiplication result.
+\end{DoxyVerb}
+ Here is the call graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{classuvsim_1_1cpu_1_1_c_p_u_ad8a6a14895339c5ae507ea8f57a35990_cgraph}
+\end{center}
+\end{figure}
+Here is the caller graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{classuvsim_1_1cpu_1_1_c_p_u_ad8a6a14895339c5ae507ea8f57a35990_icgraph}
+\end{center}
+\end{figure}
+\label{classuvsim_1_1cpu_1_1_c_p_u_ab39d3290b7b8e2cbc28cf54cedbd8c4d} 
+\index{uvsim.cpu.CPU@{uvsim.cpu.CPU}!read@{read}}
+\index{read@{read}!uvsim.cpu.CPU@{uvsim.cpu.CPU}}
+\doxysubsubsection{read()}
+{\footnotesize\ttfamily uvsim.\+cpu.\+CPU.\+read (\begin{DoxyParamCaption}\item[{}]{self,  }\item[{}]{data,  }\item[{}]{user\+\_\+input = {\ttfamily False} }\end{DoxyParamCaption})}
+
+\begin{DoxyVerb}Purpose:
+    Reads input from the user and stores it in memory.
+Input Parameters:
+    data: The memory location where the input will be stored.
+    user_input: User-provided input.
+Return Value:
+    An error code showing the result of the operation.
+Pre-conditions:
+    The CPU needs to be initialized with a valid memory array.
+Post-conditions:
+    The memory location is updated with the user input.
+\end{DoxyVerb}
+ 
+
+Reimplemented in \textbf{ uvsim.\+gui.\+App} \doxyref{}{p.}{classuvsim_1_1gui_1_1_app_a2f9093645ec3119c588cbc3e56f47a9f}.
+
+Here is the call graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{classuvsim_1_1cpu_1_1_c_p_u_ab39d3290b7b8e2cbc28cf54cedbd8c4d_cgraph}
+\end{center}
+\end{figure}
+Here is the caller graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{classuvsim_1_1cpu_1_1_c_p_u_ab39d3290b7b8e2cbc28cf54cedbd8c4d_icgraph}
+\end{center}
+\end{figure}
+\label{classuvsim_1_1cpu_1_1_c_p_u_a2e3e466b390c726764f2340e3e8d2109} 
+\index{uvsim.cpu.CPU@{uvsim.cpu.CPU}!reset@{reset}}
+\index{reset@{reset}!uvsim.cpu.CPU@{uvsim.cpu.CPU}}
+\doxysubsubsection{reset()}
+{\footnotesize\ttfamily uvsim.\+cpu.\+CPU.\+reset (\begin{DoxyParamCaption}\item[{}]{self }\end{DoxyParamCaption})}
+
+\begin{DoxyVerb}Purpose:
+    Resets the CPU to its initial state.
+Input Parameters:
+    None.
+Return Value:
+    None.
+Pre-conditions:
+    None.
+Post-conditions:
+    The CPU is reset to its initial state.
+\end{DoxyVerb}
+ Here is the call graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{classuvsim_1_1cpu_1_1_c_p_u_a2e3e466b390c726764f2340e3e8d2109_cgraph}
+\end{center}
+\end{figure}
+Here is the caller graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{classuvsim_1_1cpu_1_1_c_p_u_a2e3e466b390c726764f2340e3e8d2109_icgraph}
+\end{center}
+\end{figure}
+\label{classuvsim_1_1cpu_1_1_c_p_u_aef47baead410281199b026fb4c7f9392} 
+\index{uvsim.cpu.CPU@{uvsim.cpu.CPU}!resume@{resume}}
+\index{resume@{resume}!uvsim.cpu.CPU@{uvsim.cpu.CPU}}
+\doxysubsubsection{resume()}
+{\footnotesize\ttfamily uvsim.\+cpu.\+CPU.\+resume (\begin{DoxyParamCaption}\item[{}]{self }\end{DoxyParamCaption})}
+
+\begin{DoxyVerb}Purpose:
+    Resumes execution of the CPU until it is halted.
+Input Parameters:
+    None.
+Return Value:
+    None.
+Pre-conditions:
+    The CPU needs to be initialized with a valid memory array.
+Post-conditions:
+    The CPU may be halted, and the state of the memory may be modified.
+\end{DoxyVerb}
+ Here is the call graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{classuvsim_1_1cpu_1_1_c_p_u_aef47baead410281199b026fb4c7f9392_cgraph}
+\end{center}
+\end{figure}
+\label{classuvsim_1_1cpu_1_1_c_p_u_a448746a9204d62d5012c391a7e9348a5} 
+\index{uvsim.cpu.CPU@{uvsim.cpu.CPU}!run\_one\_instruction@{run\_one\_instruction}}
+\index{run\_one\_instruction@{run\_one\_instruction}!uvsim.cpu.CPU@{uvsim.cpu.CPU}}
+\doxysubsubsection{run\_one\_instruction()}
+{\footnotesize\ttfamily uvsim.\+cpu.\+CPU.\+run\+\_\+one\+\_\+instruction (\begin{DoxyParamCaption}\item[{}]{self }\end{DoxyParamCaption})}
+
+\begin{DoxyVerb}Purpose:
+    Does a single instruction.
+Input Parameters:
+    None.
+Return Value:
+    An error code saying the result of the instruction that was executed.
+Pre-conditions:
+    The CPU needs to be initialized with a valid memory array.
+Post-conditions:
+    The state of the memory and CPU registers may be modified.
+\end{DoxyVerb}
+ Here is the call graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{classuvsim_1_1cpu_1_1_c_p_u_a448746a9204d62d5012c391a7e9348a5_cgraph}
+\end{center}
+\end{figure}
+Here is the caller graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{classuvsim_1_1cpu_1_1_c_p_u_a448746a9204d62d5012c391a7e9348a5_icgraph}
+\end{center}
+\end{figure}
+\label{classuvsim_1_1cpu_1_1_c_p_u_a1012934227c935a64575952691b86055} 
+\index{uvsim.cpu.CPU@{uvsim.cpu.CPU}!run\_until\_halt@{run\_until\_halt}}
+\index{run\_until\_halt@{run\_until\_halt}!uvsim.cpu.CPU@{uvsim.cpu.CPU}}
+\doxysubsubsection{run\_until\_halt()}
+{\footnotesize\ttfamily uvsim.\+cpu.\+CPU.\+run\+\_\+until\+\_\+halt (\begin{DoxyParamCaption}\item[{}]{self }\end{DoxyParamCaption})}
+
+\begin{DoxyVerb}Purpose:
+    Does instructions in a loop until the CPU is halted.
+Input Parameters:
+    None.
+Return Value:
+    An error code with the reason for halting.
+Pre-conditions:
+    The CPU needs to be initialized with a valid memory array.
+Post-conditions:
+    The CPU could be halted, and the state of the memory may be modified.
+\end{DoxyVerb}
+ 
+
+Reimplemented in \textbf{ uvsim.\+gui.\+App} \doxyref{}{p.}{classuvsim_1_1gui_1_1_app_a1590a1139e0d47b080b77194733aaa50}.
+
+Here is the call graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{classuvsim_1_1cpu_1_1_c_p_u_a1012934227c935a64575952691b86055_cgraph}
+\end{center}
+\end{figure}
+Here is the caller graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{classuvsim_1_1cpu_1_1_c_p_u_a1012934227c935a64575952691b86055_icgraph}
+\end{center}
+\end{figure}
+\label{classuvsim_1_1cpu_1_1_c_p_u_a6355d8a94b9b500b3e33e2ef3b339ee2} 
+\index{uvsim.cpu.CPU@{uvsim.cpu.CPU}!store@{store}}
+\index{store@{store}!uvsim.cpu.CPU@{uvsim.cpu.CPU}}
+\doxysubsubsection{store()}
+{\footnotesize\ttfamily uvsim.\+cpu.\+CPU.\+store (\begin{DoxyParamCaption}\item[{}]{self,  }\item[{}]{data }\end{DoxyParamCaption})}
+
+\begin{DoxyVerb}Purpose:
+    Stores the value of the accumulator into a memory location.
+Input Parameters:
+    data: The memory location where the accumulator value will be stored.
+Return Value:
+    An error code showing the result of the operation.
+Pre-conditions:
+    The CPU needs to be initialized with a valid memory array.
+Post-conditions:
+    The specified memory location is updated with the accumulator value.
+\end{DoxyVerb}
+ Here is the call graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{classuvsim_1_1cpu_1_1_c_p_u_a6355d8a94b9b500b3e33e2ef3b339ee2_cgraph}
+\end{center}
+\end{figure}
+Here is the caller graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{classuvsim_1_1cpu_1_1_c_p_u_a6355d8a94b9b500b3e33e2ef3b339ee2_icgraph}
+\end{center}
+\end{figure}
+\label{classuvsim_1_1cpu_1_1_c_p_u_aa8e6340c1c162a50d98187624a891668} 
+\index{uvsim.cpu.CPU@{uvsim.cpu.CPU}!subtract@{subtract}}
+\index{subtract@{subtract}!uvsim.cpu.CPU@{uvsim.cpu.CPU}}
+\doxysubsubsection{subtract()}
+{\footnotesize\ttfamily uvsim.\+cpu.\+CPU.\+subtract (\begin{DoxyParamCaption}\item[{}]{self,  }\item[{}]{data }\end{DoxyParamCaption})}
+
+\begin{DoxyVerb}Purpose:
+    Subtracts the value at a specified memory location from the accumulator.
+Input Parameters:
+    data: The memory location of the value that will be subtracted.
+Return Value:
+    An error code showing the result of the operation.
+Pre-conditions:
+    The CPU needs to be initialized with a valid memory array.
+Post-conditions:
+    The accumulator is updated with the subtraction result.
+\end{DoxyVerb}
+ Here is the call graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{classuvsim_1_1cpu_1_1_c_p_u_aa8e6340c1c162a50d98187624a891668_cgraph}
+\end{center}
+\end{figure}
+Here is the caller graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{classuvsim_1_1cpu_1_1_c_p_u_aa8e6340c1c162a50d98187624a891668_icgraph}
+\end{center}
+\end{figure}
+\label{classuvsim_1_1cpu_1_1_c_p_u_a60ae3173d00e79c1fe744ee984456fed} 
+\index{uvsim.cpu.CPU@{uvsim.cpu.CPU}!write@{write}}
+\index{write@{write}!uvsim.cpu.CPU@{uvsim.cpu.CPU}}
+\doxysubsubsection{write()}
+{\footnotesize\ttfamily uvsim.\+cpu.\+CPU.\+write (\begin{DoxyParamCaption}\item[{}]{self,  }\item[{}]{data }\end{DoxyParamCaption})}
+
+\begin{DoxyVerb}Purpose:
+    Writes a word from memory to the console.
+Input Parameters:
+    data: The memory location of the word that will be written.
+Return Value:
+    An error code showing the result of the operation.
+Pre-conditions:
+    The CPU needs to be initialized with a valid memory array.
+Post-conditions:
+    The word is printed to the console.
+\end{DoxyVerb}
+ 
+
+Reimplemented in \textbf{ uvsim.\+gui.\+App} \doxyref{}{p.}{classuvsim_1_1gui_1_1_app_a370e0e0fcd22fb62d4f2ff4019e74961}.
+
+Here is the call graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{classuvsim_1_1cpu_1_1_c_p_u_a60ae3173d00e79c1fe744ee984456fed_cgraph}
+\end{center}
+\end{figure}
+Here is the caller graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{classuvsim_1_1cpu_1_1_c_p_u_a60ae3173d00e79c1fe744ee984456fed_icgraph}
+\end{center}
+\end{figure}
+
+
+\doxysubsection{Member Data Documentation}
+\label{classuvsim_1_1cpu_1_1_c_p_u_aa8dd970f786caf87874ceebdff24e218} 
+\index{uvsim.cpu.CPU@{uvsim.cpu.CPU}!accumulator@{accumulator}}
+\index{accumulator@{accumulator}!uvsim.cpu.CPU@{uvsim.cpu.CPU}}
+\doxysubsubsection{accumulator}
+{\footnotesize\ttfamily uvsim.\+cpu.\+CPU.\+accumulator}
+
+
+
+Reimplemented in \textbf{ uvsim.\+gui.\+App} \doxyref{}{p.}{classuvsim_1_1gui_1_1_app_af0fac31372fa97972cf2092358ed3924}.
+
+\label{classuvsim_1_1cpu_1_1_c_p_u_a0d0626fabf2ad4af23789bc49db11d57} 
+\index{uvsim.cpu.CPU@{uvsim.cpu.CPU}!halted@{halted}}
+\index{halted@{halted}!uvsim.cpu.CPU@{uvsim.cpu.CPU}}
+\doxysubsubsection{halted}
+{\footnotesize\ttfamily uvsim.\+cpu.\+CPU.\+halted}
+
+
+
+Reimplemented in \textbf{ uvsim.\+gui.\+App} \doxyref{}{p.}{classuvsim_1_1gui_1_1_app_a5714c1d8ed0c17f98a0ecc54406455b5}.
+
+\label{classuvsim_1_1cpu_1_1_c_p_u_af0bec189ab618aba3885aabc27c1480e} 
+\index{uvsim.cpu.CPU@{uvsim.cpu.CPU}!program\_counter@{program\_counter}}
+\index{program\_counter@{program\_counter}!uvsim.cpu.CPU@{uvsim.cpu.CPU}}
+\doxysubsubsection{program\_counter}
+{\footnotesize\ttfamily uvsim.\+cpu.\+CPU.\+program\+\_\+counter}
+
+
+
+Reimplemented in \textbf{ uvsim.\+gui.\+App} \doxyref{}{p.}{classuvsim_1_1gui_1_1_app_aed1a86502733fccd2cc02a3d2ae0b1bd}.
+
+
+
+The documentation for this class was generated from the following file\+:\begin{DoxyCompactItemize}
+\item 
+C\+:/code\+\_\+projects/school/\+CS2450/\+Final\+Project/uvsim/cpu.\+py\end{DoxyCompactItemize}

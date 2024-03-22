@@ -1,0 +1,205 @@
+\doxysection{uvsim.\+gui\+\_\+memory.\+Memory Class Reference}
+\label{classuvsim_1_1gui__memory_1_1_memory}\index{uvsim.gui\_memory.Memory@{uvsim.gui\_memory.Memory}}
+
+
+Inheritance diagram for uvsim.\+gui\+\_\+memory.\+Memory\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=216pt]{classuvsim_1_1gui__memory_1_1_memory__inherit__graph}
+\end{center}
+\end{figure}
+
+
+Collaboration diagram for uvsim.\+gui\+\_\+memory.\+Memory\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=216pt]{classuvsim_1_1gui__memory_1_1_memory__coll__graph}
+\end{center}
+\end{figure}
+\doxysubsubsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+None \textbf{ \+\_\+\+\_\+init\+\_\+\+\_\+} (self, list[int] memory, tk.\+Misc$\vert$None master, vcmd)
+\item 
+\textbf{ \+\_\+\+\_\+getitem\+\_\+\+\_\+} (self, key)
+\item 
+None \textbf{ \+\_\+\+\_\+setitem\+\_\+\+\_\+} (self, str key, value)
+\item 
+\textbf{ program\+\_\+counter} (self)
+\item 
+\label{classuvsim_1_1gui__memory_1_1_memory_ab502b4ea4d364fd9547ef2cdc1aa56da} 
+{\bfseries program\+\_\+counter} (self, value)
+\item 
+\textbf{ halted} (self)
+\item 
+\label{classuvsim_1_1gui__memory_1_1_memory_a45bb046a206b8055903f42ece39c2bd1} 
+{\bfseries halted} (self, value)
+\end{DoxyCompactItemize}
+\doxysubsubsection*{Public Attributes}
+\begin{DoxyCompactItemize}
+\item 
+\label{classuvsim_1_1gui__memory_1_1_memory_a25938399b302fb9d41b13ee5cfd9d19f} 
+{\bfseries label}
+\item 
+\label{classuvsim_1_1gui__memory_1_1_memory_aad26f8e0ccc5346348ca706dc5dcebe7} 
+{\bfseries memory\+\_\+vars}
+\item 
+\label{classuvsim_1_1gui__memory_1_1_memory_a1d785372c41498927ac90a39a40e1165} 
+{\bfseries memory\+\_\+frames}
+\item 
+\label{classuvsim_1_1gui__memory_1_1_memory_ae641aa4e24c2dc96062cb060f18d2997} 
+{\bfseries vertical\+\_\+labels}
+\item 
+\label{classuvsim_1_1gui__memory_1_1_memory_a96a1095c073f41060c22d683ec8fd495} 
+{\bfseries horizontal\+\_\+labels}
+\item 
+\label{classuvsim_1_1gui__memory_1_1_memory_af64034fa71390df3a4c8a6b29f273838} 
+{\bfseries defaultbg}
+\item 
+\label{classuvsim_1_1gui__memory_1_1_memory_a263f1b8e1d2f54ebaca59904a925d18f} 
+{\bfseries program\+\_\+counter}
+\item 
+\label{classuvsim_1_1gui__memory_1_1_memory_a391d3a20171ec5ac45b64ca13c753838} 
+{\bfseries halted}
+\end{DoxyCompactItemize}
+\doxysubsubsection*{Protected Attributes}
+\begin{DoxyCompactItemize}
+\item 
+\label{classuvsim_1_1gui__memory_1_1_memory_ad8fe5d52ad4ead3900b8139128f94927} 
+{\bfseries \+\_\+program\+\_\+counter}
+\item 
+\label{classuvsim_1_1gui__memory_1_1_memory_afb6b35dcca235faef33e3404b40d5efb} 
+{\bfseries \+\_\+halted}
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+\begin{DoxyVerb}The Memory class represents the memory of the UVSim CPU in a GUI.
+It inherits from the tk.Frame class.
+It gives a visual representation of the memory by crating a grid of memory cells.
+\end{DoxyVerb}
+ 
+
+\doxysubsection{Constructor \& Destructor Documentation}
+\label{classuvsim_1_1gui__memory_1_1_memory_a1d6629771bece7870a4bc86e808029ad} 
+\index{uvsim.gui\_memory.Memory@{uvsim.gui\_memory.Memory}!\_\_init\_\_@{\_\_init\_\_}}
+\index{\_\_init\_\_@{\_\_init\_\_}!uvsim.gui\_memory.Memory@{uvsim.gui\_memory.Memory}}
+\doxysubsubsection{\_\_init\_\_()}
+{\footnotesize\ttfamily  None uvsim.\+gui\+\_\+memory.\+Memory.\+\_\+\+\_\+init\+\_\+\+\_\+ (\begin{DoxyParamCaption}\item[{}]{self,  }\item[{list[int]}]{memory,  }\item[{tk.\+Misc $\vert$ None}]{master,  }\item[{}]{vcmd }\end{DoxyParamCaption})}
+
+\begin{DoxyVerb}Purpose:
+    Initializes the Memory class with the provided memory array and sets up the GUI elements to represent the memory.
+Input Parameters:
+    memory: An array representing the memory content.
+    master: The master widget of the memory frame.
+    vcmd: The validation command for memory entries.
+Return Value:
+    None.
+\end{DoxyVerb}
+ Here is the call graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{classuvsim_1_1gui__memory_1_1_memory_a1d6629771bece7870a4bc86e808029ad_cgraph}
+\end{center}
+\end{figure}
+Here is the caller graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=219pt]{classuvsim_1_1gui__memory_1_1_memory_a1d6629771bece7870a4bc86e808029ad_icgraph}
+\end{center}
+\end{figure}
+
+
+\doxysubsection{Member Function Documentation}
+\label{classuvsim_1_1gui__memory_1_1_memory_aaa243841574236c7cab6092086a6ac91} 
+\index{uvsim.gui\_memory.Memory@{uvsim.gui\_memory.Memory}!\_\_getitem\_\_@{\_\_getitem\_\_}}
+\index{\_\_getitem\_\_@{\_\_getitem\_\_}!uvsim.gui\_memory.Memory@{uvsim.gui\_memory.Memory}}
+\doxysubsubsection{\_\_getitem\_\_()}
+{\footnotesize\ttfamily uvsim.\+gui\+\_\+memory.\+Memory.\+\_\+\+\_\+getitem\+\_\+\+\_\+ (\begin{DoxyParamCaption}\item[{}]{self,  }\item[{}]{key }\end{DoxyParamCaption})}
+
+\begin{DoxyVerb}Purpose:
+    Allows accessing the memory content.
+Input Parameters:
+    key: Index or slice to access the memory content.
+Return Value:
+    The value at the index or slice.
+\end{DoxyVerb}
+ \label{classuvsim_1_1gui__memory_1_1_memory_a17f844c15b23594e49623e4529894d30} 
+\index{uvsim.gui\_memory.Memory@{uvsim.gui\_memory.Memory}!\_\_setitem\_\_@{\_\_setitem\_\_}}
+\index{\_\_setitem\_\_@{\_\_setitem\_\_}!uvsim.gui\_memory.Memory@{uvsim.gui\_memory.Memory}}
+\doxysubsubsection{\_\_setitem\_\_()}
+{\footnotesize\ttfamily  None uvsim.\+gui\+\_\+memory.\+Memory.\+\_\+\+\_\+setitem\+\_\+\+\_\+ (\begin{DoxyParamCaption}\item[{}]{self,  }\item[{str}]{key,  }\item[{}]{value }\end{DoxyParamCaption})}
+
+\begin{DoxyVerb}Purpose:
+    Allows setting the memory content.
+Input Parameters:
+    key: Index or slice to set the memory content.
+    value: The value that will be set.
+Return Value:
+    None.
+\end{DoxyVerb}
+ \label{classuvsim_1_1gui__memory_1_1_memory_a9b5b674d894e91cb16b5a0e96819c7be} 
+\index{uvsim.gui\_memory.Memory@{uvsim.gui\_memory.Memory}!halted@{halted}}
+\index{halted@{halted}!uvsim.gui\_memory.Memory@{uvsim.gui\_memory.Memory}}
+\doxysubsubsection{halted()}
+{\footnotesize\ttfamily uvsim.\+gui\+\_\+memory.\+Memory.\+halted (\begin{DoxyParamCaption}\item[{}]{self }\end{DoxyParamCaption})}
+
+\begin{DoxyVerb}Purpose:
+    Getter and setter for the halted property.
+    It updates the GUI to highlight the current program counter cell with a different color if the CPU is halted.
+Input Parameters:
+    None.
+Return Value:
+    True if the CPU is halted, False otherwise.
+\end{DoxyVerb}
+ Here is the call graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{classuvsim_1_1gui__memory_1_1_memory_a9b5b674d894e91cb16b5a0e96819c7be_cgraph}
+\end{center}
+\end{figure}
+Here is the caller graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{classuvsim_1_1gui__memory_1_1_memory_a9b5b674d894e91cb16b5a0e96819c7be_icgraph}
+\end{center}
+\end{figure}
+\label{classuvsim_1_1gui__memory_1_1_memory_ae1d3a912900644abdad05cec94cafcad} 
+\index{uvsim.gui\_memory.Memory@{uvsim.gui\_memory.Memory}!program\_counter@{program\_counter}}
+\index{program\_counter@{program\_counter}!uvsim.gui\_memory.Memory@{uvsim.gui\_memory.Memory}}
+\doxysubsubsection{program\_counter()}
+{\footnotesize\ttfamily uvsim.\+gui\+\_\+memory.\+Memory.\+program\+\_\+counter (\begin{DoxyParamCaption}\item[{}]{self }\end{DoxyParamCaption})}
+
+\begin{DoxyVerb}Purpose:
+    Getter and setter for the program counter property.
+    It updates the GUI to highlight the current program counter cell.
+Input Parameters:
+    None.
+Return Value:
+    The current value of the program counter.
+\end{DoxyVerb}
+ Here is the caller graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{classuvsim_1_1gui__memory_1_1_memory_ae1d3a912900644abdad05cec94cafcad_icgraph}
+\end{center}
+\end{figure}
+
+
+The documentation for this class was generated from the following file\+:\begin{DoxyCompactItemize}
+\item 
+C\+:/code\+\_\+projects/school/\+CS2450/\+Final\+Project/uvsim/gui\+\_\+memory.\+py\end{DoxyCompactItemize}
