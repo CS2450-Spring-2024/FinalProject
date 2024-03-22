@@ -65,3 +65,7 @@ For example programs, see the example_programs directory in the root of the repo
 # Testing
 
 To run the project tests, run `pytest` in the command line in the root directory of the project.
+
+# Documentation
+
+Documentation is located [here](docs/Generated/documentation.pdf)
