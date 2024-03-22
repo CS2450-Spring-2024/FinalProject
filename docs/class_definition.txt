@@ -1,11 +1,11 @@
 CPU Class
 Purpose of the Class
-The CPU class represents a Central Processing Unit that does instructions stored in memory. 
+The CPU class represents a Central Processing Unit that does instructions stored in memory.
 It interacts with memory and does various operations based on the opcode of the current instruction.
 
-Class Attributes: 
-    self.accumulator : An integer that stored the data we are working with. 
-    self.program_counter : An Integer that counts the steps in the program 
+Class Attributes:
+    self.accumulator : An integer that stored the data we are working with.
+    self.program_counter : An Integer that counts the steps in the program
     self.memory : An array that represents the memory of the CPU
     self.halted : A boolean value that represents the state of the program
 
@@ -235,9 +235,9 @@ Functions:
 
 Memory Class
 Purpose of the Class
-The Memory class represents the memory of the UVSim CPU in a GUI. 
-It inherits from the tk.Frame class.  
-It gives a visual representation of the memory by crating a grid of memory cells. 
+The Memory class represents the memory of the UVSim CPU in a GUI.
+It inherits from the tk.Frame class.
+It gives a visual representation of the memory by crating a grid of memory cells.
 
 Functions:
 1. __init__(self, memory: list[int], master: tk.Misc | None, vcmd) -> None
@@ -269,7 +269,7 @@ Functions:
 
 4. property program_counter
     Purpose:
-        Getter and setter for the program counter property. 
+        Getter and setter for the program counter property.
         It updates the GUI to highlight the current program counter cell.
     Input Parameters:
         None.
@@ -278,7 +278,7 @@ Functions:
 
 5. property halted
     Purpose:
-        Getter and setter for the halted property. 
+        Getter and setter for the halted property.
         It updates the GUI to highlight the current program counter cell with a different color if the CPU is halted.
     Input Parameters:
         None.
@@ -291,7 +291,7 @@ Functions:
 
 Tutorial class
 Purpose of the Class
-The Tutorial class will display a tutorial for the UVSim application using images. 
+The Tutorial class will display a tutorial for the UVSim application using images.
 It creates a simple Tkinter GUI with buttons to navigate through the tutorial images.
 
 Functions:
@@ -532,5 +532,3 @@ Parsing and Program Handling Functions
         program: The program that will be validated.
     Return Value:
         The validated program, with proper termination and length.
-
-

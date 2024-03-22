@@ -7,7 +7,23 @@ COLS = MEM_SIZE // ROW_WIDTH
 
 
 class Memory(tk.Frame):
+    """
+    The Memory class represents the memory of the UVSim CPU in a GUI.
+    It inherits from the tk.Frame class.
+    It gives a visual representation of the memory by crating a grid of memory cells.
+    """
+
     def __init__(self, memory: list[int], master: tk.Misc | None, vcmd) -> None:
+        """
+        Purpose:
+            Initializes the Memory class with the provided memory array and sets up the GUI elements to represent the memory.
+        Input Parameters:
+            memory: An array representing the memory content.
+            master: The master widget of the memory frame.
+            vcmd: The validation command for memory entries.
+        Return Value:
+            None.
+        """
         super().__init__(master)
         self.label = tk.Label(master=self, text="Memory")
         self.label.grid(row=0, column=0)
@@ -64,12 +80,29 @@ class Memory(tk.Frame):
         self.halted = True
 
     def __getitem__(self, key):
+        """
+        Purpose:
+            Allows accessing the memory content.
+        Input Parameters:
+            key: Index or slice to access the memory content.
+        Return Value:
+            The value at the index or slice.
+        """
         if type(key) is int:
             return self.memory_vars[key].get()
         else:
             return self.memory_vars[int(key)].get()
 
     def __setitem__(self, key: str, value) -> None:
+        """
+        Purpose:
+            Allows setting the memory content.
+        Input Parameters:
+            key: Index or slice to set the memory content.
+            value: The value that will be set.
+        Return Value:
+            None.
+        """
         if type(key) is int:
             return self.memory_vars[key].set(value)
         else:
@@ -77,6 +110,15 @@ class Memory(tk.Frame):
 
     @property
     def program_counter(self):
+        """
+        Purpose:
+            Getter and setter for the program counter property.
+            It updates the GUI to highlight the current program counter cell.
+        Input Parameters:
+            None.
+        Return Value:
+            The current value of the program counter.
+        """
         return self._program_counter
 
     @program_counter.setter
@@ -89,6 +131,15 @@ class Memory(tk.Frame):
 
     @property
     def halted(self):
+        """
+        Purpose:
+            Getter and setter for the halted property.
+            It updates the GUI to highlight the current program counter cell with a different color if the CPU is halted.
+        Input Parameters:
+            None.
+        Return Value:
+            True if the CPU is halted, False otherwise.
+        """
         return self._halted
 
     @halted.setter

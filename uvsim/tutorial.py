@@ -6,7 +6,19 @@ from uvsim.constants import FONT
 
 
 class Tutorial:
+    """
+    The Tutorial class will display a tutorial for the UVSim application using images.
+    It creates a simple Tkinter GUI with buttons to navigate through the tutorial images.
+    """
     def __init__(self, master: tk.Tk) -> None:
+        """
+        Purpose:
+            Initializes the Tutorial class with the provided master widget and sets up the GUI elements for displaying tutorial images.
+        Input Parameters:
+            master: The master widget of the Tutorial frame.
+        Return Value:
+            None.
+        """
         width = 13
         self.master = master
 
@@ -54,12 +66,28 @@ class Tutorial:
         self.master_frame.pack(fill="both", expand=True)
 
     def get_next(self):
+        """
+        Purpose:
+            Updates the displayed image to the next image in the tutorial when the "Next" button is clicked.
+        Input Parameters:
+            None.
+        Return Value:
+            None.
+        """
         try:
             self.current_image.config(image=next(self.image_iter))
         except StopIteration:
             self.master.destroy()
 
     def open_images(self) -> list[str]:
+        """
+        Purpose:
+            Opens tutorial images from a specified directory and converts them into Tkinter PhotoImage objects.
+        Input Parameters:
+            None.
+        Return Value:
+            A list of Tkinter PhotoImage objects representing the tutorial images.
+        """
         lyst = [
             ImageTk.PhotoImage(
                 Image.open(os.path.join(r"uvsim\tutorial_images", filepath))

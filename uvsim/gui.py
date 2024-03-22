@@ -17,6 +17,14 @@ is_numeric = lambda text: numeric_regex.fullmatch(text) is not None
 exit_program = lambda: exit() if messagebox.askyesno(title="Exit Application?", message="Do you really want to exit?") else None
 
 def onValidateData(proposed_new_text):
+    """
+    Purpose:
+        Validates user input for the accumulator entry to ensure it is a numeric value.
+    Input Parameters:
+        proposed_new_text: The text proposed by the user.
+    Return Value:
+        True if the input is valid, False otherwise.
+    """
     if proposed_new_text in ['', '-', '+']:
         return True
 
@@ -26,6 +34,14 @@ def onValidateData(proposed_new_text):
     return False
 
 def onValidateAddress(proposed_new_text):
+    """
+    Purpose:
+        Validates user input for the program counter and address entry to ensure it is a numeric value within a valid range.
+    Input Parameters:
+        proposed_new_text: The text proposed by the user.
+    Return Value:
+        True if the input is valid, False otherwise.
+    """
     if proposed_new_text in ['', '-', '+']:
         return True
 
@@ -38,7 +54,23 @@ def onValidateAddress(proposed_new_text):
     return False
 
 class App(CPU, tk.Tk):
+    """
+    The App class represents the main application that integrates the
+    UVSim simulator with a graphical user interface (GUI).
+    It extends both the CPU class and the tk.Tk class to manage the
+    CPU state and the GUI.
+    """
+
     def __init__(self, memory: list[int], screenName: str | None = None, baseName: str | None = None, className: str = "Tk", useTk: bool = True, sync: bool = False, use: str | None = None) -> None:
+        """
+        Purpose:
+            Initializes the UVSim application with the specified memory and sets up the GUI.
+        Input Parameters:
+            memory: An array representing the memory of the CPU.
+            screenName, baseName, className, useTk, sync, use: Parameters passed to the tk.Tk constructor.
+        Return Value:
+            None.
+        """
         tk.Tk.__init__(self, screenName, baseName, className, useTk, sync, use)
 
         ico = Image.open('uvsim/resources/cpu_green.png')
@@ -143,6 +175,14 @@ class App(CPU, tk.Tk):
         self.mainloop()
 
     def open(self):
+        """
+        Purpose:
+            Opens a file dialog to allow the user to select a file and loads its content into the CPU memory.
+        Input Parameters:
+            None.
+        Return Value:
+            None.
+        """
         file_path = filedialog.askopenfilename(title="Open", filetypes=FILETYPES, initialdir=WORKING_DIR)
 
         # Check if a file was selected
@@ -164,6 +204,14 @@ class App(CPU, tk.Tk):
                 self.title(f"UVSim | {file_path}")
 
     def save(self):
+        """
+        Purpose:
+            Saves the current memory content to the previously opened or saved file path.
+        Input Parameters:
+            None.
+        Return Value:
+            None.
+        """
         if self.open_file_path:
             mem = [self.memory[i] for i in range(MEM_SIZE)]
             try:
@@ -176,6 +224,14 @@ class App(CPU, tk.Tk):
             self.save_as()
 
     def save_as(self): # Kevin
+        """
+        Purpose:
+            Opens a file dialog to allow the user to save the current memory content to a new file.
+        Input Parameters:
+            None.
+        Return Value:
+            None.
+        """
         file = filedialog.asksaveasfile(title="Save As", filetypes=FILETYPES, initialdir=WORKING_DIR, defaultextension='.txt')
 
         if file:
@@ -189,6 +245,14 @@ class App(CPU, tk.Tk):
                 self.title(f"UVSim | {self.open_file_path}")
 
     def step(self):
+        """
+        Purpose:
+            Executes a single instruction and displays an error message if applicable.
+        Input Parameters:
+            None.
+        Return Value:
+            The result of the instruction execution.
+        """
         result = self.run_one_instruction()
         if result != OK:
             text = self.error_code_to_text(result, self.program_counter)
@@ -196,6 +260,14 @@ class App(CPU, tk.Tk):
         return result
 
     def run_to_address(self):
+        """
+        Purpose:
+            Executes instructions until the program counter reaches the specified address and displays an error message if applicable.
+        Input Parameters:
+            None.
+        Return Value:
+            None.
+        """
         self.halted = False
         address = self._address_run_to.get()
         result = self.step()
@@ -206,6 +278,14 @@ class App(CPU, tk.Tk):
         self.halted = True
 
     def run_until_halt(self):
+        """
+        Purpose:
+            Executes instructions until the CPU is halted and displays an error message if applicable.
+        Input Parameters:
+            None.
+        Return Value:
+            None.
+        """
         self.halted = False
         result = self.step()
 
@@ -215,6 +295,15 @@ class App(CPU, tk.Tk):
         self.halted = True
 
     def read(self, data, user_input=False):  # Tanner
+        """
+        Purpose:
+            Reads input from the user using a dialog box and stores it in memory.
+        Input Parameters:
+            data: The memory location where the input will be stored.
+            user_input: User-provided input. If not provided, input is obtained through a popup.
+        Return Value:
+            An error code indicating the result of the operation.
+        """
         if not user_input: # if user_input is not set, get input from cli.
             user_input = simpledialog.askstring("Read", "Enter a word: ")
 
@@ -230,6 +319,14 @@ class App(CPU, tk.Tk):
         return OK
 
     def write(self, data):  # Tanner
+        """
+        Purpose:
+            Writes a word from memory to a popup.
+        Input Parameters:
+            data: The memory location of the word that will be written.
+        Return Value:
+            An error code indicating the result of the operation.
+        """
         word_to_write = self.memory[data]
 
         messagebox.showinfo(title=f"Write", message=f"Value from memory: {word_to_write}")
@@ -239,6 +336,14 @@ class App(CPU, tk.Tk):
 
     @property
     def accumulator(self):
+        """
+        Purpose:
+            Getter and setter for the accumulator property.
+        Input Parameters:
+            None.
+        Return Value:
+            The current value of the accumulator.
+        """
         return self._accumulator.get()
 
     @accumulator.setter
@@ -247,6 +352,14 @@ class App(CPU, tk.Tk):
 
     @property
     def program_counter(self):
+        """
+        Purpose:
+            Getter and setter for the program counter property.
+        Input Parameters:
+            None.
+        Return Value:
+            The current value of the program counter.
+        """
         return self._program_counter.get()
 
     @program_counter.setter
@@ -256,6 +369,14 @@ class App(CPU, tk.Tk):
 
     @property
     def halted(self):
+        """
+        Purpose:
+            Getter and setter for the halted property.
+        Input Parameters:
+            None.
+        Return Value:
+            True if the CPU is halted, False otherwise.
+        """
         return self._halted.get()
 
     @halted.setter
