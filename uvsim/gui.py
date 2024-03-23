@@ -1,4 +1,5 @@
 import re
+import platform
 import tkinter as tk
 from tkinter import filedialog, messagebox, ttk, simpledialog
 
@@ -77,11 +78,33 @@ class App(CPU, tk.Tk):
         photo = ImageTk.PhotoImage(ico)
         self.wm_iconphoto(True, photo)
 
-        self.geometry("600x330")
+        self.geometry("900x330")
         self.title("UVSim") # Set the window title
         self.configure(bg=UVU_GREEN) # Set the window background color
 
         self.open_file_path = ""
+        
+        current_os = platform.system()
+        if current_os == "Darwin":  # macOS
+            save_accelerator = "Cmd+S"
+            save_as_accelerator = "Cmd+Shift+S"
+            open_accelerator = "Cmd+O"
+            exit_accelerator = "Cmd+Q"
+            undo_accelerator = "Cmd+Z"
+            redo_accelerator = "Cmd+Shift+Z"
+            cut_accelerator = "Cmd+X"
+            copy_accelerator = "Cmd+C"
+            paste_accelerator = "Cmd+V"
+        else:  # Other systems (e.g., Windows, Linux)
+            save_accelerator = "Ctrl+S"
+            save_as_accelerator = "Ctrl+Shift+S"
+            open_accelerator = "Ctrl+O"
+            exit_accelerator = "Ctrl+Q"
+            undo_accelerator = "Ctrl+Z"
+            redo_accelerator = "Ctrl+Y"
+            cut_accelerator = "Ctrl+X"
+            copy_accelerator = "Ctrl+C"
+            paste_accelerator = "Ctrl+V"
 
         self._halted = tk.BooleanVar(value=True)
         self._program_counter = tk.IntVar(value=0)
@@ -93,17 +116,34 @@ class App(CPU, tk.Tk):
 
         # File
         self.file_menu = tk.Menu(self.menu_bar, tearoff=0) # Create a file menu
-        self.file_menu.add_command(label="Save", command=self.save, font=FONT, accelerator="Ctrl+S")
-        self.bind_all("<Control-s>", lambda event: self.save())
-        self.file_menu.add_command(label="Save As", command=self.save_as, font=FONT, accelerator="Ctrl+Shift+S")
-        self.bind_all("<Control-S>", lambda event: self.save_as())
-        self.file_menu.add_command(label="Open", command=self.open, font=FONT, accelerator="Ctrl+O")
-        self.bind_all("<Control-o>", lambda event: self.open())
+        self.file_menu.add_command(label="Save", command=self.save, font=FONT, accelerator=save_accelerator)
+        self.bind_all("<Control-s>" if current_os != "Darwin" else "<Command-s>", lambda event: self.save())
+        self.file_menu.add_command(label="Save As", command=self.save_as, font=FONT, accelerator=save_as_accelerator)
+        self.bind_all("<Control-S>" if current_os != "Darwin" else "<Command-Shift-S>", lambda event: self.save_as())
+        self.file_menu.add_command(label="Open", command=self.open, font=FONT, accelerator=open_accelerator)
+        self.bind_all("<Control-o>" if current_os != "Darwin" else "<Command-o>", lambda event: self.open())
         self.file_menu.add_separator()
-        self.file_menu.add_command(label="Exit", command=exit_program, font=FONT, accelerator="Ctrl+Q")
-        self.bind_all("<Control-q>", lambda event: exit_program())
-        self.menu_bar.add_cascade(menu=self.file_menu, label="File", font=FONT)
-
+        self.file_menu.add_command(label="Exit", command=exit_program, font=FONT, accelerator=exit_accelerator)
+        self.bind_all("<Control-q>" if current_os != "Darwin" else "<Command-q>", lambda event: exit_program())
+        
+        #Edit
+        self.edit_menu = tk.Menu(self.menu_bar, tearoff=0)
+        self.edit_menu.add_command(label="Undo", command=lambda: self.event_generate("<<Undo>>"), font=FONT, accelerator=undo_accelerator)
+        self.bind_all("<Control-z>" if current_os != "Darwin" else "<Command-z>", lambda event: self.event_generate("<<Undo>>"))
+        self.edit_menu.add_command(label="Redo", command=lambda: self.event_generate("<<Redo>>"), font=FONT, accelerator=redo_accelerator)
+        self.bind_all("<Control-y>" if current_os != "Darwin" else "<Command-Shift-Z>", lambda event: self.event_generate("<<Redo>>"))
+        self.edit_menu.add_separator()
+        self.edit_menu.add_command(label="Cut", command=lambda: self.event_generate("<<Cut>>"), font=FONT, accelerator=cut_accelerator)
+        self.bind_all("<Control-x>" if current_os != "Darwin" else "<Command-x>", lambda event: self.event_generate("<<Cut>>"))
+        self.edit_menu.add_command(label="Copy", command=lambda: self.event_generate("<<Copy>>"), font=FONT, accelerator=copy_accelerator)
+        self.bind_all("<Control-c>" if current_os != "Darwin" else "<Command-c>", lambda event: self.event_generate("<<Copy>>"))
+        self.edit_menu.add_command(label="Paste", command=lambda: self.event_generate("<<Paste>>"), font=FONT, accelerator=paste_accelerator)
+        self.bind_all("<Control-v>" if current_os != "Darwin" else "<Command-v>", lambda event: self.event_generate("<<Paste>>"))
+        self.edit_menu.add_separator()
+        self.menu_bar.add_cascade(menu=self.edit_menu, label="Edit", font=FONT)
+        
+        
+        # help
         self.help_menu = tk.Menu(self.menu_bar, tearoff=0)
         self.help_menu.add_command(label="Tutorial", command=lambda: Tutorial(tk.Toplevel()), font=FONT)
         self.menu_bar.add_cascade(menu=self.help_menu, label="Help", font=FONT)
@@ -118,6 +158,7 @@ class App(CPU, tk.Tk):
 
         self.master_frame.columnconfigure(0, weight=1)
         self.master_frame.columnconfigure(1, weight=4)
+        
         #________ Left Menu Panel _________
         self.left_menu_frame = tk.Frame(self.master_frame)
         self.left_menu_frame.grid(row=0, column=0, sticky="news", padx=2, pady=2)
