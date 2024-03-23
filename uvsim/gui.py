@@ -125,6 +125,7 @@ class App(CPU, tk.Tk):
         self.file_menu.add_separator()
         self.file_menu.add_command(label="Exit", command=exit_program, font=FONT, accelerator=exit_accelerator)
         self.bind_all("<Control-q>" if current_os != "Darwin" else "<Command-q>", lambda event: exit_program())
+        self.menu_bar.add_cascade(menu=self.file_menu, label="File", font=FONT)
         
         #Edit
         self.edit_menu = tk.Menu(self.menu_bar, tearoff=0)
