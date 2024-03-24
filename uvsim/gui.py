@@ -84,6 +84,7 @@ class App(CPU, tk.Tk):
 
         self.open_file_path = ""
         
+        #differentiates between macOS and other systems for key bindings
         current_os = platform.system()
         if current_os == "Darwin":  # macOS
             save_accelerator = "Cmd+S"
@@ -128,18 +129,18 @@ class App(CPU, tk.Tk):
         self.menu_bar.add_cascade(menu=self.file_menu, label="File", font=FONT)
         
         #Edit
-        self.edit_menu = tk.Menu(self.menu_bar, tearoff=0)
-        self.edit_menu.add_command(label="Undo", command=lambda: self.event_generate("<<Undo>>"), font=FONT, accelerator=undo_accelerator)
-        self.bind_all("<Control-z>" if current_os != "Darwin" else "<Command-z>", lambda event: self.event_generate("<<Undo>>"))
-        self.edit_menu.add_command(label="Redo", command=lambda: self.event_generate("<<Redo>>"), font=FONT, accelerator=redo_accelerator)
-        self.bind_all("<Control-y>" if current_os != "Darwin" else "<Command-Shift-Z>", lambda event: self.event_generate("<<Redo>>"))
+        self.edit_menu = tk.Menu(self.menu_bar, tearoff=0) # TODO: define and change event_generate to the correct event 
+        self.edit_menu.add_command(label="Undo", command=lambda: self.memory.undo(), font=FONT, accelerator=undo_accelerator)
+        self.bind_all("<Control-z>" if current_os != "Darwin" else "<Command-z>", lambda event: self.memory.undo())
+        self.edit_menu.add_command(label="Redo", command=lambda: self.memory.redo(), font=FONT, accelerator=redo_accelerator)
+        self.bind_all("<Control-y>" if current_os != "Darwin" else "<Command-Shift-Z>", lambda event: self.memory.redo())
         self.edit_menu.add_separator()
-        self.edit_menu.add_command(label="Cut", command=lambda: self.event_generate("<<Cut>>"), font=FONT, accelerator=cut_accelerator)
-        self.bind_all("<Control-x>" if current_os != "Darwin" else "<Command-x>", lambda event: self.event_generate("<<Cut>>"))
-        self.edit_menu.add_command(label="Copy", command=lambda: self.event_generate("<<Copy>>"), font=FONT, accelerator=copy_accelerator)
-        self.bind_all("<Control-c>" if current_os != "Darwin" else "<Command-c>", lambda event: self.event_generate("<<Copy>>"))
-        self.edit_menu.add_command(label="Paste", command=lambda: self.event_generate("<<Paste>>"), font=FONT, accelerator=paste_accelerator)
-        self.bind_all("<Control-v>" if current_os != "Darwin" else "<Command-v>", lambda event: self.event_generate("<<Paste>>"))
+        self.edit_menu.add_command(label="Cut", command=lambda: self.memory.cut(), font=FONT, accelerator=cut_accelerator)
+        self.bind_all("<Control-x>" if current_os != "Darwin" else "<Command-x>", lambda event: self.memory.cut())
+        self.edit_menu.add_command(label="Copy", command=lambda: self.memory.copy(), font=FONT, accelerator=copy_accelerator)
+        self.bind_all("<Control-c>" if current_os != "Darwin" else "<Command-c>", lambda event: self.memory.copy())
+        self.edit_menu.add_command(label="Paste", command=lambda: self.memory.paste(), font=FONT, accelerator=paste_accelerator)
+        self.bind_all("<Control-v>" if current_os != "Darwin" else "<Command-v>", lambda event: self.memory.paste())
         self.edit_menu.add_separator()
         self.menu_bar.add_cascade(menu=self.edit_menu, label="Edit", font=FONT)
         
@@ -195,6 +196,33 @@ class App(CPU, tk.Tk):
 
         vcmd = (self.register(onValidateData), '%P')
         self.memory = Memory(memory, self.master_frame, vcmd=vcmd)
+        
+
+
+
+
+
+
+
+        #self.bind("<Button-1>", self.memory.handle_click)
+        self.bind("<B1-Motion>", self.memory.handle_drag)
+        #self.bind("<ButtonRelease-1>", self.memory.handle_release)
+        #self.bind("<Return>", self.memory.shift_values)
+        #self.bind("<Delete>", self.memory.delete_value)
+
+
+        self.bind("<Button-1>", self.memory.handle_click)
+        
+        #self.bind("<Button-1>", self.memory.on_drag_start)
+        #self.bind("<B1-Motion>", self.memory.on_drag_move)
+        #self.bind("<ButtonRelease-1>", self.memory.on_drag_stop)
+        
+        
+        
+        
+        
+        
+        
 
         def pc_callback(_a, _b, _c):
             try:
