@@ -9,3 +9,4 @@ FILETYPES = [("Text files", "*.txt"), ("All files", "*.*")]
 FONT = None
 # FONT = ("Arial", 12)
 UVU_GREEN = "#275D38"
+SECONDARY = "#B2BAB2"

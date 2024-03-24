@@ -4,7 +4,7 @@ import tkinter as tk
 from tkinter import filedialog, messagebox, ttk, simpledialog
 
 from PIL import Image, ImageTk
-from uvsim.constants import FILETYPES, FONT, MEM_SIZE, UVU_GREEN, WORKING_DIR
+from uvsim.constants import FILETYPES, FONT, MEM_SIZE, UVU_GREEN, WORKING_DIR, SECONDARY
 
 from uvsim.cpu import CPU, ERROR_INVALID_INPUT, OK
 from uvsim.gui_memory import Memory
@@ -142,6 +142,7 @@ class App(CPU, tk.Tk):
         self.edit_menu.add_command(label="Paste", command=lambda: self.memory.paste(), font=FONT, accelerator=paste_accelerator)
         self.bind_all("<Control-v>" if current_os != "Darwin" else "<Command-v>", lambda event: self.memory.paste())
         self.edit_menu.add_separator()
+        self.edit_menu.add_command(label="Change Color", command=self.change_color, font=FONT)
         self.menu_bar.add_cascade(menu=self.edit_menu, label="Edit", font=FONT)
         
         
@@ -152,17 +153,17 @@ class App(CPU, tk.Tk):
 
         self.config(menu=self.menu_bar) # Add the menu bar to the window
 
-        self.label = tk.Label(self, text="UVSim", font=(None, 12), bg=UVU_GREEN, fg="white")
+        self.label = tk.Label(self, text="UVSim", font=(None, 12), bg="black", fg="white")
         self.label.pack(padx=20, pady=5)
 
         # master layout frame
-        self.master_frame = tk.Frame(self)
+        self.master_frame = tk.Frame(self, bg=SECONDARY)
 
         self.master_frame.columnconfigure(0, weight=1)
         self.master_frame.columnconfigure(1, weight=4)
         
         #________ Left Menu Panel _________
-        self.left_menu_frame = tk.Frame(self.master_frame)
+        self.left_menu_frame = tk.Frame(self.master_frame, bg= SECONDARY)
         self.left_menu_frame.grid(row=0, column=0, sticky="news", padx=2, pady=2)
 
         # Left side widgets
@@ -243,6 +244,36 @@ class App(CPU, tk.Tk):
         self.master_frame.pack(side="top", fill="both", expand=True) #end of master frame
 
         self.mainloop()
+
+    def change_color(self):
+        top = tk.Toplevel()
+        top.geometry('300x300')    
+        primary_ent = tk.Entry(top)
+        secondary_ent =tk.Entry(top)
+        
+        def insert_val():
+            primary= primary_ent.get()
+            secondary = secondary_ent.get()
+            self.config(bg=primary)
+            self.label.config(bg=primary)
+            self.master_frame.config(bg=secondary)
+            self.left_menu_frame.config(bg=secondary)
+            for i in self.left_side_elems:
+                if not isinstance(i,ttk.Separator):
+                    i.config(bg=primary, fg=secondary)
+            top.destroy()
+
+        items = [
+            tk.Label(top,text="Enter Primary Color Hex code or Key word 'red' etc :"),
+            primary_ent,
+            tk.Label(top,text="Enter Secondary Hex code or Key word 'red' etc:"),
+            secondary_ent,
+            tk.Button(top, command=insert_val, text="Click to Submit")
+        ]
+        for i in items:
+            i.pack()
+
+    
 
     def open(self):
         """
