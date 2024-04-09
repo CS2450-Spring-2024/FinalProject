@@ -1,28 +1,83 @@
-Functional Requirements:
+Software Requirements Specification for UVSim (Updated Version)
+1. Introduction
+1.1 Purpose
+This document specifies the software requirements for UVSim, a virtual machine simulator designed to facilitate the learning of machine language and computer architecture for computer science students. This SRS has been updated to include new features such as expanded memory, six-digit word support, and enhanced file management capabilities.
 
-read memory from a text file (File>Open)
-Write memory to a text file (File>Save/Save As)
-Be able to close (File>Exit)
-Help menu/tutorial (Help>Tutorial)
-run cpu until halt (Run)
-run cpu for one instruction (Step)
-run cpu until specific address (Breakpoint)
-read input from user to memory (READ instruction)
-write number to screen from memory (WRITE instruction)
-show/edit accumulator
-show/edit program counter
-show/edit memory
-The BasicML program must be loaded into the main memory starting at location 00 before executing
-The program will allocate space for 100 words
-the program will have a function that resets the memory (New)
-the program will have a graphical user interface
-When an error occurs, a window pops up showing the user the error and the cpu is halted
-Able to maximize the window
-Able to minimize the window
-Hotkeys for save(as)/open/close
+1.2 Scope
+UVSim will allow users to write, load, edit, and execute programs in BasicML, a basic machine language. It will simulate a computer's CPU, memory, and I/O operations within an interactive graphical user interface that supports extensive customization and multiple file editing.
 
-Nonfunctional:
-Should not freeze in any case besides a user caused infinite loop with branch instructions
-Runs on Windows/Mac/Linux
-Must have the ability to handle errors by gracefully showing them to the user
-Must not cause unauthorized access to the user's machine
+1.3 Definitions, Acronyms, and Abbreviations
+UVSim: University Virtual Simulator
+BasicML: Basic Machine Language
+GUI: Graphical User Interface
+SRS: Software Requirements Specification
+CPU: Central Processing Unit
+1.4 References
+IEEE SRS Format Guidelines
+Client Project Proposal Documents
+Technical Documentation for GUI Frameworks and APIs
+1.5 Overview
+The document further includes detailed descriptions of the product functions, user interactions, system features, and the technical requirements necessary for implementation and integration of the new features.
+
+2. Overall Description
+2.1 Product Perspective
+UVSim is a self-contained application intended for educational purposes, designed to potentially integrate with larger educational platforms in the future.
+
+2.2 Product Functions
+Load, edit, and execute BasicML programs with up to 250 instructions.
+Support for both four-digit and six-digit word formats, including conversion features.
+Customizable GUI that allows users to apply and change color schemes dynamically.
+Multiple file management within a single instance of the application.
+2.3 User Classes and Characteristics
+Students: Engage with the simulator to learn machine language concepts.
+Instructors: Use the simulator to demonstrate programming principles.
+Software Developers: Maintain and extend the simulator as required.
+2.4 Operating Environment
+UVSim is designed to run on Windows, macOS, and Linux, requiring a Java Runtime Environment or an equivalent runtime.
+
+2.5 Design and Implementation Constraints
+The GUI must be implementable across different operating systems without dependency on platform-specific features.
+The application must handle both old and new file formats without allowing mixing within a single file.
+2.6 Assumptions and Dependencies
+Effective operation depends on the end-user machine's capability to handle Java-based applications.
+Users are assumed to have basic knowledge of programming and file management.
+3. System Features
+3.1 Memory and Data Handling
+FR1: The application shall support up to 250 lines of BasicML instructions.
+FR2: The system shall handle six-digit word operations, including arithmetic and data movement.
+FR3: Users can convert four-digit formatted files to six-digit formatted files through an in-app feature.
+
+3.2 GUI and User Interaction
+FR4: The GUI shall allow users to customize color schemes based on personal preferences using RGB or Hex color codes.
+FR5: The application shall support opening, editing, and managing multiple BasicML program files in a single instance through tabs or sub-windows.
+
+4. External Interface Requirements
+4.1 User Interfaces
+Detailed and interactive GUI featuring menu options for file operations, editing tools, color scheme settings, and program execution controls.
+Error handling via dialog boxes and status messages.
+4.2 Hardware Interfaces
+Standard hardware interfaces for personal computers, including keyboard and mouse.
+4.3 Software Interfaces
+Java Runtime Environment 8 or higher
+File system access APIs
+5. Non-functional Requirements
+5.1 Performance Requirements
+NFR1: The GUI shall update the user interface within 1 second for any operation under normal conditions.
+
+5.2 Reliability and Availability
+NFR2: The system shall ensure data integrity during conversions and operations, with an availability goal of 99.9% uptime excluding scheduled maintenance.
+
+5.3 Usability Requirements
+NFR3: New users shall be able to understand basic operations within 30 minutes of initial use, with comprehensive help documentation available within the application.
+
+
+
+TODOs
+6. Other Requirements
+Documentation Requirements
+Provide detailed user and technical documentation for end-users and developers, respectively.
+Appendix A: Glossary
+Appendix B: Analysis Models
+Use cases, data flow diagrams, and other analytical models that support the understanding of functionalities.
+Appendix C: Change Log
+Record changes to the SRS document to track evolution over time.
