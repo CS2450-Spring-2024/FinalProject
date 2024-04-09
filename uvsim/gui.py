@@ -4,9 +4,9 @@ import tkinter as tk
 from tkinter import filedialog, messagebox, ttk, simpledialog
 
 from PIL import Image, ImageTk
-from uvsim.constants import FILETYPES, FONT, MEM_SIZE, UVU_GREEN, WORKING_DIR, SECONDARY
+from uvsim.constants import FILETYPES, FONT, WORD_SIZE, UVU_GREEN, WORKING_DIR, SECONDARY
 
-from uvsim.cpu import CPU, ERROR_INVALID_INPUT, OK
+from uvsim.cpu import CPU, ERROR_INVALID_INPUT, OK, error_code_to_text
 from uvsim.gui_memory import Memory
 from uvsim.tutorial import Tutorial
 from uvsim.parse import get_program_from_file, parse_word, save_memory
@@ -49,7 +49,7 @@ def onValidateAddress(proposed_new_text):
     if not is_numeric(proposed_new_text):
         return False
 
-    if int(proposed_new_text) < MEM_SIZE and int(proposed_new_text) >= 0:
+    if int(proposed_new_text) < WORD_SIZE and int(proposed_new_text) >= 0:
         return True
 
     return False
@@ -83,7 +83,7 @@ class App(CPU, tk.Tk):
         self.configure(bg=UVU_GREEN) # Set the window background color
 
         self.open_file_path = ""
-        
+
         #differentiates between macOS and other systems for key bindings
         current_os = platform.system()
         if current_os == "Darwin":  # macOS
@@ -127,9 +127,9 @@ class App(CPU, tk.Tk):
         self.file_menu.add_command(label="Exit", command=exit_program, font=FONT, accelerator=exit_accelerator)
         self.bind_all("<Control-q>" if current_os != "Darwin" else "<Command-q>", lambda event: exit_program())
         self.menu_bar.add_cascade(menu=self.file_menu, label="File", font=FONT)
-        
+
         #Edit
-        self.edit_menu = tk.Menu(self.menu_bar, tearoff=0) # TODO: define and change event_generate to the correct event 
+        self.edit_menu = tk.Menu(self.menu_bar, tearoff=0) # TODO: define and change event_generate to the correct event
         self.edit_menu.add_command(label="Undo", command=lambda: self.memory.undo(), font=FONT, accelerator=undo_accelerator)
         self.bind_all("<Control-z>" if current_os != "Darwin" else "<Command-z>", lambda event: self.memory.undo())
         self.edit_menu.add_command(label="Redo", command=lambda: self.memory.redo(), font=FONT, accelerator=redo_accelerator)
@@ -144,8 +144,8 @@ class App(CPU, tk.Tk):
         self.edit_menu.add_separator()
         self.edit_menu.add_command(label="Change Color", command=self.change_color, font=FONT)
         self.menu_bar.add_cascade(menu=self.edit_menu, label="Edit", font=FONT)
-        
-        
+
+
         # help
         self.help_menu = tk.Menu(self.menu_bar, tearoff=0)
         self.help_menu.add_command(label="Tutorial", command=lambda: Tutorial(tk.Toplevel()), font=FONT)
@@ -161,7 +161,7 @@ class App(CPU, tk.Tk):
 
         self.master_frame.columnconfigure(0, weight=1)
         self.master_frame.columnconfigure(1, weight=4)
-        
+
         #________ Left Menu Panel _________
         self.left_menu_frame = tk.Frame(self.master_frame, bg= SECONDARY)
         self.left_menu_frame.grid(row=0, column=0, sticky="news", padx=2, pady=2)
@@ -197,7 +197,7 @@ class App(CPU, tk.Tk):
 
         vcmd = (self.register(onValidateData), '%P')
         self.memory = Memory(memory, self.master_frame, vcmd=vcmd)
-        
+
 
 
 
@@ -213,17 +213,17 @@ class App(CPU, tk.Tk):
 
 
         self.bind("<Button-1>", self.memory.handle_click)
-        
+
         #self.bind("<Button-1>", self.memory.on_drag_start)
         #self.bind("<B1-Motion>", self.memory.on_drag_move)
         #self.bind("<ButtonRelease-1>", self.memory.on_drag_stop)
-        
-        
-        
-        
-        
-        
-        
+
+
+
+
+
+
+
 
         def pc_callback(_a, _b, _c):
             try:
@@ -247,10 +247,10 @@ class App(CPU, tk.Tk):
 
     def change_color(self):
         top = tk.Toplevel()
-        top.geometry('300x300')    
+        top.geometry('300x300')
         primary_ent = tk.Entry(top)
         secondary_ent =tk.Entry(top)
-        
+
         def insert_val():
             primary= primary_ent.get()
             secondary = secondary_ent.get()
@@ -273,7 +273,7 @@ class App(CPU, tk.Tk):
         for i in items:
             i.pack()
 
-    
+
 
     def open(self):
         """
@@ -314,7 +314,7 @@ class App(CPU, tk.Tk):
             None.
         """
         if self.open_file_path:
-            mem = [self.memory[i] for i in range(MEM_SIZE)]
+            mem = [self.memory[i] for i in range(WORD_SIZE)]
             try:
                 save_memory(mem, self.open_file_path)
             except Exception as error:
@@ -336,7 +336,7 @@ class App(CPU, tk.Tk):
         file = filedialog.asksaveasfile(title="Save As", filetypes=FILETYPES, initialdir=WORKING_DIR, defaultextension='.txt')
 
         if file:
-            mem = [self.memory[i] for i in range(MEM_SIZE)]
+            mem = [self.memory[i] for i in range(WORD_SIZE)]
             try:
                 save_memory(mem, file.name)
             except Exception as error:
@@ -356,7 +356,7 @@ class App(CPU, tk.Tk):
         """
         result = self.run_one_instruction()
         if result != OK:
-            text = self.error_code_to_text(result, self.program_counter)
+            text = error_code_to_text(result, self.program_counter)
             messagebox.showinfo(title="Error", message=text)
         return result
 

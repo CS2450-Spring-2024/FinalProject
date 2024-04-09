@@ -1,4 +1,4 @@
-from uvsim.constants import MEM_SIZE, TERMINAL_WORD
+from uvsim.constants import WORD_SIZE, TERMINAL_WORD
 
 
 def get_program_from_file(path) -> list[int]:
@@ -32,9 +32,9 @@ def get_program_from_cli() -> list[int]:
 
             return program
 
-        if len(program) > MEM_SIZE:
+        if len(program) > WORD_SIZE:
             raise AssertionError(
-                f"Invalid program, must be {MEM_SIZE} lines or less!\nProgram:{program}"
+                f"Invalid program, must be {WORD_SIZE} lines or less!\nProgram:{program}"
             )
 
 
@@ -63,16 +63,16 @@ def validate_program(program: list[int]) -> list[int]:
     program.pop() # pop TERMINAL_WORD
 
     assert (
-        len(program) <= MEM_SIZE
-    ), f"Invalid program, must be {MEM_SIZE} lines or less!\nProgram: {program}"
+        len(program) <= WORD_SIZE
+    ), f"Invalid program, must be {WORD_SIZE} lines or less!\nProgram: {program}"
 
-    program.extend([0] * MEM_SIZE)
-    program = program[:MEM_SIZE]
+    program.extend([0] * WORD_SIZE)
+    program = program[:WORD_SIZE]
     return program
 
 
 def save_memory(memory: list[int], path: str):
-    end_idx = MEM_SIZE
+    end_idx = WORD_SIZE
     for idx in range(len(memory) - 1, -1, -1):
         if memory[idx] != 0:
             end_idx = idx

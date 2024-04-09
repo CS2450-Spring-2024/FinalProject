@@ -1,6 +1,6 @@
 from uvsim.opcodes import *
 from uvsim.parse import parse_word
-from uvsim.constants import MEM_SIZE
+from uvsim.constants import WORD_SIZE, MEM_SIZE
 
 OK = 0
 ERROR_ILLEGAL_INSTRUCTION = 1
@@ -17,7 +17,7 @@ def line_to_op_data(line):
     Return Value:
         A tuple that holds the opcode and data.
     """
-    data = line % MEM_SIZE
+    data = line % WORD_SIZE
     opcode = line - data
     return (opcode, data)
 
@@ -360,7 +360,7 @@ class CPU:
         Post-conditions:
             The CPU is reset to its initial state.
         """
-        for i in range(MEM_SIZE):
+        for i in range(WORD_SIZE):
             self.memory[i] = 0
         self.halted = True
         self.program_counter = 0

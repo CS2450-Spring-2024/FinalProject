@@ -1,5 +1,5 @@
 from uvsim.cpu import CPU, OK
-from uvsim.constants import MEM_SIZE, TERMINAL_WORD
+from uvsim.constants import WORD_SIZE, TERMINAL_WORD
 import argparse
 from uvsim.parse import get_program_from_cli, get_program_from_file
 from uvsim.gui import App
@@ -15,13 +15,13 @@ def main():
     parser.add_argument(
         "-c",
         "--cli",
-        help=f"Enter a program from the command line. Programs must be at most {MEM_SIZE} words. (Default)",
+        help=f"Enter a program from the command line. Programs must be at most {WORD_SIZE} words. (Default)",
         action="store_true",
     )
     parser.add_argument(
         "-f",
         "--file",
-        help=f"Reads a program from a file. Programs must be at most {MEM_SIZE} words.",
+        help=f"Reads a program from a file. Programs must be at most {WORD_SIZE} words.",
     )
     parser.add_argument(
         "-o",
@@ -50,7 +50,7 @@ def main():
             print(c.error_code_to_text(result))
 
     elif args.gui:
-        App([0] * MEM_SIZE)
+        App([0] * WORD_SIZE)
 
 
 def help_opcodes(arg):

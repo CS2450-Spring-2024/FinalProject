@@ -1,9 +1,9 @@
 import tkinter as tk
 from tkinter import messagebox
-from uvsim.constants import MEM_SIZE
+from uvsim.constants import WORD_SIZE
 
 ROW_WIDTH = 10
-COLS = MEM_SIZE // ROW_WIDTH
+COLS = WORD_SIZE // ROW_WIDTH
 
 
 class Memory(tk.Frame):
@@ -78,17 +78,17 @@ class Memory(tk.Frame):
 
         self.program_counter = 0
         self.halted = True
-        
+
         self.selected_frames = set()
         self.clipboard_content = None
         self.start_cell = None
         self.end_cell = None
-        
-        
-            
+
+
+
     def handle_click(self, event):
-        x = event.x_root - self.memory_frames[0].winfo_rootx()  
-        y = event.y_root - self.memory_frames[0].winfo_rooty()  
+        x = event.x_root - self.memory_frames[0].winfo_rootx()
+        y = event.y_root - self.memory_frames[0].winfo_rooty()
         frame_index = self.get_frame_index(x, y)
         if frame_index is not None:
             if frame_index in self.selected_frames:
@@ -96,11 +96,11 @@ class Memory(tk.Frame):
                 self.memory_frames[frame_index].configure(bg=self.defaultbg)
             else:
                 for i in self.selected_frames:
-                    self.memory_frames[i].configure(bg=self.defaultbg)        
+                    self.memory_frames[i].configure(bg=self.defaultbg)
                 self.selected_frames.clear()
                 self.selected_frames.add(frame_index)
                 self.memory_frames[frame_index].configure(bg="blue")
-    
+
     def get_frame_index(self, x, y):
         col = x // self.memory_frames[0].winfo_width()
         row = y // self.memory_frames[0].winfo_height()
@@ -108,30 +108,30 @@ class Memory(tk.Frame):
             return row * ROW_WIDTH + col
         else:
             return None
-        
+
     def deselect_frames(self):
         for index in self.selected_frames:
             self.memory_frames[index].configure(bg=self.defaultbg)
         self.selected_frames.clear()
-    
-    
+
+
     def handle_drag(self, event):
-        x = event.x_root - self.memory_frames[0].winfo_rootx()  
-        y = event.y_root - self.memory_frames[0].winfo_rooty()  
+        x = event.x_root - self.memory_frames[0].winfo_rootx()
+        y = event.y_root - self.memory_frames[0].winfo_rooty()
         frame_index = self.get_frame_index(x, y)
         if frame_index is not None:
             if frame_index not in self.selected_frames:
                 self.selected_frames.add(frame_index)
                 self.memory_frames[frame_index].configure(bg="blue")
-    
-                             
+
+
     def cut(self):
-        if self.selected_frames:             
+        if self.selected_frames:
             self.clipboard = [self.memory_vars[i].get() for i in self.selected_frames]
             for i in self.selected_frames:
                 self.memory_vars[i].set(0)
             self.deselect_frames()
-            
+
     def copy(self):
         if self.selected_frames:
             self.clipboard = [self.memory_vars[i].get() for i in self.selected_frames]
@@ -144,21 +144,21 @@ class Memory(tk.Frame):
         if not self.selected_frames:
             messagebox.showinfo("Info", "No selected fields to paste into.")
             return
-        
+
         sorted_selected_frames = sorted(self.selected_frames)
         start_index = sorted_selected_frames[0]
         shift_amount = len(self.clipboard) - len(sorted_selected_frames)
-        
+
         if shift_amount > 0:
-            for i in range(MEM_SIZE - 1, start_index + len(sorted_selected_frames) - 1, -1):
+            for i in range(WORD_SIZE - 1, start_index + len(sorted_selected_frames) - 1, -1):
                 if (i - shift_amount) < 0:
-                    
+
                     messagebox.showerror("Error", "Not enough space to paste.")
                     return
                 self.memory_vars[i].set(self.memory_vars[i - shift_amount].get())
-        
+
         for i, value in enumerate(self.clipboard):
-            if start_index + i >= MEM_SIZE:
+            if start_index + i >= WORD_SIZE:
                 messagebox.showwarning("Warning", "Reached end of memory. Cannot paste further.")
                 break
             self.memory_vars[start_index + i].set(value)
@@ -168,12 +168,12 @@ class Memory(tk.Frame):
         """
         Shifts memory contents starting from start_index to the right to make space.
         """
-        for i in range(MEM_SIZE - 2, start_index - 1, -1):
+        for i in range(WORD_SIZE - 2, start_index - 1, -1):
             self.memory_vars[i + 1].set(self.memory_vars[i].get())
         self.memory_vars[start_index].set(0)
-                
 
-        
+
+
     def __getitem__(self, key):
         """
         Purpose:

@@ -1,5 +1,5 @@
 import unittest
-from uvsim.constants import MEM_SIZE
+from uvsim.constants import WORD_SIZE
 from uvsim.cpu import CPU
 
 
@@ -7,7 +7,7 @@ class TestCPUOperations(unittest.TestCase):
 
     def setUp(self):
         # This method is called before each test to set up a CPU instance with a fresh memory state.
-        self.cpu = CPU([0] * MEM_SIZE)
+        self.cpu = CPU([0] * WORD_SIZE)
 
     def test_store_value_in_memory(self):
         # Test storing the accumulator's value in a specified memory location.
