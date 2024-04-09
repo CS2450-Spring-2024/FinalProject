@@ -18,7 +18,7 @@ def line_to_op_data(line):
         A tuple that holds the opcode and data.
     """
     data = line % WORD_SIZE
-    opcode = line - data
+    opcode = (line - data)
     return (opcode, data)
 
 def error_code_to_text(code, program_counter):
