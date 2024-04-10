@@ -126,6 +126,7 @@ class App(CPU, tk.Tk):
         self.file_menu.add_separator()
         self.file_menu.add_command(label="Exit", command=exit_program, font=FONT, accelerator=exit_accelerator)
         self.bind_all("<Control-q>" if current_os != "Darwin" else "<Command-q>", lambda event: exit_program())
+        self.file_menu.add_command(label="Open Editor", command= lambda :self.editors.append(Editor(tk.Toplevel(), self)), font=FONT, accelerator=exit_accelerator)
         self.menu_bar.add_cascade(menu=self.file_menu, label="File", font=FONT)
 
         #Edit
@@ -219,8 +220,9 @@ class App(CPU, tk.Tk):
         #self.bind("<ButtonRelease-1>", self.memory.on_drag_stop)
 
 
-
-
+        #Editors
+        self.main_editor = Editor(tk.Toplevel(), self, is_main=True)
+        self.editors = [self.main_editor]
 
 
 
@@ -245,33 +247,41 @@ class App(CPU, tk.Tk):
 
         self.mainloop()
 
-    def change_color(self):
+def change_color(self):
         top = tk.Toplevel()
-        top.geometry('300x300')
+        top.geometry('300x300')    
         primary_ent = tk.Entry(top)
         secondary_ent =tk.Entry(top)
-
+        
+        #Goes through everything and sets their bg and forground 
         def insert_val():
+        
+            
             primary= primary_ent.get()
             secondary = secondary_ent.get()
-            self.config(bg=primary)
-            self.label.config(bg=primary)
-            self.master_frame.config(bg=secondary)
-            self.left_menu_frame.config(bg=secondary)
-            for i in self.left_side_elems:
-                if not isinstance(i,ttk.Separator):
-                    i.config(bg=primary, fg=secondary)
-            top.destroy()
+            
+            
+            if primary and secondary:
+                if primary[0] != '#':
+                    primary = f'#{primary}'
+                if secondary[0] != "#":
+                    secondary = f'#{secondary}'
+                self.config(bg=primary)
+                self.label.config(bg=primary)
+                self.master_frame.config(bg=secondary)
+                self.left_menu_frame.config(bg=secondary)
+                for i in self.left_side_elems:
+                    if isinstance(i,(tk.Label, tk.Button)):
+                        i.config(bg=primary, fg=secondary)
 
-        items = [
-            tk.Label(top,text="Enter Primary Color Hex code or Key word 'red' etc :"),
-            primary_ent,
-            tk.Label(top,text="Enter Secondary Hex code or Key word 'red' etc:"),
-            secondary_ent,
-            tk.Button(top, command=insert_val, text="Click to Submit")
-        ]
-        for i in items:
-            i.pack()
+                for i in self.editors:
+                    i.master_frame.config(bg=primary)
+                    i.upper_frame.config(bg=primary)
+                    i.lower_frame.config(bg=primary)
+
+                top.destroy()
+            else:
+                messagebox.showerror("ERROR", f"Please input color for all fields")
 
 
 

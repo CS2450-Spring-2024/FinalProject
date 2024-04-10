@@ -1,14 +1,17 @@
 import tkinter as tk
 from tkinter import filedialog, messagebox, ttk, simpledialog
 from tkinter import scrolledtext as scrolledtext
-from constants import *
-from parse import get_program_from_file, parse_word, save_memory
+from uvsim.constants import *
+from uvsim.parse import get_program_from_file, parse_word, save_memory
 
 
 class Editor:
-    def __init__(self, master:tk.Tk, parent: tk.Tk) -> None:
+    def __init__(self, master:tk.Tk, parent: tk.Tk, is_main:bool=False) -> None:
         width = 13 
         self.master = master
+        self.parent = parent
+
+        self.master.wm_attributes("-toolwindow", 't')
 
         self.master.geometry("350x550")
         self.open_file_path =""
@@ -40,18 +43,24 @@ class Editor:
         self.text_box = scrolledtext.ScrolledText(self.upper_frame, undo=True)
         self.text_box['font'] = FONT
         self.text_box['width'] = 30
-        self.text_box.grid(row=0, column=0, sticky="n", padx=50, pady=20)
+        self.text_box.grid(row=0, column=0, sticky="n", padx=50, pady=30)
+
+        #Label 
+        self.label = tk.Label(self.upper_frame, text="UVSIM | EDITOR")
+        self.label.grid(row=0, column=0, sticky="n")
 
         self.lower_frame = tk.Frame(self.master_frame, bg= UVU_GREEN)
         self.lower_frame.grid(column=0, row=2, sticky="s", padx=3, pady=3)
 
-        self.bttn = tk.Button(self.lower_frame, font=FONT, text="RUN", width=width)
-
+        self.bttn = tk.Button(self.lower_frame, command=self.run , text="RUN", width=width, font=FONT)
         self.bttn.grid(row=4, column=2, sticky="se", padx=50, pady=20)
         self.master_frame.pack(fill="both", expand=True)
 
     def run(self):
-        pass
+        self.parent.reset()
+        self.program = [i for i in self.text_box.get("1.0", tk.END).split('\n') if i != ""]
+        for idx, val in enumerate(self.program):
+            self.parent.memory[idx] = val
 
     def open_file(self):
         """
@@ -93,7 +102,6 @@ class Editor:
         else:
             self.save_as()
 
-
     def save_as(self):
         """
         Purpose:
@@ -114,7 +122,6 @@ class Editor:
             else:
                 self.open_file_path = file.name
                 self.title(f"UVSim | {self.open_file_path}")
-
 
                 
 
