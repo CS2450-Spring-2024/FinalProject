@@ -13,7 +13,7 @@ class Editor:
 
         self.master.wm_attributes("-toolwindow", 't')
 
-        self.master.geometry("350x550")
+        self.master.geometry("350x450")
         self.open_file_path =""
 
         #initialize Master frame 
@@ -52,7 +52,7 @@ class Editor:
         self.lower_frame = tk.Frame(self.master_frame, bg= UVU_GREEN)
         self.lower_frame.grid(column=0, row=2, sticky="s", padx=3, pady=3)
 
-        self.bttn = tk.Button(self.lower_frame, command=self.run , text="RUN", width=width, font=FONT)
+        self.bttn = tk.Button(self.lower_frame, command=self.run , text="Load to CPU", width=width, font=FONT)
         self.bttn.grid(row=4, column=2, sticky="se", padx=50, pady=20)
         self.master_frame.pack(fill="both", expand=True)
 
@@ -84,7 +84,7 @@ class Editor:
                     self.text_box.insert(str(float(idx+1)), f"{str(val)}\n")
 
             except Exception as error:
-                messagebox.showerror("Error", f"Error opening file: {error}")
+                messagebox.showerror("Error", f"Error opening file:\n{error}")
 
             else:
                 self.open_file_path = file_path
@@ -92,11 +92,11 @@ class Editor:
 
     def save(self):
         if self.open_file_path:
-            output = self.text_box.get(0, tk.END)
+            output = [int(i) for i in self.text_box.get("1.0", tk.END).split("\n") if i != ""]
             try:
                 save_memory(output, self.open_file_path)
             except Exception as error:
-                messagebox.showerror("Error", f"Error saving file: {error}")
+                messagebox.showerror("Error", f"Error saving file:\n{error}")
             else:
                 self.master.title(f"UVSim Editor | {self.open_file_path.split('/')[-1]}") 
         else:
@@ -114,14 +114,14 @@ class Editor:
         file = filedialog.asksaveasfile(title="Save As", filetypes=FILETYPES, initialdir=WORKING_DIR, defaultextension='.txt')
 
         if file:
-            output = self.text_box.get(0, tk.END)
+            output = [int(i) for i in self.text_box.get("1.0", tk.END).split("\n") if i != "" and i != "\n"]
             try:
                 save_memory(output, file.name)
             except Exception as error:
-                messagebox.showerror("Error", f"Error saving file: {error}")
+                messagebox.showerror("Error", f"Error saving file:\n{error}")
             else:
                 self.open_file_path = file.name
-                self.title(f"UVSim | {self.open_file_path}")
+                self.master.title(f"UVSim Editor | {self.open_file_path.split('/')[-1]}")
 
                 
 
