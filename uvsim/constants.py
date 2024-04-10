@@ -9,5 +9,5 @@ WORKING_DIR = Path(os.path.realpath(__file__)).parent.parent
 FILETYPES = [("6 Digit Programs", "*.6dp"), ("4 Digit Programs", "*.4dp"), ("Text files", "*.txt"), ("All files", "*.*")]
 FONT = None
 # FONT = ("Arial", 12)
-UVU_GREEN = "#275D38"
-SECONDARY = "#B2BAB2"
+UVU_GREEN = "#4C721D"
+SECONDARY = "#FFFFFF"

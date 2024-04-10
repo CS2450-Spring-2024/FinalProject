@@ -10,7 +10,7 @@ from uvsim.cpu import CPU, ERROR_INVALID_INPUT, OK, error_code_to_text
 from uvsim.gui_memory import Memory
 from uvsim.tutorial import Tutorial
 from uvsim.parse import get_program_from_file, parse_word, save_memory
-
+from uvsim.editor import Editor
 
 numeric_regex = re.compile(r'[+-]?\d*')
 is_numeric = lambda text: numeric_regex.fullmatch(text) is not None
@@ -247,41 +247,41 @@ class App(CPU, tk.Tk):
 
         self.mainloop()
 
-def change_color(self):
-        top = tk.Toplevel()
-        top.geometry('300x300')    
-        primary_ent = tk.Entry(top)
-        secondary_ent =tk.Entry(top)
-        
-        #Goes through everything and sets their bg and forground 
-        def insert_val():
-        
+    def change_color(self):
+            top = tk.Toplevel()
+            top.geometry('300x300')    
+            primary_ent = tk.Entry(top)
+            secondary_ent =tk.Entry(top)
             
-            primary= primary_ent.get()
-            secondary = secondary_ent.get()
+            #Goes through everything and sets their bg and forground 
+            def insert_val():
             
-            
-            if primary and secondary:
-                if primary[0] != '#':
-                    primary = f'#{primary}'
-                if secondary[0] != "#":
-                    secondary = f'#{secondary}'
-                self.config(bg=primary)
-                self.label.config(bg=primary)
-                self.master_frame.config(bg=secondary)
-                self.left_menu_frame.config(bg=secondary)
-                for i in self.left_side_elems:
-                    if isinstance(i,(tk.Label, tk.Button)):
-                        i.config(bg=primary, fg=secondary)
+                
+                primary= primary_ent.get()
+                secondary = secondary_ent.get()
+                
+                
+                if primary and secondary:
+                    if primary[0] != '#':
+                        primary = f'#{primary}'
+                    if secondary[0] != "#":
+                        secondary = f'#{secondary}'
+                    self.config(bg=primary)
+                    self.label.config(bg=primary)
+                    self.master_frame.config(bg=secondary)
+                    self.left_menu_frame.config(bg=secondary)
+                    for i in self.left_side_elems:
+                        if isinstance(i,(tk.Label, tk.Button)):
+                            i.config(bg=primary, fg=secondary)
 
-                for i in self.editors:
-                    i.master_frame.config(bg=primary)
-                    i.upper_frame.config(bg=primary)
-                    i.lower_frame.config(bg=primary)
+                    for i in self.editors:
+                        i.master_frame.config(bg=primary)
+                        i.upper_frame.config(bg=primary)
+                        i.lower_frame.config(bg=primary)
 
-                top.destroy()
-            else:
-                messagebox.showerror("ERROR", f"Please input color for all fields")
+                    top.destroy()
+                else:
+                    messagebox.showerror("ERROR", f"Please input color for all fields")
 
 
 
