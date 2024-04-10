@@ -1,0 +1,21 @@
+﻿Minutes
+	Board meeting 
+	Date 
+	April 9th
+	Time 
+	2:36 PM 
+	Meeting called to order by 
+	Tanner Bigham
+	In attendance
+Kevin, Frank, Tanner Noah
+
+
+Fixed a git Error with functionality.  (Annoying) 
+
+
+
+
+Kevin - Open File and Testing Save and Open ( Cut copy paste, Mem) ( Save and Open)
+Tanner - Redo (Copy Cut Paste) 
+Frank - SRS 
+Noah -
