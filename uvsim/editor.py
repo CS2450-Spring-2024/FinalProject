@@ -11,7 +11,7 @@ class Editor:
         self.master = master
         self.parent = parent
 
-        self.master.wm_attributes("-toolwindow", 't')
+        #self.master.wm_attributes("-toolwindow", 't')  
 
         self.master.geometry("350x450")
         self.open_file_path =""
