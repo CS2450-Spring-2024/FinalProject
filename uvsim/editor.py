@@ -3,6 +3,7 @@ from tkinter import filedialog, messagebox, ttk, simpledialog
 from tkinter import scrolledtext as scrolledtext
 from uvsim.constants import *
 from uvsim.parse import get_program_from_file, parse_word, save_memory
+import platform
 
 
 class Editor:
@@ -15,6 +16,30 @@ class Editor:
 
         self.master.geometry("350x450")
         self.open_file_path =""
+        
+        
+        #differentiates between macOS and other systems for key bindings
+        current_os = platform.system()
+        if current_os == "Darwin":  # macOS
+            save_accelerator = "Cmd+S"
+            save_as_accelerator = "Cmd+Shift+S"
+            open_accelerator = "Cmd+O"
+            exit_accelerator = "Cmd+Q"
+            undo_accelerator = "Cmd+Z"
+            redo_accelerator = "Cmd+Shift+Z"
+            cut_accelerator = "Cmd+X"
+            copy_accelerator = "Cmd+C"
+            paste_accelerator = "Cmd+V"
+        else:  # Other systems (e.g., Windows, Linux)
+            save_accelerator = "Ctrl+S"
+            save_as_accelerator = "Ctrl+Shift+S"
+            open_accelerator = "Ctrl+O"
+            exit_accelerator = "Ctrl+Q"
+            undo_accelerator = "Ctrl+Z"
+            redo_accelerator = "Ctrl+Y"
+            cut_accelerator = "Ctrl+X"
+            copy_accelerator = "Ctrl+C"
+            paste_accelerator = "Ctrl+V"
 
         #initialize Master frame 
         self.master_frame = tk.Frame(self.master)
@@ -32,6 +57,24 @@ class Editor:
         self.file_menu.add_command(label="Save", command= self.save, font=FONT)
         self.file_menu.add_command(label="Save As", command= self.save_as, font=FONT) 
         self.menu_bar.add_cascade(menu= self.file_menu, label="File", font=FONT)
+        
+        
+        #edit menu
+        self.edit_menu = tk.Menu(self.menu_bar, tearoff=0)
+        #self.edit_menu.add_command(label="Undo", command=lambda: self.memory.undo(), font=FONT, accelerator=undo_accelerator)
+        # self.bind_all("<Control-z>" if current_os != "Darwin" else "<Command-z>", lambda event: self.memory.undo())
+        # self.edit_menu.add_command(label="Redo", command=lambda: self.memory.redo(), font=FONT, accelerator=redo_accelerator)
+        # self.bind_all("<Control-y>" if current_os != "Darwin" else "<Command-Shift-Z>", lambda event: self.memory.redo())
+        # self.edit_menu.add_separator()
+        self.edit_menu.add_command(label="Cut", command=lambda: self.cut(), font=FONT, accelerator=cut_accelerator)
+        self.master.bind_all("<Control-x>" if current_os != "Darwin" else "<Command-x>", lambda event: self.cut())
+        self.edit_menu.add_command(label="Copy", command=lambda: self.copy(), font=FONT, accelerator=copy_accelerator)
+        self.master.bind_all("<Control-c>" if current_os != "Darwin" else "<Command-c>", lambda event: self.copy())
+        self.edit_menu.add_command(label="Paste", command=lambda: self.paste(), font=FONT, accelerator=paste_accelerator)
+        self.master.bind_all("<Control-v>" if current_os != "Darwin" else "<Command-v>", lambda event: self.paste())
+        self.edit_menu.add_separator()
+        
+        self.menu_bar.add_cascade(menu= self.edit_menu, label="Edit", font=FONT)
 
         self.master.config(menu=self.menu_bar)
 
@@ -125,7 +168,116 @@ class Editor:
 
                 
 
+
+    def copy(self):
+        self.text_box.event_generate("<<Copy>>")
+
+    def cut(self):
+        self.text_box.event_generate("<<Cut>>")
+
+    def paste(self):
+        self.text_box.event_generate("<<Paste>>")
+
+
+
+
+
 if __name__ == "__main__":
     mast = tk.Tk()
     test = Editor(mast, None)
     mast.mainloop()
+    
+    
+    
+    
+# CODE GRAVEYARD
+
+'''    def handle_click(self, event):
+        x = event.x_root - self.memory_frames[0].winfo_rootx()
+        y = event.y_root - self.memory_frames[0].winfo_rooty()
+        frame_index = self.get_frame_index(x, y)
+        if frame_index is not None:
+            if frame_index in self.selected_frames:
+                self.selected_frames.remove(frame_index)
+                self.memory_frames[frame_index].configure(bg=self.defaultbg)
+            else:
+                for i in self.selected_frames:
+                    self.memory_frames[i].configure(bg=self.defaultbg)
+                self.selected_frames.clear()
+                self.selected_frames.add(frame_index)
+                self.memory_frames[frame_index].configure(bg="blue")'''
+
+'''    def get_frame_index(self, x, y):
+        col = x // self.memory_frames[0].winfo_width()
+        row = y // self.memory_frames[0].winfo_height()
+        if 0 <= row < ROW_WIDTH and 0 <= col < COLS:
+            return row * ROW_WIDTH + col
+        else:
+            return None
+
+    def deselect_frames(self):
+        for index in self.selected_frames:
+            self.memory_frames[index].configure(bg=self.defaultbg)
+        self.selected_frames.clear()'''
+
+
+'''    def handle_drag(self, event):
+        x = event.x_root - self.memory_frames[0].winfo_rootx()
+        y = event.y_root - self.memory_frames[0].winfo_rooty()
+        frame_index = self.get_frame_index(x, y)
+        if frame_index is not None:
+            if frame_index not in self.selected_frames:
+                self.selected_frames.add(frame_index)
+                self.memory_frames[frame_index].configure(bg="blue")'''
+
+
+
+"""def cut(self):
+        '''        if self.selected_frames:
+            self.clipboard = [self.memory_vars[i].get() for i in self.selected_frames]
+            for i in self.selected_frames:
+                self.memory_vars[i].set(0)
+            self.deselect_frames()'''
+            
+        print("this runs")
+
+    def copy(self):
+        if self.selected_frames:
+            self.clipboard = [self.memory_vars[i].get() for i in self.selected_frames]
+            self.deselect_frames()
+
+    def paste(self):
+        if not self.clipboard:
+            messagebox.showinfo("Info", "Clipboard is empty.")
+            return
+        if not self.selected_frames:
+            messagebox.showinfo("Info", "No selected fields to paste into.")
+            return
+
+        sorted_selected_frames = sorted(self.selected_frames)
+        start_index = sorted_selected_frames[0]
+        shift_amount = len(self.clipboard) - len(sorted_selected_frames)
+
+        if shift_amount > 0:
+            for i in range(WORD_SIZE - 1, start_index + len(sorted_selected_frames) - 1, -1):
+                if (i - shift_amount) < 0:
+
+                    messagebox.showerror("Error", "Not enough space to paste.")
+                    return
+                self.memory_vars[i].set(self.memory_vars[i - shift_amount].get())
+
+        for i, value in enumerate(self.clipboard):
+            if start_index + i >= WORD_SIZE:
+                messagebox.showwarning("Warning", "Reached end of memory. Cannot paste further.")
+                break
+            self.memory_vars[start_index + i].set(value)"""
+
+
+''' def shift_memory(self, start_index):
+        """
+        Shifts memory contents starting from start_index to the right to make space.
+        """
+        for i in range(WORD_SIZE - 2, start_index - 1, -1):
+            self.memory_vars[i + 1].set(self.memory_vars[i].get())
+        self.memory_vars[start_index].set(0)'''
+
