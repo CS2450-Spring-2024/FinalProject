@@ -3,7 +3,7 @@ from PIL import ImageTk, Image
 import os
 
 from uvsim.constants import FONT
-
+ 
 
 class Tutorial:
     """
@@ -16,15 +16,16 @@ class Tutorial:
             Initializes the Tutorial class with the provided master widget and sets up the GUI elements for displaying tutorial images.
         Input Parameters:
             master: The master widget of the Tutorial frame.
-        Return Value:
+        Return Value: 
             None.
         """
         width = 13
         self.master = master
 
-        self.master.geometry("600x400")
+        self.master.geometry("1500x800")
         self.master.title("Tutorial")
         self.master.configure()
+        
 
         self.master_frame = tk.Frame(self.master)
         self.master_frame.columnconfigure((0, 4), weight=1)
