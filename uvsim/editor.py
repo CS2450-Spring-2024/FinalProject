@@ -73,7 +73,6 @@ class Editor:
         self.edit_menu.add_command(label="Paste", command=lambda: self.paste(), font=FONT, accelerator=paste_accelerator)
         self.master.bind_all("<Control-v>" if current_os != "Darwin" else "<Command-v>", lambda event: self.paste())
         self.edit_menu.add_separator()
-        
         self.menu_bar.add_cascade(menu= self.edit_menu, label="Edit", font=FONT)
 
         self.master.config(menu=self.menu_bar)
@@ -101,7 +100,7 @@ class Editor:
 
     def run(self):
         self.parent.reset()
-        self.program = [i for i in self.text_box.get("1.0", tk.END).split('\n') if i != ""]
+        self.program = [i for i in self.text_box.get("1.0", "251.0").split('\n') if i != ""]
         for idx, val in enumerate(self.program):
             self.parent.memory[idx] = val
 
