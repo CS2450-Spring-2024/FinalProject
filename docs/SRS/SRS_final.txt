@@ -12,6 +12,7 @@ BasicML: Basic Machine Language
 GUI: Graphical User Interface
 SRS: Software Requirements Specification
 CPU: Central Processing Unit
+
 1.4 References
 IEEE SRS Format Guidelines
 Client Project Proposal Documents
@@ -41,11 +42,13 @@ The application must handle both old and new file formats without allowing mixin
 2.6 Assumptions and Dependencies
 Effective operation depends on the end-user machine's capability to handle Java-based applications.
 Users are assumed to have basic knowledge of programming and file management.
+
 3. System Features
 3.1 Memory and Data Handling
 FR1: The application shall support up to 250 lines of BasicML instructions.
 FR2: The system shall handle six-digit word operations, including arithmetic and data movement.
 FR3: Users can convert four-digit formatted files to six-digit formatted files through an in-app feature.
+FR4: Handling of Multiple File Formats.
 
 3.2 GUI and User Interaction
 FR4: The GUI shall allow users to customize color schemes based on personal preferences using RGB or Hex color codes.
@@ -55,11 +58,17 @@ FR5: The application shall support opening, editing, and managing multiple Basic
 4.1 User Interfaces
 Detailed and interactive GUI featuring menu options for file operations, editing tools, color scheme settings, and program execution controls.
 Error handling via dialog boxes and status messages.
+
 4.2 Hardware Interfaces
+No specific hardware interfaces required beyond standard PC components.
 Standard hardware interfaces for personal computers, including keyboard and mouse.
+
 4.3 Software Interfaces
+Python 3.8
+Tkinter for GUI components
 Java Runtime Environment 8 or higher
 File system access APIs
+
 5. Non-functional Requirements
 5.1 Performance Requirements
 NFR1: The GUI shall update the user interface within 1 second for any operation under normal conditions.
@@ -69,6 +78,9 @@ NFR2: The system shall ensure data integrity during conversions and operations, 
 
 5.3 Usability Requirements
 NFR3: New users shall be able to understand basic operations within 30 minutes of initial use, with comprehensive help documentation available within the application.
+
+5.4 Security Requirements
+Basic user authentication to access the application may be implemented in future versions.
 
 
 
