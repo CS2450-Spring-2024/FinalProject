@@ -72,12 +72,4 @@ NFR3: New users shall be able to understand basic operations within 30 minutes o
 
 
 
-TODOs
-6. Other Requirements
-Documentation Requirements
-Provide detailed user and technical documentation for end-users and developers, respectively.
-Appendix A: Glossary
-Appendix B: Analysis Models
-Use cases, data flow diagrams, and other analytical models that support the understanding of functionalities.
-Appendix C: Change Log
-Record changes to the SRS document to track evolution over time.
+
