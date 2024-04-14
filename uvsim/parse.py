@@ -121,8 +121,9 @@ def fourdp_word_to_sixdp_word(word: int) -> int:
     Converts a 4dp instruction word to a 6dp instruction word
     Requires that word is a valid 4dp instruction word
     """
+    scaling_factor = WORD_SIZE // FOURDP_WORD_SIZE
     op, data = word_to_op_data_4dp(word)
-    return op * 10 + data
+    return op * scaling_factor + data
 
 
 def classify_program(program: list[int]) -> str:
