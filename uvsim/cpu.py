@@ -1,6 +1,6 @@
 from uvsim.opcodes import *
-from uvsim.parse import parse_word
-from uvsim.constants import WORD_SIZE, MEM_SIZE
+from uvsim.parse import word_to_op_data, parse_word
+from uvsim.constants import WORD_SIZE, FOURDP_WORD_SIZE, MEM_SIZE
 
 OK = 0
 ERROR_ILLEGAL_INSTRUCTION = 1
@@ -111,7 +111,7 @@ class CPU:
             The state of the memory and CPU registers may be modified.
         """
         line = self.memory[self.program_counter]
-        opcode, data = line_to_op_data(line)
+        opcode, data = word_to_op_data(line)
 
         # Apologies if this section is convoluted, I could have used a bunch of if-else, but I think this is cleaner.
         # All this section does is match the opcode from memory to the function that needs to be run.
@@ -368,7 +368,7 @@ class CPU:
         Post-conditions:
             The CPU is reset to its initial state.
         """
-        for i in range(WORD_SIZE):
+        for i in range(MEM_SIZE):
             self.memory[i] = 0
         self.halted = True
         self.program_counter = 0

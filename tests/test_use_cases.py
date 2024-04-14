@@ -1,4 +1,4 @@
-from uvsim.constants import WORD_SIZE
+from uvsim.constants import MEM_SIZE
 from uvsim.cpu import CPU
 from uvsim.opcodes import *
 
@@ -143,7 +143,7 @@ def test_performing_divide_operation(monkeypatch, capsys):
 def test_halting_the_program():
     # Actor: Student
     # UVSim instance
-    cpu = CPU([0] * WORD_SIZE)
+    cpu = CPU([0] * MEM_SIZE)
 
     # Step 1: The student inputs a HALT instruction into their program.
     program = [LOAD,
