@@ -249,40 +249,52 @@ class App(CPU, tk.Tk):
         self.mainloop()
 
     def change_color(self):
-            top = tk.Toplevel()
-            top.geometry('300x300')
-            primary_ent = tk.Entry(top)
-            secondary_ent =tk.Entry(top)
+        """
+        Purpose:
+            Changes the color of the GUI.
+        Input Parameters:
+            None.
+        Return Value:
+            None.
+        Pre-conditions:
+            Change color button is clicked from the menu.
+        Post-conditions:
+            The color of the GUI is changed.
+        """
+        top = tk.Toplevel()
+        top.geometry('300x300')
+        primary_ent = tk.Entry(top)
+        secondary_ent =tk.Entry(top)
 
-            #Goes through everything and sets their bg and forground
-            def insert_val():
+        #Goes through everything and sets their bg and forground
+        def insert_val():
 
 
-                primary= primary_ent.get()
-                secondary = secondary_ent.get()
+            primary= primary_ent.get()
+            secondary = secondary_ent.get()
 
 
-                if primary and secondary:
-                    if primary[0] != '#':
-                        primary = f'#{primary}'
-                    if secondary[0] != "#":
-                        secondary = f'#{secondary}'
-                    self.config(bg=primary)
-                    self.label.config(bg=primary)
-                    self.master_frame.config(bg=secondary)
-                    self.left_menu_frame.config(bg=secondary)
-                    for i in self.left_side_elems:
-                        if isinstance(i,(tk.Label, tk.Button)):
-                            i.config(bg=primary, fg=secondary)
+            if primary and secondary:
+                if primary[0] != '#':
+                    primary = f'#{primary}'
+                if secondary[0] != "#":
+                    secondary = f'#{secondary}'
+                self.config(bg=primary)
+                self.label.config(bg=primary)
+                self.master_frame.config(bg=secondary)
+                self.left_menu_frame.config(bg=secondary)
+                for i in self.left_side_elems:
+                    if isinstance(i,(tk.Label, tk.Button)):
+                        i.config(bg=primary, fg=secondary)
 
-                    for i in self.editors:
-                        i.master_frame.config(bg=primary)
-                        i.upper_frame.config(bg=primary)
-                        i.lower_frame.config(bg=primary)
+                for i in self.editors:
+                    i.master_frame.config(bg=primary)
+                    i.upper_frame.config(bg=primary)
+                    i.lower_frame.config(bg=primary)
 
-                    top.destroy()
-                else:
-                    messagebox.showerror("ERROR", f"Please input color for all fields")
+                top.destroy()
+            else:
+                messagebox.showerror("ERROR", f"Please input color for all fields")
 
 
 
@@ -294,6 +306,10 @@ class App(CPU, tk.Tk):
             None.
         Return Value:
             None.
+        Pre-conditions:
+            Needs to be selected from the menu.
+        Post-conditions:
+            The memory content is set to the content of the selected file.
         """
         file_path = filedialog.askopenfilename(title="Open", filetypes=FILETYPES, initialdir=WORKING_DIR)
 
@@ -323,6 +339,10 @@ class App(CPU, tk.Tk):
             None.
         Return Value:
             None.
+        Pre-conditions:
+            The memory content must be valid.
+        Post-conditions:
+            The memory content is saved to the previously opened or saved file path.
         """
         if self.open_file_path:
             mem = [self.memory[i] for i in range(MEM_SIZE)]
@@ -343,6 +363,10 @@ class App(CPU, tk.Tk):
             None.
         Return Value:
             None.
+        Pre-conditions:
+            The memory content must be valid.
+        Post-conditions:
+            The memory content is saved to a new file.
         """
         file = filedialog.asksaveasfile(title="Save As", filetypes=FILETYPES, initialdir=WORKING_DIR, defaultextension='.txt')
 
@@ -364,6 +388,10 @@ class App(CPU, tk.Tk):
             None.
         Return Value:
             The result of the instruction execution.
+        Pre-conditions:
+            The CPU is not halted.
+        Post-conditions:
+            The CPU executes a single instruction.
         """
         result = self.run_one_instruction()
         if result != OK:
@@ -379,6 +407,10 @@ class App(CPU, tk.Tk):
             None.
         Return Value:
             None.
+        Pre-conditions:
+            The CPU is not halted.
+        Post-conditions:
+            The CPU executes instructions until the program counter reaches the specified address.
         """
         self.halted = False
         address = self._address_run_to.get()
@@ -397,6 +429,10 @@ class App(CPU, tk.Tk):
             None.
         Return Value:
             None.
+        Pre-conditions:
+            The CPU is not halted.
+        Post-conditions:
+            The CPU executes instructions until it is halted.
         """
         self.halted = False
         result = self.step()
@@ -415,6 +451,10 @@ class App(CPU, tk.Tk):
             user_input: User-provided input. If not provided, input is obtained through a popup.
         Return Value:
             An error code indicating the result of the operation.
+        Pre-conditions:
+            None.
+        Post-conditions:
+            Memory is updated with the user input.
         """
         if not user_input: # if user_input is not set, get input from cli.
             user_input = simpledialog.askstring("Read", "Enter a word: ")
@@ -438,6 +478,10 @@ class App(CPU, tk.Tk):
             data: The memory location of the word that will be written.
         Return Value:
             An error code indicating the result of the operation.
+        Pre-conditions:
+            None.
+        Post-conditions:
+            The word is displayed in a popup.
         """
         word_to_write = self.memory[data]
 
@@ -455,11 +499,27 @@ class App(CPU, tk.Tk):
             None.
         Return Value:
             The current value of the accumulator.
+        Pre-conditions:
+            None.
+        Post-conditions:
+            None.
         """
         return self._accumulator.get()
 
     @accumulator.setter
     def accumulator(self, value):
+        """
+        Purpose:
+            Setter for the accumulator property.
+        Input Parameters:
+            value: The new value of the accumulator.
+        Return Value:
+            None.
+        Pre-conditions:
+            None.
+        Post-conditions:
+            The accumulator value is updated.
+        """
         self._accumulator.set(value)
 
     @property
@@ -471,11 +531,25 @@ class App(CPU, tk.Tk):
             None.
         Return Value:
             The current value of the program counter.
+        Pre-conditions:
+            None.
+        Post-conditions:
+            None.
         """
         return self._program_counter.get()
 
     @program_counter.setter
     def program_counter(self, value):
+        """
+        Purpose:
+            Setter for the program counter property.
+        Input Parameters:
+            value: The new value of the program counter.
+        Return Value:
+            None.
+        Pre-conditions:
+            None.
+        """
         self.memory.program_counter = value
         self._program_counter.set(value)
 
@@ -488,10 +562,26 @@ class App(CPU, tk.Tk):
             None.
         Return Value:
             True if the CPU is halted, False otherwise.
+        Pre-conditions:
+            None.
+        Post-conditions:
+            None.
         """
         return self._halted.get()
 
     @halted.setter
     def halted(self, value):
+        """
+        Purpose:
+            Setter for the halted property.
+        Input Parameters:
+            value: The new value of the halted property.
+        Return Value:
+            None.
+        Pre-conditions:
+            None.
+        Post-conditions:
+            The halted property is updated.
+        """
         self._halted.set(value)
         self.memory.halted = self.halted

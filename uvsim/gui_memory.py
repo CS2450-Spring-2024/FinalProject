@@ -23,6 +23,10 @@ class Memory(tk.Frame):
             vcmd: The validation command for memory entries.
         Return Value:
             None.
+        Pre-conditions:
+            The memory array must be valid.
+        Post-conditions:
+            The memory GUI is set up.
         """
         super().__init__(master)
         self.label = tk.Label(master=self, text="Memory")

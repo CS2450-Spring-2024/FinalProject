@@ -9,6 +9,10 @@ def word_to_op_data_4dp(word: int) -> tuple[int, int]:
         line: An instruction line from memory.
     Return Value:
         A tuple that holds the opcode and data.
+    Pre-conditions:
+        The line must be a valid instruction line.
+    Post-conditions:
+        None.
     """
     data = word % FOURDP_WORD_SIZE
     opcode = (word - data)
@@ -22,13 +26,28 @@ def word_to_op_data(word: int) -> tuple[int, int]:
         line: An instruction line from memory.
     Return Value:
         A tuple that holds the opcode and data.
+    Pre-conditions:
+        The line must be a valid instruction line.
+    Post-conditions:
+        opcode and data are extracted from the line.
     """
     data = word % WORD_SIZE
     opcode = (word - data)
     return (opcode, data)
 
 def get_program_from_file(path, check_6dp=True) -> list[int]:
-    """Get program from file"""
+    """
+    Purpose:
+        Get program from file.
+    Input Parameters:
+        path: The path to the file.
+    Return Value:
+        The program.
+    Pre-conditions:
+        The file must exist and be readable.
+    Post-conditions:
+        The program is returned.
+    """
 
     with open(path, "r") as in_file:
         program = in_file.read()
@@ -36,6 +55,19 @@ def get_program_from_file(path, check_6dp=True) -> list[int]:
     return program
 
 def try_parse_cli(program, tries=0):
+    """
+    Purpose:
+        Try to parse a word from the command line.
+    Input Parameters:
+        program: The program so far.
+        tries: The number of tries so far.
+    Return Value:
+        The parsed word.
+    Pre-conditions:
+        A valid program must be passed.
+    Post-conditions:
+        The word is parsed.
+    """
     word = input(f"{len(program)} ? ")
     try:
         word = parse_word(word, len(program))
@@ -46,7 +78,19 @@ def try_parse_cli(program, tries=0):
     return word
 
 def get_program_from_cli() -> list[int]:
-    """Get program from CLI"""
+    
+    """
+    Purpose:
+        Get program from command line.
+    Input Parameters:
+        None.
+    Return Value:
+        The program.
+    Pre-conditions:
+        cli must be enabled.
+    Post-conditions:
+        The program is returned.
+    """
 
     program = []
     while True:
@@ -65,6 +109,19 @@ def get_program_from_cli() -> list[int]:
 
 
 def parse_word(word: str, addr: int) -> int:
+    """
+    Purpose:
+        Parse a word from the command line.
+    Input Parameters:
+        word: The word to parse.
+        addr: The address of the word.
+    Return Value:
+        The parsed word.
+    Pre-conditions:
+        The word must be a valid word.
+    Post-conditions:
+        The word is parsed.
+    """
     try:
         val = int(word)
     except ValueError as e:
@@ -73,7 +130,18 @@ def parse_word(word: str, addr: int) -> int:
 
 
 def parse_str(program: str, check_6dp=True) -> int:
-    """Returns an validated program from a given string. If a program is invalid, this throws an AssertionError"""
+    """
+    Purpose:
+        Returns an validated program from a given string. If a program is invalid, this throws an AssertionError
+    Input Parameters:
+        program: The program to parse.
+    Return Value:
+        The parsed program.
+    Pre-conditions:
+        The program must be a valid program.
+    Post-conditions:
+        The program is parsed. 
+    """
     program = program.strip()
     program = [parse_word(word, i) for i, word in enumerate(program.split("\n"))]
 
@@ -83,6 +151,18 @@ def parse_str(program: str, check_6dp=True) -> int:
 
 
 def validate_program(program: list[int], check_6dp=True) -> list[int]:
+    """
+    Purpose:
+        Validates a program. If the program is invalid, this throws an AssertionError
+    Input Parameters:
+        program: The program to validate.
+    Return Value:
+        The validated program.
+    Pre-conditions:
+        The program must be a valid program.
+    Post-conditions:
+        The program is validated.
+    """
     assert (
         program[-1] == TERMINAL_WORD
     ), f"Invalid program, must be terminated with {TERMINAL_WORD}!\nProgram: {program}"
@@ -104,6 +184,19 @@ def validate_program(program: list[int], check_6dp=True) -> list[int]:
 
 
 def save_memory(memory: list[int], path: str):
+    """
+    Purpose:
+        Save memory to a file.
+    Input Parameters:
+        memory: The memory to save.
+        path: The path to save the memory to.
+    Return Value:
+        None.
+    Pre-conditions:
+        The memory must be a valid memory.
+    Post-conditions:
+        The memory is saved to the file.
+    """
     end_idx = MEM_SIZE
     for idx in range(len(memory) - 1, -1, -1):
         if memory[idx] != 0:
@@ -119,18 +212,50 @@ def save_memory(memory: list[int], path: str):
 
 def fourdp_word_to_sixdp_word(word: int) -> int:
     """
-    Converts a 4dp instruction word to a 6dp instruction word
-    Requires that word is a valid 4dp instruction word
+    Purpose:
+        Converts a 4dp instruction word to a 6dp instruction word
+    Input Parameters:
+        word: The 4dp instruction word
+    Return Value:
+        The 6dp instruction word
+    Pre-conditions:
+        Requires that word is a valid 4dp instruction word
+    Post-conditions:   
+        The 4dp instruction word is converted to a 6dp instruction word
     """
     scaling_factor = WORD_SIZE // FOURDP_WORD_SIZE
     op, data = word_to_op_data_4dp(word)
     return op * scaling_factor + data
 
 def convert_4dp_prog_to_6dp(program: list[int]) -> list[int]:
+    """
+    Purpose:
+        Converts a 4dp program to a 6dp program
+    Input Parameters:
+        program: The 4dp program
+    Return Value:
+        The 6dp program
+    Pre-conditions:
+        Requires that program is a valid 4dp program
+    Post-conditions:
+        The 4dp program is converted to a 6dp program
+    """
     return [fourdp_word_to_sixdp_word(word) for word in program]
 
 
 def convert_4dp_file_to_6dp(filepath: str):
+    """
+    Purpose:
+        Converts a 4dp program file to a 6dp program file
+    Input Parameters:
+        filepath: The path to the 4dp program file
+    Return Value:
+        None
+    Pre-conditions:
+        Requires that the file at filepath is a valid 4dp program
+    Post-conditions:
+        The 4dp program is converted to a 6dp program and saved to a new file
+    """
     new_filepath = filepath.replace(".4dp", ".6dp")
 
     four_prog = get_program_from_file(filepath, check_6dp=False)

@@ -6,6 +6,18 @@ from uvsim.gui import App
 
 
 def main():
+    """
+    Purpose:
+        Main function for the UVSimulator.
+    Input Parameters:
+        None.
+    Return Value:
+        None.
+    Pre-conditions:
+        None.
+    Post-conditions:
+        None.
+    """
     parser = argparse.ArgumentParser(
         description="UVSimulator is a simple computer simulator. Run a program from a file or by entering it line by line."
     )
@@ -54,6 +66,18 @@ def main():
 
 
 def help_opcodes(arg):
+    """
+    Purpose:
+        Print the opcode documentation.
+    Input Parameters:
+        arg: The opcode to print documentation for.
+    Return Value:
+        None.
+    Pre-conditions:
+        None.
+    Post-conditions:
+        None.
+    """
     if isinstance(arg, bool):
         print("10: READ")
         print("11: WRITE")

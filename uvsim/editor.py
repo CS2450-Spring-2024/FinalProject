@@ -246,9 +246,6 @@ class Editor:
         
 
 
-
-
-
 if __name__ == "__main__":
     mast = tk.Tk()
     test = Editor(mast, None)

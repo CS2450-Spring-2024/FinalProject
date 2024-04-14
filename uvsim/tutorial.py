@@ -18,6 +18,10 @@ class Tutorial:
             master: The master widget of the Tutorial frame.
         Return Value: 
             None.
+        Pre-conditions:
+            The master widget must be valid.
+        Post-conditions:
+            The tutorial GUI is set up.
         """
         width = 13
         self.master = master
@@ -74,6 +78,10 @@ class Tutorial:
             None.
         Return Value:
             None.
+        Pre-conditions:
+            The tutorial must be initialized.
+        Post-conditions:
+            The next image in the tutorial is displayed.
         """
         try:
             self.current_image.config(image=next(self.image_iter))
@@ -88,6 +96,10 @@ class Tutorial:
             None.
         Return Value:
             A list of Tkinter PhotoImage objects representing the tutorial images.
+        Pre-conditions:
+            The tutorial images must be in the specified directory.
+        Post-conditions:
+            The tutorial images are opened and converted into Tkinter PhotoImage objects.
         """
         lyst = [
             ImageTk.PhotoImage(
