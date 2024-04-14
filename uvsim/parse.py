@@ -1,5 +1,31 @@
-from uvsim.constants import WORD_SIZE, TERMINAL_WORD
+from uvsim.constants import FOURDP_WORD_SIZE, MEM_SIZE, WORD_SIZE, TERMINAL_WORD
+from uvsim.opcodes import OPCODES
 
+def word_to_op_data_4dp(word: int) -> tuple[int, int]:
+    """
+    Purpose:
+        pulls opcode and data from an instruction line.
+    Input Parameters:
+        line: An instruction line from memory.
+    Return Value:
+        A tuple that holds the opcode and data.
+    """
+    data = word % FOURDP_WORD_SIZE
+    opcode = (word - data)
+    return (opcode, data)
+
+def word_to_op_data(word: int) -> tuple[int, int]:
+    """
+    Purpose:
+        pulls opcode and data from an instruction line.
+    Input Parameters:
+        line: An instruction line from memory.
+    Return Value:
+        A tuple that holds the opcode and data.
+    """
+    data = word % WORD_SIZE
+    opcode = (word - data)
+    return (opcode, data)
 
 def get_program_from_file(path) -> list[int]:
     """Get program from file"""
@@ -34,7 +60,7 @@ def get_program_from_cli() -> list[int]:
 
         if len(program) > WORD_SIZE:
             raise AssertionError(
-                f"Invalid program, must be {WORD_SIZE} lines or less!\nProgram:{program}"
+                f"Invalid program, must be {MEM_SIZE} lines or less!\nProgram:{program}"
             )
 
 
@@ -63,16 +89,21 @@ def validate_program(program: list[int]) -> list[int]:
     program.pop() # pop TERMINAL_WORD
 
     assert (
-        len(program) <= WORD_SIZE
-    ), f"Invalid program, must be {WORD_SIZE} lines or less!\nProgram: {program}"
+        len(program) <= MEM_SIZE
+    ), f"Invalid program, must be {MEM_SIZE} lines or less!\nProgram: {program}"
 
-    program.extend([0] * WORD_SIZE)
-    program = program[:WORD_SIZE]
+    prog_type = classify_program(program)
+    assert (
+        prog_type == "6dp"
+    ), f"Program type was {prog_type}, but only 6dp programs are accepted. Please use the migration tool or check your syntax."
+
+    program.extend([0] * MEM_SIZE)
+    program = program[:MEM_SIZE]
     return program
 
 
 def save_memory(memory: list[int], path: str):
-    end_idx = WORD_SIZE
+    end_idx = MEM_SIZE
     for idx in range(len(memory) - 1, -1, -1):
         if memory[idx] != 0:
             end_idx = idx
@@ -83,3 +114,44 @@ def save_memory(memory: list[int], path: str):
         lines.append(TERMINAL_WORD)
         output = '\n'.join(map(lambda word: str(word), lines))
         file.write(output)
+
+
+def fourdp_word_to_sixdp_word(word: int) -> int:
+    """
+    Converts a 4dp instruction word to a 6dp instruction word
+    Requires that word is a valid 4dp instruction word
+    """
+    op, data = word_to_op_data_4dp(word)
+    return op * 10 + data
+
+
+def classify_program(program: list[int]) -> str:
+    """
+    Classifies a program as 4dp or 6dp.
+
+    Returns "4dp" if the program is a 4dp program
+    Returns "6dp" if the program is a 4dp program
+    Returns "unknown" if the function was inconclusive
+
+    How it works:
+    We iterate through all words in a program.
+    For every word, we check if the opcode is a valid 4/6 digit opcode, and it may be unknown as well.
+    If it's 4/6, then we assume it's a 4/6 digit program.
+    If not, we move on to the next word.
+    If all words in a program are unknown, we return unknown.
+    """
+    scaling_factor = WORD_SIZE // FOURDP_WORD_SIZE
+
+    fourdp_opcodes = list(map(lambda op: op // scaling_factor, OPCODES))
+    sixdp_opcodes = OPCODES
+
+    for word in program:
+        op6, _ = word_to_op_data(word)
+        op4, _ = word_to_op_data_4dp(word)
+
+        if op4 in fourdp_opcodes and op6 not in sixdp_opcodes:
+            return "4dp"
+        elif op4 not in fourdp_opcodes and op6 in sixdp_opcodes:
+            return "6dp"
+
+    return "unknown"

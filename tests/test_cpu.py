@@ -1,11 +1,11 @@
 from uvsim.constants import TERMINAL_WORD
-from uvsim.cpu import CPU, line_to_op_data
+from uvsim.cpu import CPU, word_to_op_data
 from uvsim.opcodes import *
 from uvsim.parse import validate_program
 
 # Feel free to copy this test and modify it to test your function
 def test_line_to_op_data():
-    test_fn = line_to_op_data
+    test_fn = word_to_op_data
 
     # key is the argument to the fn, val is the expected output
     test_cases = {

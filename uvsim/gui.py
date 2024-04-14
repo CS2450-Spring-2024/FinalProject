@@ -4,7 +4,7 @@ import tkinter as tk
 from tkinter import filedialog, messagebox, ttk, simpledialog
 
 from PIL import Image, ImageTk
-from uvsim.constants import FILETYPES, FONT, WORD_SIZE, UVU_GREEN, WORKING_DIR, SECONDARY
+from uvsim.constants import FILETYPES, FONT, MEM_SIZE, UVU_GREEN, WORKING_DIR, SECONDARY
 
 from uvsim.cpu import CPU, ERROR_INVALID_INPUT, OK, error_code_to_text
 from uvsim.gui_memory import Memory
@@ -49,7 +49,7 @@ def onValidateAddress(proposed_new_text):
     if not is_numeric(proposed_new_text):
         return False
 
-    if int(proposed_new_text) < WORD_SIZE and int(proposed_new_text) >= 0:
+    if int(proposed_new_text) < MEM_SIZE and int(proposed_new_text) >= 0:
         return True
 
     return False
@@ -238,18 +238,18 @@ class App(CPU, tk.Tk):
 
     def change_color(self):
             top = tk.Toplevel()
-            top.geometry('300x300')    
+            top.geometry('300x300')
             primary_ent = tk.Entry(top)
             secondary_ent =tk.Entry(top)
-            
-            #Goes through everything and sets their bg and forground 
+
+            #Goes through everything and sets their bg and forground
             def insert_val():
-            
-                
+
+
                 primary= primary_ent.get()
                 secondary = secondary_ent.get()
-                
-                
+
+
                 if primary and secondary:
                     if primary[0] != '#':
                         primary = f'#{primary}'
@@ -313,7 +313,7 @@ class App(CPU, tk.Tk):
             None.
         """
         if self.open_file_path:
-            mem = [self.memory[i] for i in range(WORD_SIZE)]
+            mem = [self.memory[i] for i in range(MEM_SIZE)]
             try:
                 save_memory(mem, self.open_file_path)
             except Exception as error:
@@ -335,7 +335,7 @@ class App(CPU, tk.Tk):
         file = filedialog.asksaveasfile(title="Save As", filetypes=FILETYPES, initialdir=WORKING_DIR, defaultextension='.txt')
 
         if file:
-            mem = [self.memory[i] for i in range(WORD_SIZE)]
+            mem = [self.memory[i] for i in range(MEM_SIZE)]
             try:
                 save_memory(mem, file.name)
             except Exception as error:

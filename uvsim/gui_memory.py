@@ -1,9 +1,9 @@
 import tkinter as tk
 from tkinter import messagebox
-from uvsim.constants import WORD_SIZE
+from uvsim.constants import MEM_SIZE
 
 ROW_WIDTH = 10
-COLS = WORD_SIZE // ROW_WIDTH
+COLS = MEM_SIZE // ROW_WIDTH
 
 
 class Memory(tk.Frame):
