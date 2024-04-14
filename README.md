@@ -36,7 +36,7 @@ For more information, run `python3 -m uvsim --help`
 
 # Programming
 Programs are written in [BasicML](#basicml-instructions). Programs can be read from a file, or line by line as they are entered in the CLI.
-The basic format for instruction words are 2 base 10 digits for the opcode, followed by two base 10 digits for the data. For example, to `LOAD` (opcode 20) the contents of memory address `12` into the accumulator, the instruction word would be `2012`. All programs should contain a `HALT` instruction, but this is not necessary if the program runs to the end of memory.
+The basic format for instruction words are 3 base 10 digits for the opcode, followed by 3 base 10 digits for the data. For example, to `LOAD` (opcode 20) the contents of memory address `12` into the accumulator, the instruction word would be `020012`. All programs should contain a `HALT` instruction, but this is not necessary if the program runs to the end of memory.
 Every BasicML program should be terminated with the word `-99999`.
 If the simulator tries to execute a word that is not an opcode, the simulation ends.
 Each word should be preceded by either + or -. However, this is not enforced. In any case, the simulator interprets words with no preceding sign character as positive.
