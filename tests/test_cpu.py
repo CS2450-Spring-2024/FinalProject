@@ -1,11 +1,39 @@
 from uvsim.constants import TERMINAL_WORD
-from uvsim.cpu import CPU, word_to_op_data
+from uvsim.cpu import CPU
 from uvsim.opcodes import *
-from uvsim.parse import validate_program
+from uvsim.parse import validate_program, word_to_op_data_4dp, word_to_op_data
 
-# Feel free to copy this test and modify it to test your function
 def test_line_to_op_data():
     test_fn = word_to_op_data
+
+    # key is the argument to the fn, val is the expected output
+    test_cases = {
+        0000: (0, 0),
+        10007: (10000, 7),
+        10008: (10000, 8),
+        10009: (10000, 9),
+        10010: (10000, 10),
+        11009: (11000, 9),
+        11010: (11000, 10),
+        20007: (20000, 7),
+        20009: (20000, 9),
+        21009: (21000, 9),
+        30008: (30000, 8),
+        31010: (31000, 10),
+        41007: (41000, 7),
+        43000: (43000, 0),
+        99000: (99000, 0),  # Testing opcode 9900, minimal data
+        99099: (99000, 99),  # Testing opcode 9900 with data 99
+        10099: (10000, 99),  # Testing data 99, opcode 1000
+        99001: (99000, 1),  # Testing opcode 9900 with minimal data
+        99: (0, 99),  # Edge case: data is 99, opcode is 0
+    }
+
+    for args, expected in test_cases.items():
+        assert test_fn(args) == expected, f"Failed on input {args}: expected {expected}, got {test_fn(args)}"
+
+def test_line_to_op_data_4dp():
+    test_fn = word_to_op_data_4dp
 
     # key is the argument to the fn, val is the expected output
     test_cases = {

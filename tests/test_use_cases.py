@@ -49,7 +49,7 @@ def test_displaying_data_from_memory(monkeypatch, capsys):
     uv_sim = CPU([0]*100)
 
     # Step 1: The student inputs a WRITE instruction into their program (in this case, writing the value at location 7).
-    program = [1107,
+    program = [11007,
                HALT] # TERMINAL_WORD
 
     # Load this program into the CPU's memory
@@ -175,7 +175,7 @@ def test_program_reset_and_memory_clear():
     # Step 1: The student decides to start over with a new program.
     # Step 2: The student resets UVSim, clearing the memory and accumulator.
 
-    cpu = CPU([0]*100)
+    cpu = CPU([0] * MEM_SIZE)
 
     cpu.memory[5] = 12
     cpu.accumulator = 5
