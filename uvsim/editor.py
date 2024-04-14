@@ -61,11 +61,6 @@ class Editor:
         
         #edit menu
         self.edit_menu = tk.Menu(self.menu_bar, tearoff=0)
-        #self.edit_menu.add_command(label="Undo", command=lambda: self.memory.undo(), font=FONT, accelerator=undo_accelerator)
-        # self.bind_all("<Control-z>" if current_os != "Darwin" else "<Command-z>", lambda event: self.memory.undo())
-        # self.edit_menu.add_command(label="Redo", command=lambda: self.memory.redo(), font=FONT, accelerator=redo_accelerator)
-        # self.bind_all("<Control-y>" if current_os != "Darwin" else "<Command-Shift-Z>", lambda event: self.memory.redo())
-        # self.edit_menu.add_separator()
         self.edit_menu.add_command(label="Cut", command=lambda: self.cut(), font=FONT, accelerator=cut_accelerator)
         self.master.bind_all("<Control-x>" if current_os != "Darwin" else "<Command-x>", lambda event: self.cut())
         self.edit_menu.add_command(label="Copy", command=lambda: self.copy(), font=FONT, accelerator=copy_accelerator)
