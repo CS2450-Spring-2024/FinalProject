@@ -1,4 +1,5 @@
-from uvsim.constants import FOURDP_WORD_SIZE, MEM_SIZE, WORD_SIZE, TERMINAL_WORD
+from tkinter import filedialog, messagebox
+from uvsim.constants import FOURDP_FILETYPES, FOURDP_WORD_SIZE, MEM_SIZE, WORD_SIZE, TERMINAL_WORD, WORKING_DIR
 from uvsim.opcodes import OPCODES
 
 def word_to_op_data_4dp(word: int) -> tuple[int, int]:
@@ -130,10 +131,10 @@ def convert_4dp_prog_to_6dp(program: list[int]) -> list[int]:
     return [fourdp_word_to_sixdp_word(word) for word in program]
 
 
-def convert_4dp_file_to_6dp(filepath: str):
-    new_filepath = filepath.replace(".4dp", ".6dp")
+def convert_4dp_file_to_6dp(file_path: str):
+    new_filepath = file_path.replace(".4dp", ".6dp")
 
-    four_prog = get_program_from_file(filepath, check_6dp=False)
+    four_prog = get_program_from_file(file_path, check_6dp=False)
     six_prog = convert_4dp_prog_to_6dp(four_prog)
     save_memory(six_prog, new_filepath)
 
@@ -168,3 +169,16 @@ def classify_program(program: list[int]) -> str:
             return "6dp"
 
     return "unknown"
+
+def convert_dialog():
+    file_path = filedialog.askopenfilename(title="Open", filetypes=FOURDP_FILETYPES, initialdir=WORKING_DIR)
+
+    if file_path:
+        try:
+            # Open and read the file
+            convert_4dp_file_to_6dp(file_path)
+
+        except Exception as error:
+            messagebox.showerror("Error", f"Error converting file:\n{error}")
+        finally:
+            messagebox.showinfo("4dp Conversion Success", f"Successfully converted {file_path} to {file_path.replace('.4dp', '.6dp')}")

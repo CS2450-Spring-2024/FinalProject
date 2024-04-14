@@ -23,7 +23,7 @@ def test_open_file(editor_instance):
         tmp_file_path = tmp_file.name
 
     with patch.object(filedialog, 'askopenfilename', return_value=tmp_file_path):
-        editor_instance.open_file()
+        editor_instance.open_file(check_6dp=False)
 
     assert editor_instance.text_box.get("1.0", "4.0") == "1\n2\n3\n"
 

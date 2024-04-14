@@ -2,7 +2,7 @@ import tkinter as tk
 from tkinter import filedialog, messagebox, ttk, simpledialog
 from tkinter import scrolledtext as scrolledtext
 from uvsim.constants import *
-from uvsim.parse import get_program_from_file, parse_word, save_memory
+from uvsim.parse import get_program_from_file, parse_word, save_memory, convert_dialog
 import platform
 
 
@@ -10,20 +10,20 @@ class Editor:
     """
     Editor Class
     Purpose of the Class:
-        The Editor class is used to create a GUI for the UVSim Editor. In the editor the user can write and edit programs. 
+        The Editor class is used to create a GUI for the UVSim Editor. In the editor the user can write and edit programs.
         The editor also allows the user to save and open files.
     """
     def __init__(self, master:tk.Tk, parent: tk.Tk, is_main:bool=False) -> None:
-        width = 13 
+        width = 13
         self.master = master
         self.parent = parent
 
-        #self.master.wm_attributes("-toolwindow", 't')  
+        #self.master.wm_attributes("-toolwindow", 't')
 
         self.master.geometry("350x450")
         self.open_file_path =""
-        
-        
+
+
         #differentiates between macOS and other systems for key bindings
         current_os = platform.system()
         if current_os == "Darwin":  # macOS
@@ -47,7 +47,7 @@ class Editor:
             copy_accelerator = "Ctrl+C"
             paste_accelerator = "Ctrl+V"
 
-        #initialize Master frame 
+        #initialize Master frame
         self.master_frame = tk.Frame(self.master)
         self.master_frame.configure(bg=UVU_GREEN)
         self.master_frame.columnconfigure((0, 4), weight=1)
@@ -56,15 +56,15 @@ class Editor:
 
         #Create menu bar
         self.menu_bar= tk.Menu(self.master)
-        
-        #Save, Save as, Open 
+
+        #Save, Save as, Open
         self.file_menu = tk.Menu(self.menu_bar, tearoff=0)
         self.file_menu.add_command(label="Open", command= self.open_file, font=FONT)
         self.file_menu.add_command(label="Save", command= self.save, font=FONT)
-        self.file_menu.add_command(label="Save As", command= self.save_as, font=FONT) 
+        self.file_menu.add_command(label="Save As", command= self.save_as, font=FONT)
         self.menu_bar.add_cascade(menu= self.file_menu, label="File", font=FONT)
-        
-        
+
+
         #edit menu
         self.edit_menu = tk.Menu(self.menu_bar, tearoff=0)
         self.edit_menu.add_command(label="Cut", command=lambda: self.cut(), font=FONT, accelerator=cut_accelerator)
@@ -73,22 +73,25 @@ class Editor:
         self.master.bind_all("<Control-c>" if current_os != "Darwin" else "<Command-c>", lambda event: self.copy())
         self.edit_menu.add_command(label="Paste", command=lambda: self.paste(), font=FONT, accelerator=paste_accelerator)
         self.master.bind_all("<Control-v>" if current_os != "Darwin" else "<Command-v>",  lambda event: self.paste)
-        self.edit_menu.add_separator()
         self.menu_bar.add_cascade(menu= self.edit_menu, label="Edit", font=FONT)
+
+        self.help_menu = tk.Menu(self.menu_bar, tearoff=0)
+        self.help_menu.add_command(label="Migrate 4dp Program to 6dp", command=lambda: convert_dialog(), font=FONT)
+        self.menu_bar.add_cascade(menu=self.help_menu, label="Help", font=FONT)
 
         self.master.config(menu=self.menu_bar)
 
-        #Upper Frame 
+        #Upper Frame
         self.upper_frame = tk.Frame(self.master_frame, bg= UVU_GREEN)
         self.upper_frame.grid(column=0, row=0, sticky="n", padx=3, pady=3)
 
-        #Text Box 
+        #Text Box
         self.text_box = scrolledtext.ScrolledText(self.upper_frame, undo=True)
         self.text_box['font'] = FONT
         self.text_box['width'] = 30
         self.text_box.grid(row=0, column=0, sticky="n", padx=50, pady=30)
 
-        #Label 
+        #Label
         self.label = tk.Label(self.upper_frame, text="UVSIM | EDITOR")
         self.label.grid(row=0, column=0, sticky="n")
 
@@ -117,7 +120,7 @@ class Editor:
         for idx, val in enumerate(self.program):
             self.parent.memory[idx] = val
 
-    def open_file(self):
+    def open_file(self, check_6dp=True):
         """
         Purpose:
             Opens a file dialog to allow the user to select a file and loads its content into the CPU memory.
@@ -137,7 +140,7 @@ class Editor:
             self.text_box.delete("1.0", tk.END) # Reset text box
             try:
                 # Open and read the file, then set the memory to the file content
-                program = get_program_from_file(file_path)
+                program = get_program_from_file(file_path, check_6dp)
 
                 for idx, val in enumerate(program):
                     self.text_box.insert(str(float(idx+1)), f"{str(val)}\n")
@@ -147,7 +150,7 @@ class Editor:
 
             else:
                 self.open_file_path = file_path
-                self.master.title(f"UVSim Editor | {file_path.split('/')[-1]}") 
+                self.master.title(f"UVSim Editor | {file_path.split('/')[-1]}")
 
     def save(self):
         """
@@ -169,7 +172,7 @@ class Editor:
             except Exception as error:
                 messagebox.showerror("Error", f"Error saving file:\n{error}")
             else:
-                self.master.title(f"UVSim Editor | {self.open_file_path.split('/')[-1]}") 
+                self.master.title(f"UVSim Editor | {self.open_file_path.split('/')[-1]}")
         else:
             self.save_as()
 
@@ -243,17 +246,9 @@ class Editor:
         """
         self.text_box.event_generate("<<Paste>>")
         return "break"
-        
-
-
-
 
 
 if __name__ == "__main__":
     mast = tk.Tk()
     test = Editor(mast, None)
     mast.mainloop()
-    
-    
-
-

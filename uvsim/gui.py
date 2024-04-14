@@ -4,12 +4,12 @@ import tkinter as tk
 from tkinter import filedialog, messagebox, ttk, simpledialog
 
 from PIL import Image, ImageTk
-from uvsim.constants import FILETYPES, FONT, MEM_SIZE, UVU_GREEN, WORKING_DIR, SECONDARY
+from uvsim.constants import FILETYPES, FONT, FOURDP_FILETYPES, MEM_SIZE, UVU_GREEN, WORKING_DIR, SECONDARY
 
 from uvsim.cpu import CPU, ERROR_INVALID_INPUT, OK, error_code_to_text
 from uvsim.gui_memory import Memory
 from uvsim.tutorial import Tutorial
-from uvsim.parse import get_program_from_file, parse_word, save_memory
+from uvsim.parse import convert_4dp_file_to_6dp, get_program_from_file, parse_word, save_memory, convert_dialog
 from uvsim.editor import Editor
 
 numeric_regex = re.compile(r'[+-]?\d*')
@@ -54,6 +54,7 @@ def onValidateAddress(proposed_new_text):
 
     return False
 
+
 class App(CPU, tk.Tk):
     """
     The App class represents the main application that integrates the
@@ -87,25 +88,11 @@ class App(CPU, tk.Tk):
         #differentiates between macOS and other systems for key bindings
         current_os = platform.system()
         if current_os == "Darwin":  # macOS
-            save_accelerator = "Cmd+S"
-            save_as_accelerator = "Cmd+Shift+S"
             open_accelerator = "Cmd+O"
             exit_accelerator = "Cmd+Q"
-            undo_accelerator = "Cmd+Z"
-            redo_accelerator = "Cmd+Shift+Z"
-            cut_accelerator = "Cmd+X"
-            copy_accelerator = "Cmd+C"
-            paste_accelerator = "Cmd+V"
         else:  # Other systems (e.g., Windows, Linux)
-            save_accelerator = "Ctrl+S"
-            save_as_accelerator = "Ctrl+Shift+S"
             open_accelerator = "Ctrl+O"
             exit_accelerator = "Ctrl+Q"
-            undo_accelerator = "Ctrl+Z"
-            redo_accelerator = "Ctrl+Y"
-            cut_accelerator = "Ctrl+X"
-            copy_accelerator = "Ctrl+C"
-            paste_accelerator = "Ctrl+V"
 
         self._halted = tk.BooleanVar(value=True)
         self._program_counter = tk.IntVar(value=0)
@@ -117,16 +104,10 @@ class App(CPU, tk.Tk):
 
         # File
         self.file_menu = tk.Menu(self.menu_bar, tearoff=0) # Create a file menu
-        self.file_menu.add_command(label="Save", command=self.save, font=FONT, accelerator=save_accelerator)
-        self.bind_all("<Control-s>" if current_os != "Darwin" else "<Command-s>", lambda event: self.save())
-        self.file_menu.add_command(label="Save As", command=self.save_as, font=FONT, accelerator=save_as_accelerator)
-        self.bind_all("<Control-S>" if current_os != "Darwin" else "<Command-Shift-S>", lambda event: self.save_as())
-        self.file_menu.add_command(label="Open", command=self.open, font=FONT, accelerator=open_accelerator)
-        self.bind_all("<Control-o>" if current_os != "Darwin" else "<Command-o>", lambda event: self.open())
-        self.file_menu.add_separator()
         self.file_menu.add_command(label="Exit", command=exit_program, font=FONT, accelerator=exit_accelerator)
         self.bind_all("<Control-q>" if current_os != "Darwin" else "<Command-q>", lambda event: exit_program())
-        self.file_menu.add_command(label="Open Editor", command= lambda :self.editors.append(Editor(tk.Toplevel(), self)), font=FONT, accelerator=exit_accelerator)
+        self.file_menu.add_command(label="Open Editor", command=lambda: self.editors.append(Editor(tk.Toplevel(), self)), font=FONT, accelerator=open_accelerator)
+        self.bind_all("<Control-o>" if current_os != "Darwin" else "<Command-o>", lambda event: self.editors.append(Editor(tk.Toplevel(), self)))
         self.menu_bar.add_cascade(menu=self.file_menu, label="File", font=FONT)
 
         #Edit
@@ -139,6 +120,7 @@ class App(CPU, tk.Tk):
         # help
         self.help_menu = tk.Menu(self.menu_bar, tearoff=0)
         self.help_menu.add_command(label="Tutorial", command=lambda: Tutorial(tk.Toplevel()), font=FONT)
+        self.help_menu.add_command(label="Migrate 4dp Program to 6dp", command=lambda: convert_dialog(), font=FONT)
         self.menu_bar.add_cascade(menu=self.help_menu, label="Help", font=FONT)
 
         self.config(menu=self.menu_bar) # Add the menu bar to the window
@@ -189,32 +171,9 @@ class App(CPU, tk.Tk):
         self.memory = Memory(memory, self.master_frame, vcmd=vcmd)
 
 
-
-
-
-
-
-
-        #self.bind("<Button-1>", self.memory.handle_click)
-        #self.bind("<B1-Motion>", self.memory.handle_drag)
-        #self.bind("<ButtonRelease-1>", self.memory.handle_release)
-        #self.bind("<Return>", self.memory.shift_values)
-        #self.bind("<Delete>", self.memory.delete_value)
-
-
-        #self.bind("<Button-1>", self.memory.handle_click)
-
-        #self.bind("<Button-1>", self.memory.on_drag_start)
-        #self.bind("<B1-Motion>", self.memory.on_drag_move)
-        #self.bind("<ButtonRelease-1>", self.memory.on_drag_stop)
-
-
         #Editors
         self.main_editor = Editor(tk.Toplevel(), self, is_main=True)
         self.editors = [self.main_editor]
-
-
-
 
         def pc_callback(_a, _b, _c):
             try:
@@ -237,42 +196,37 @@ class App(CPU, tk.Tk):
         self.mainloop()
 
     def change_color(self):
-            top = tk.Toplevel()
-            top.geometry('300x300')
-            primary_ent = tk.Entry(top)
-            secondary_ent =tk.Entry(top)
+        top = tk.Toplevel()
+        top.geometry('300x300')
+        primary_ent = tk.Entry(top)
+        secondary_ent =tk.Entry(top)
 
-            #Goes through everything and sets their bg and forground
-            def insert_val():
+        #Goes through everything and sets their bg and forground
+        def insert_val():
+            primary= primary_ent.get()
+            secondary = secondary_ent.get()
 
+            if primary and secondary:
+                if primary[0] != '#':
+                    primary = f'#{primary}'
+                if secondary[0] != "#":
+                    secondary = f'#{secondary}'
+                self.config(bg=primary)
+                self.label.config(bg=primary)
+                self.master_frame.config(bg=secondary)
+                self.left_menu_frame.config(bg=secondary)
+                for i in self.left_side_elems:
+                    if isinstance(i,(tk.Label, tk.Button)):
+                        i.config(bg=primary, fg=secondary)
 
-                primary= primary_ent.get()
-                secondary = secondary_ent.get()
+                for i in self.editors:
+                    i.master_frame.config(bg=primary)
+                    i.upper_frame.config(bg=primary)
+                    i.lower_frame.config(bg=primary)
 
-
-                if primary and secondary:
-                    if primary[0] != '#':
-                        primary = f'#{primary}'
-                    if secondary[0] != "#":
-                        secondary = f'#{secondary}'
-                    self.config(bg=primary)
-                    self.label.config(bg=primary)
-                    self.master_frame.config(bg=secondary)
-                    self.left_menu_frame.config(bg=secondary)
-                    for i in self.left_side_elems:
-                        if isinstance(i,(tk.Label, tk.Button)):
-                            i.config(bg=primary, fg=secondary)
-
-                    for i in self.editors:
-                        i.master_frame.config(bg=primary)
-                        i.upper_frame.config(bg=primary)
-                        i.lower_frame.config(bg=primary)
-
-                    top.destroy()
-                else:
-                    messagebox.showerror("ERROR", f"Please input color for all fields")
-
-
+                top.destroy()
+            else:
+                messagebox.showerror("ERROR", f"Please input color for all fields")
 
     def open(self):
         """
