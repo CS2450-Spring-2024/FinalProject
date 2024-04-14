@@ -25,6 +25,10 @@ def onValidateData(proposed_new_text):
         proposed_new_text: The text proposed by the user.
     Return Value:
         True if the input is valid, False otherwise.
+    Pre-conditions:
+        User inputs a value
+    Post-conditions:
+        Value is validated
     """
     if proposed_new_text in ['', '-', '+']:
         return True
@@ -42,6 +46,10 @@ def onValidateAddress(proposed_new_text):
         proposed_new_text: The text proposed by the user.
     Return Value:
         True if the input is valid, False otherwise.
+    Pre-conditions:
+        User inputs a value
+    Post-conditions:
+        Value is validated
     """
     if proposed_new_text in ['', '-', '+']:
         return True
@@ -189,26 +197,6 @@ class App(CPU, tk.Tk):
         self.memory = Memory(memory, self.master_frame, vcmd=vcmd)
 
 
-
-
-
-
-
-
-        #self.bind("<Button-1>", self.memory.handle_click)
-        #self.bind("<B1-Motion>", self.memory.handle_drag)
-        #self.bind("<ButtonRelease-1>", self.memory.handle_release)
-        #self.bind("<Return>", self.memory.shift_values)
-        #self.bind("<Delete>", self.memory.delete_value)
-
-
-        #self.bind("<Button-1>", self.memory.handle_click)
-
-        #self.bind("<Button-1>", self.memory.on_drag_start)
-        #self.bind("<B1-Motion>", self.memory.on_drag_move)
-        #self.bind("<ButtonRelease-1>", self.memory.on_drag_stop)
-
-
         #Editors
         self.main_editor = Editor(tk.Toplevel(), self, is_main=True)
         self.editors = [self.main_editor]
@@ -217,6 +205,18 @@ class App(CPU, tk.Tk):
 
 
         def pc_callback(_a, _b, _c):
+            """
+            Purpose:
+                Callback function for the program counter entry. Updates the program counter value in memory.
+            Input Parameters:
+                _a, _b, _c: Unused parameters.
+            Return Value:
+                None.
+            Pre-conditions:
+                User inputs a value in the program counter entry.
+            Post-conditions:
+                Program counter value is updated in memory.
+            """
             try:
                 val = int(self.program_counter)
             except:
@@ -225,6 +225,18 @@ class App(CPU, tk.Tk):
                 self.memory.program_counter = val
 
         def halted_callback(_a, _b, _c):
+            """
+            Purpose:
+                Callback function for the halted variable. Updates the halted state in memory.  
+            Input Parameters:
+                _a, _b, _c: Unused parameters.
+            Return Value:
+                None.
+            Pre-conditions:
+                Halted state changes.
+            Post-conditions:
+                Halted state is updated in memory.
+            """
             self.memory.halted = self.halted
 
         self._program_counter.trace_add('write', pc_callback)
