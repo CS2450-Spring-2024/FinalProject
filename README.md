@@ -1,5 +1,5 @@
 # UVSim
-UVSim is a simulator for a simple computer. It has a memory size of 100 words, and operates on signed integers.
+UVSim is a simulator for a simple computer. It has a memory size of 250 words, and operates on signed integers.
 
 # Requirements
 - Windows/Linux/MacOS (Others are untested)
