@@ -23,6 +23,10 @@ class Memory(tk.Frame):
             vcmd: The validation command for memory entries.
         Return Value:
             None.
+        Pre-conditions:
+            The memory array must be valid.
+        Post-conditions:
+            The memory GUI is set up.
         """
         super().__init__(master)
         self.label = tk.Label(master=self, text="Memory")
@@ -95,6 +99,10 @@ class Memory(tk.Frame):
             key: Index or slice to access the memory content.
         Return Value:
             The value at the index or slice.
+        Pre-conditions:
+            The key must be a valid index or slice.
+        Post-conditions:
+            None.
         """
         if type(key) is int:
             return self.memory_vars[key].get()
@@ -110,6 +118,10 @@ class Memory(tk.Frame):
             value: The value that will be set.
         Return Value:
             None.
+        Pre-conditions:
+            The key must be a valid index or slice.
+        Post-conditions:
+            The memory content is updated.
         """
         if type(key) is int:
             return self.memory_vars[key].set(value)
@@ -126,11 +138,28 @@ class Memory(tk.Frame):
             None.
         Return Value:
             The current value of the program counter.
+        Pre-conditions:
+            The program counter must be a valid index.
+        Post-conditions:
+            None.
         """
         return self._program_counter
 
     @program_counter.setter
     def program_counter(self, value):
+        """
+        Purpose:
+            Setter for the program counter property.
+            It updates the GUI to highlight the current program counter cell.
+        Input Parameters:
+            value: The new value of the program counter.
+        Return Value:  
+            None.
+        Pre-conditions:
+            The value must be a valid index.
+        Post-conditions:
+            The program counter is updated.
+        """
         self.memory_frames[self._program_counter].configure(bg=self.defaultbg)
         self.memory_frames[value].configure(
             bg="#FFAAAA" if self._halted else self.defaultbg
@@ -147,11 +176,28 @@ class Memory(tk.Frame):
             None.
         Return Value:
             True if the CPU is halted, False otherwise.
+        Pre-conditions:
+            None.
+        Post-conditions:
+            None.
         """
         return self._halted
 
     @halted.setter
     def halted(self, value):
+        """
+        Purpose:
+            Setter for the halted property.
+            It updates the GUI to highlight the current program counter cell with a different color if the CPU is halted.
+        Input Parameters:
+            value: The new value of the halted property.
+        Return Value:
+            None.
+        Pre-conditions:
+            None.
+        Post-conditions:
+            The halted property is updated.
+        """
         self._halted = value
         self.memory_frames[self._program_counter].configure(
             bg="#FFAAAA" if self.halted else self.defaultbg

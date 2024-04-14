@@ -248,6 +248,7 @@ class Editor:
         return "break"
 
 
+
 if __name__ == "__main__":
     mast = tk.Tk()
     test = Editor(mast, None)

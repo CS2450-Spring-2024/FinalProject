@@ -25,6 +25,10 @@ def onValidateData(proposed_new_text):
         proposed_new_text: The text proposed by the user.
     Return Value:
         True if the input is valid, False otherwise.
+    Pre-conditions:
+        User inputs a value
+    Post-conditions:
+        Value is validated
     """
     if proposed_new_text in ['', '-', '+']:
         return True
@@ -42,6 +46,10 @@ def onValidateAddress(proposed_new_text):
         proposed_new_text: The text proposed by the user.
     Return Value:
         True if the input is valid, False otherwise.
+    Pre-conditions:
+        User inputs a value
+    Post-conditions:
+        Value is validated
     """
     if proposed_new_text in ['', '-', '+']:
         return True
@@ -176,6 +184,18 @@ class App(CPU, tk.Tk):
         self.editors = [self.main_editor]
 
         def pc_callback(_a, _b, _c):
+            """
+            Purpose:
+                Callback function for the program counter entry. Updates the program counter value in memory.
+            Input Parameters:
+                _a, _b, _c: Unused parameters.
+            Return Value:
+                None.
+            Pre-conditions:
+                User inputs a value in the program counter entry.
+            Post-conditions:
+                Program counter value is updated in memory.
+            """
             try:
                 val = int(self.program_counter)
             except:
@@ -184,6 +204,18 @@ class App(CPU, tk.Tk):
                 self.memory.program_counter = val
 
         def halted_callback(_a, _b, _c):
+            """
+            Purpose:
+                Callback function for the halted variable. Updates the halted state in memory.
+            Input Parameters:
+                _a, _b, _c: Unused parameters.
+            Return Value:
+                None.
+            Pre-conditions:
+                Halted state changes.
+            Post-conditions:
+                Halted state is updated in memory.
+            """
             self.memory.halted = self.halted
 
         self._program_counter.trace_add('write', pc_callback)
@@ -196,6 +228,18 @@ class App(CPU, tk.Tk):
         self.mainloop()
 
     def change_color(self):
+        """
+        Purpose:
+            Changes the color of the GUI.
+        Input Parameters:
+            None.
+        Return Value:
+            None.
+        Pre-conditions:
+            Change color button is clicked from the menu.
+        Post-conditions:
+            The color of the GUI is changed.
+        """
         top = tk.Toplevel()
         top.geometry('300x300')
         primary_ent = tk.Entry(top)
@@ -203,8 +247,11 @@ class App(CPU, tk.Tk):
 
         #Goes through everything and sets their bg and forground
         def insert_val():
+
+
             primary= primary_ent.get()
             secondary = secondary_ent.get()
+
 
             if primary and secondary:
                 if primary[0] != '#':
@@ -236,6 +283,10 @@ class App(CPU, tk.Tk):
             None.
         Return Value:
             None.
+        Pre-conditions:
+            Needs to be selected from the menu.
+        Post-conditions:
+            The memory content is set to the content of the selected file.
         """
         file_path = filedialog.askopenfilename(title="Open", filetypes=FILETYPES, initialdir=WORKING_DIR)
 
@@ -265,6 +316,10 @@ class App(CPU, tk.Tk):
             None.
         Return Value:
             None.
+        Pre-conditions:
+            The memory content must be valid.
+        Post-conditions:
+            The memory content is saved to the previously opened or saved file path.
         """
         if self.open_file_path:
             mem = [self.memory[i] for i in range(MEM_SIZE)]
@@ -285,6 +340,10 @@ class App(CPU, tk.Tk):
             None.
         Return Value:
             None.
+        Pre-conditions:
+            The memory content must be valid.
+        Post-conditions:
+            The memory content is saved to a new file.
         """
         file = filedialog.asksaveasfile(title="Save As", filetypes=FILETYPES, initialdir=WORKING_DIR, defaultextension='.txt')
 
@@ -306,6 +365,10 @@ class App(CPU, tk.Tk):
             None.
         Return Value:
             The result of the instruction execution.
+        Pre-conditions:
+            The CPU is not halted.
+        Post-conditions:
+            The CPU executes a single instruction.
         """
         result = self.run_one_instruction()
         if result != OK:
@@ -321,6 +384,10 @@ class App(CPU, tk.Tk):
             None.
         Return Value:
             None.
+        Pre-conditions:
+            The CPU is not halted.
+        Post-conditions:
+            The CPU executes instructions until the program counter reaches the specified address.
         """
         self.halted = False
         address = self._address_run_to.get()
@@ -339,6 +406,10 @@ class App(CPU, tk.Tk):
             None.
         Return Value:
             None.
+        Pre-conditions:
+            The CPU is not halted.
+        Post-conditions:
+            The CPU executes instructions until it is halted.
         """
         self.halted = False
         result = self.step()
@@ -357,6 +428,10 @@ class App(CPU, tk.Tk):
             user_input: User-provided input. If not provided, input is obtained through a popup.
         Return Value:
             An error code indicating the result of the operation.
+        Pre-conditions:
+            None.
+        Post-conditions:
+            Memory is updated with the user input.
         """
         if not user_input: # if user_input is not set, get input from cli.
             user_input = simpledialog.askstring("Read", "Enter a word: ")
@@ -380,6 +455,10 @@ class App(CPU, tk.Tk):
             data: The memory location of the word that will be written.
         Return Value:
             An error code indicating the result of the operation.
+        Pre-conditions:
+            None.
+        Post-conditions:
+            The word is displayed in a popup.
         """
         word_to_write = self.memory[data]
 
@@ -397,11 +476,27 @@ class App(CPU, tk.Tk):
             None.
         Return Value:
             The current value of the accumulator.
+        Pre-conditions:
+            None.
+        Post-conditions:
+            None.
         """
         return self._accumulator.get()
 
     @accumulator.setter
     def accumulator(self, value):
+        """
+        Purpose:
+            Setter for the accumulator property.
+        Input Parameters:
+            value: The new value of the accumulator.
+        Return Value:
+            None.
+        Pre-conditions:
+            None.
+        Post-conditions:
+            The accumulator value is updated.
+        """
         self._accumulator.set(value)
 
     @property
@@ -413,11 +508,25 @@ class App(CPU, tk.Tk):
             None.
         Return Value:
             The current value of the program counter.
+        Pre-conditions:
+            None.
+        Post-conditions:
+            None.
         """
         return self._program_counter.get()
 
     @program_counter.setter
     def program_counter(self, value):
+        """
+        Purpose:
+            Setter for the program counter property.
+        Input Parameters:
+            value: The new value of the program counter.
+        Return Value:
+            None.
+        Pre-conditions:
+            None.
+        """
         self.memory.program_counter = value
         self._program_counter.set(value)
 
@@ -430,10 +539,26 @@ class App(CPU, tk.Tk):
             None.
         Return Value:
             True if the CPU is halted, False otherwise.
+        Pre-conditions:
+            None.
+        Post-conditions:
+            None.
         """
         return self._halted.get()
 
     @halted.setter
     def halted(self, value):
+        """
+        Purpose:
+            Setter for the halted property.
+        Input Parameters:
+            value: The new value of the halted property.
+        Return Value:
+            None.
+        Pre-conditions:
+            None.
+        Post-conditions:
+            The halted property is updated.
+        """
         self._halted.set(value)
         self.memory.halted = self.halted
