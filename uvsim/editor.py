@@ -7,6 +7,12 @@ import platform
 
 
 class Editor:
+    """
+    Editor Class
+    Purpose of the Class:
+        The Editor class is used to create a GUI for the UVSim Editor. In the editor the user can write and edit programs. 
+        The editor also allows the user to save and open files.
+    """
     def __init__(self, master:tk.Tk, parent: tk.Tk, is_main:bool=False) -> None:
         width = 13 
         self.master = master
@@ -94,6 +100,18 @@ class Editor:
         self.master_frame.pack(fill="both", expand=True)
 
     def run(self):
+        """
+        Purpose:
+            Loads the content of the text box into the CPU memory.
+        Input Parameters:
+            None.
+        Return Value:
+            None.
+        Pre-conditions:
+            Text box must have content.
+        Post-conditions:
+            The CPU memory is set to the content of the text box.
+        """
         self.parent.reset()
         self.program = [i for i in self.text_box.get("1.0", "251.0").split('\n') if i != ""]
         for idx, val in enumerate(self.program):
@@ -107,6 +125,10 @@ class Editor:
             None.
         Return Value:
             None.
+        Pre-conditions:
+            Needs to be selected from the menu.
+        Post-conditions:
+            The memory content is set to the content of the selected file.
         """
         file_path = filedialog.askopenfilename(title="Open", filetypes=FILETYPES, initialdir=WORKING_DIR)
 
@@ -128,6 +150,18 @@ class Editor:
                 self.master.title(f"UVSim Editor | {file_path.split('/')[-1]}") 
 
     def save(self):
+        """
+        Purpose:
+            Opens a file dialog to allow the user to save the current memory content to an existing file.
+        Input Parameters:
+            None.
+        Return Value:
+            None.
+        Pre-conditions:
+            The memory content must be valid.
+        Post-conditions:
+            The memory content is saved to an existing file.
+        """
         if self.open_file_path:
             output = [int(i) for i in self.text_box.get("1.0", tk.END).split("\n") if i != ""]
             try:
@@ -147,6 +181,10 @@ class Editor:
             None.
         Return Value:
             None.
+        Pre-conditions:
+            The memory content must be valid.
+        Post-conditions:
+            The memory content is saved to a new file.
         """
         file = filedialog.asksaveasfile(title="Save As", filetypes=FILETYPES, initialdir=WORKING_DIR, defaultextension='.txt')
 
@@ -160,16 +198,49 @@ class Editor:
                 self.open_file_path = file.name
                 self.master.title(f"UVSim Editor | {self.open_file_path.split('/')[-1]}")
 
-                
-
-
     def copy(self):
+        """
+        Purpose:
+            Add the copy event to the text box.
+        Input Parameters:
+            None.
+        Return Value:
+            None.
+        Pre-conditions:
+            the text box must exist. there must be text in the text box.
+        Post-conditions:
+            the text in the text box is copied to the clipboard.
+        """
         self.text_box.event_generate("<<Copy>>")
 
     def cut(self):
+        """
+        Purpose:
+            Add the cut event to the text box.
+        Input Parameters:
+            None.
+        Return Value:
+            None.
+        Pre-conditions:
+            the text box must exist. there must be text in the text box.
+        Post-conditions:
+            the text in the text box is cut to the clipboard. The text is removed from the text box.
+        """
         self.text_box.event_generate("<<Cut>>")
 
     def paste(self, event=None):
+        """
+        Purpose:
+            Add the paste event to the text box.
+        Input Parameters:
+            None.
+        Return Value:
+            None.
+        Pre-conditions:
+            the clipboard must have text in it.
+        Post-conditions:
+            the text in the clipboard is pasted into the text box.
+        """
         self.text_box.event_generate("<<Paste>>")
         return "break"
         

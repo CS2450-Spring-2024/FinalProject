@@ -1,6 +1,6 @@
 import os
 from pathlib import Path
-
+""" Constants for UVSim. """
 
 WORD_SIZE = 1000
 MEM_SIZE = 250
