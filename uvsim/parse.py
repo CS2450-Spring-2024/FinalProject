@@ -244,7 +244,7 @@ def convert_4dp_prog_to_6dp(program: list[int]) -> list[int]:
     return [fourdp_word_to_sixdp_word(word) for word in program]
 
 
-def convert_4dp_file_to_6dp(filepath: str):
+def convert_4dp_file_to_6dp(file_path: str):
     """
     Purpose:
         Converts a 4dp program file to a 6dp program file
@@ -257,7 +257,7 @@ def convert_4dp_file_to_6dp(filepath: str):
     Post-conditions:
         The 4dp program is converted to a 6dp program and saved to a new file
     """
-    new_filepath = filepath.replace(".4dp", ".6dp")
+    new_filepath = file_path.replace(".4dp", ".6dp")
 
     four_prog = get_program_from_file(file_path, check_6dp=False)
     six_prog = convert_4dp_prog_to_6dp(four_prog)
@@ -266,18 +266,25 @@ def convert_4dp_file_to_6dp(filepath: str):
 
 def classify_program(program: list[int]) -> str:
     """
-    Classifies a program as 4dp or 6dp.
-
-    Returns "4dp" if the program is a 4dp program
-    Returns "6dp" if the program is a 4dp program
-    Returns "unknown" if the function was inconclusive
+    Purpose:
+        Classifies a program as 4dp or 6dp.
+    Input Parameters:
+        program: The program to classify
+    Return Value:
+        "4dp" if the program is a 4dp program
+        "6dp" if the program is a 4dp program
+        "unknown" if the function was inconclusive
+    Pre-conditions:
+        Requires that the program is a valid program, either 4 or 6 dp, or unknown
+    Post-conditions:
+        None, this function is pure.
 
     How it works:
-    We iterate through all words in a program.
-    For every word, we check if the opcode is a valid 4/6 digit opcode, and it may be unknown as well.
-    If it's 4/6, then we assume it's a 4/6 digit program.
-    If not, we move on to the next word.
-    If all words in a program are unknown, we return unknown.
+        We iterate through all words in a program.
+        For every word, we check if the opcode is a valid 4/6 digit opcode, and it may be unknown as well.
+        If it's 4/6, then we assume it's a 4/6 digit program.
+        If not, we move on to the next word.
+        If all words in a program are unknown, we return unknown.
     """
     scaling_factor = WORD_SIZE // FOURDP_WORD_SIZE
 
@@ -296,6 +303,20 @@ def classify_program(program: list[int]) -> str:
     return "unknown"
 
 def convert_dialog():
+    """
+    Purpose:
+        Opens a dialog to convert a 4dp program to 6dp
+    Input Parameters:
+        None
+    Return Value:
+        None
+    Pre-conditions:
+        None
+    Post-conditions:
+        On successfully converting a file, a message box is shown,
+        as well as the file being saved to the location specified
+        On error, an error message shows up telling the user the error.
+    """
     file_path = filedialog.askopenfilename(title="Open", filetypes=FOURDP_FILETYPES, initialdir=WORKING_DIR)
 
     if file_path:
