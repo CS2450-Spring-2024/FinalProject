@@ -7,24 +7,6 @@ ERROR_ILLEGAL_INSTRUCTION = 1
 ERROR_INVALID_INPUT = 2
 ERROR_DIVIDE_BY_ZERO = 3
 
-
-def line_to_op_data(line):
-    """
-    Purpose:
-        pulls opcode and data from an instruction line.
-    Input Parameters:
-        line: An instruction line from memory.
-    Return Value:
-        A tuple that holds the opcode and data.
-    Pre-conditions:
-        A valid instruction line must be passed in.
-    Post-conditions:
-        The opcode and data are extracted from the instruction line and returned.
-    """
-    data = line % WORD_SIZE
-    opcode = (line - data)
-    return (opcode, data)
-
 def error_code_to_text(code, program_counter):
     """
     Purpose:
@@ -32,11 +14,11 @@ def error_code_to_text(code, program_counter):
     Input Parameters:
         code: An error code.
     Return Value:
-        A string with the correct error message.     
-    Pre-conditions: 
-        An erroneous code must be passed in.      
+        A string with the correct error message.
+    Pre-conditions:
+        An erroneous code must be passed in.
     Post-conditions:
-        The error code is converted to a human-readable string and returned. 
+        The error code is converted to a human-readable string and returned.
     """
     error_codes = {
         OK: "",

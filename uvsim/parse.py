@@ -27,12 +27,12 @@ def word_to_op_data(word: int) -> tuple[int, int]:
     opcode = (word - data)
     return (opcode, data)
 
-def get_program_from_file(path) -> list[int]:
+def get_program_from_file(path, check_6dp=True) -> list[int]:
     """Get program from file"""
 
     with open(path, "r") as in_file:
         program = in_file.read()
-    program = parse_str(program)
+    program = parse_str(program, check_6dp)
     return program
 
 def try_parse_cli(program, tries=0):
@@ -72,17 +72,17 @@ def parse_word(word: str, addr: int) -> int:
     return val
 
 
-def parse_str(program: str) -> int:
+def parse_str(program: str, check_6dp=True) -> int:
     """Returns an validated program from a given string. If a program is invalid, this throws an AssertionError"""
     program = program.strip()
     program = [parse_word(word, i) for i, word in enumerate(program.split("\n"))]
 
-    program = validate_program(program)
+    program = validate_program(program, check_6dp)
 
     return program
 
 
-def validate_program(program: list[int]) -> list[int]:
+def validate_program(program: list[int], check_6dp=True) -> list[int]:
     assert (
         program[-1] == TERMINAL_WORD
     ), f"Invalid program, must be terminated with {TERMINAL_WORD}!\nProgram: {program}"
@@ -92,10 +92,11 @@ def validate_program(program: list[int]) -> list[int]:
         len(program) <= MEM_SIZE
     ), f"Invalid program, must be {MEM_SIZE} lines or less!\nProgram: {program}"
 
-    prog_type = classify_program(program)
-    assert (
-        prog_type == "6dp"
-    ), f"Program type was {prog_type}, but only 6dp programs are accepted. Please use the migration tool or check your syntax."
+    if check_6dp:
+        prog_type = classify_program(program)
+        assert (
+            prog_type == "6dp"
+        ), f"Program type was {prog_type}, but only 6dp programs are accepted. Please use the migration tool or check your syntax."
 
     program.extend([0] * MEM_SIZE)
     program = program[:MEM_SIZE]
@@ -124,6 +125,17 @@ def fourdp_word_to_sixdp_word(word: int) -> int:
     scaling_factor = WORD_SIZE // FOURDP_WORD_SIZE
     op, data = word_to_op_data_4dp(word)
     return op * scaling_factor + data
+
+def convert_4dp_prog_to_6dp(program: list[int]) -> list[int]:
+    return [fourdp_word_to_sixdp_word(word) for word in program]
+
+
+def convert_4dp_file_to_6dp(filepath: str):
+    new_filepath = filepath.replace(".4dp", ".6dp")
+
+    four_prog = get_program_from_file(filepath, check_6dp=False)
+    six_prog = convert_4dp_prog_to_6dp(four_prog)
+    save_memory(six_prog, new_filepath)
 
 
 def classify_program(program: list[int]) -> str:
