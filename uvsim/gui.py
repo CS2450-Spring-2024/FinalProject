@@ -78,7 +78,7 @@ class App(CPU, tk.Tk):
         photo = ImageTk.PhotoImage(ico)
         self.wm_iconphoto(True, photo)
 
-        self.geometry("900x330")
+        self.geometry("900x730")
         self.title("UVSim") # Set the window title
         self.configure(bg=UVU_GREEN) # Set the window background color
 

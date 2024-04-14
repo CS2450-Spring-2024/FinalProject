@@ -71,7 +71,7 @@ class Editor:
         self.edit_menu.add_command(label="Copy", command=lambda: self.copy(), font=FONT, accelerator=copy_accelerator)
         self.master.bind_all("<Control-c>" if current_os != "Darwin" else "<Command-c>", lambda event: self.copy())
         self.edit_menu.add_command(label="Paste", command=lambda: self.paste(), font=FONT, accelerator=paste_accelerator)
-        self.master.bind_all("<Control-v>" if current_os != "Darwin" else "<Command-v>", lambda event: self.paste())
+        self.master.bind_all("<Control-v>" if current_os != "Darwin" else "<Command-v>",  lambda event: self.paste)
         self.edit_menu.add_separator()
         self.menu_bar.add_cascade(menu= self.edit_menu, label="Edit", font=FONT)
 
@@ -174,8 +174,10 @@ class Editor:
     def cut(self):
         self.text_box.event_generate("<<Cut>>")
 
-    def paste(self):
+    def paste(self, event=None):
         self.text_box.event_generate("<<Paste>>")
+        return "break"
+        
 
 
 
