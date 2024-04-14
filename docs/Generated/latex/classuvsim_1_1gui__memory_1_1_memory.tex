@@ -31,13 +31,11 @@ None \textbf{ \+\_\+\+\_\+setitem\+\_\+\+\_\+} (self, str key, value)
 \item 
 \textbf{ program\+\_\+counter} (self)
 \item 
-\label{classuvsim_1_1gui__memory_1_1_memory_ab502b4ea4d364fd9547ef2cdc1aa56da} 
-{\bfseries program\+\_\+counter} (self, value)
+\textbf{ program\+\_\+counter} (self, value)
 \item 
 \textbf{ halted} (self)
 \item 
-\label{classuvsim_1_1gui__memory_1_1_memory_a45bb046a206b8055903f42ece39c2bd1} 
-{\bfseries halted} (self, value)
+\textbf{ halted} (self, value)
 \end{DoxyCompactItemize}
 \doxysubsubsection*{Public Attributes}
 \begin{DoxyCompactItemize}
@@ -65,6 +63,18 @@ None \textbf{ \+\_\+\+\_\+setitem\+\_\+\+\_\+} (self, str key, value)
 \item 
 \label{classuvsim_1_1gui__memory_1_1_memory_a391d3a20171ec5ac45b64ca13c753838} 
 {\bfseries halted}
+\item 
+\label{classuvsim_1_1gui__memory_1_1_memory_a27b66afa501700d1cc3292c5574c1fab} 
+{\bfseries selected\+\_\+frames}
+\item 
+\label{classuvsim_1_1gui__memory_1_1_memory_aa614a5e49f29e4d197084607cad5a606} 
+{\bfseries clipboard\+\_\+content}
+\item 
+\label{classuvsim_1_1gui__memory_1_1_memory_afa82e0228ad7d7e31eacc7419b9d4fb6} 
+{\bfseries start\+\_\+cell}
+\item 
+\label{classuvsim_1_1gui__memory_1_1_memory_affea936d9e56f379f9cad8ea95995b85} 
+{\bfseries end\+\_\+cell}
 \end{DoxyCompactItemize}
 \doxysubsubsection*{Protected Attributes}
 \begin{DoxyCompactItemize}
@@ -99,6 +109,10 @@ Input Parameters:
     vcmd: The validation command for memory entries.
 Return Value:
     None.
+Pre-conditions:
+    The memory array must be valid.
+Post-conditions:
+    The memory GUI is set up.
 \end{DoxyVerb}
  Here is the call graph for this function\+:
 \nopagebreak
@@ -131,6 +145,10 @@ Input Parameters:
     key: Index or slice to access the memory content.
 Return Value:
     The value at the index or slice.
+Pre-conditions:
+    The key must be a valid index or slice.
+Post-conditions:
+    None.
 \end{DoxyVerb}
  \label{classuvsim_1_1gui__memory_1_1_memory_a17f844c15b23594e49623e4529894d30} 
 \index{uvsim.gui\_memory.Memory@{uvsim.gui\_memory.Memory}!\_\_setitem\_\_@{\_\_setitem\_\_}}
@@ -145,11 +163,15 @@ Input Parameters:
     value: The value that will be set.
 Return Value:
     None.
+Pre-conditions:
+    The key must be a valid index or slice.
+Post-conditions:
+    The memory content is updated.
 \end{DoxyVerb}
  \label{classuvsim_1_1gui__memory_1_1_memory_a9b5b674d894e91cb16b5a0e96819c7be} 
 \index{uvsim.gui\_memory.Memory@{uvsim.gui\_memory.Memory}!halted@{halted}}
 \index{halted@{halted}!uvsim.gui\_memory.Memory@{uvsim.gui\_memory.Memory}}
-\doxysubsubsection{halted()}
+\doxysubsubsection{halted()\hspace{0.1cm}{\footnotesize\ttfamily [1/2]}}
 {\footnotesize\ttfamily uvsim.\+gui\+\_\+memory.\+Memory.\+halted (\begin{DoxyParamCaption}\item[{}]{self }\end{DoxyParamCaption})}
 
 \begin{DoxyVerb}Purpose:
@@ -159,16 +181,12 @@ Input Parameters:
     None.
 Return Value:
     True if the CPU is halted, False otherwise.
+Pre-conditions:
+    None.
+Post-conditions:
+    None.
 \end{DoxyVerb}
- Here is the call graph for this function\+:
-\nopagebreak
-\begin{figure}[H]
-\begin{center}
-\leavevmode
-\includegraphics[width=350pt]{classuvsim_1_1gui__memory_1_1_memory_a9b5b674d894e91cb16b5a0e96819c7be_cgraph}
-\end{center}
-\end{figure}
-Here is the caller graph for this function\+:
+ Here is the caller graph for this function\+:
 \nopagebreak
 \begin{figure}[H]
 \begin{center}
@@ -176,10 +194,44 @@ Here is the caller graph for this function\+:
 \includegraphics[width=350pt]{classuvsim_1_1gui__memory_1_1_memory_a9b5b674d894e91cb16b5a0e96819c7be_icgraph}
 \end{center}
 \end{figure}
+\label{classuvsim_1_1gui__memory_1_1_memory_a45bb046a206b8055903f42ece39c2bd1} 
+\index{uvsim.gui\_memory.Memory@{uvsim.gui\_memory.Memory}!halted@{halted}}
+\index{halted@{halted}!uvsim.gui\_memory.Memory@{uvsim.gui\_memory.Memory}}
+\doxysubsubsection{halted()\hspace{0.1cm}{\footnotesize\ttfamily [2/2]}}
+{\footnotesize\ttfamily uvsim.\+gui\+\_\+memory.\+Memory.\+halted (\begin{DoxyParamCaption}\item[{}]{self,  }\item[{}]{value }\end{DoxyParamCaption})}
+
+\begin{DoxyVerb}Purpose:
+    Setter for the halted property.
+    It updates the GUI to highlight the current program counter cell with a different color if the CPU is halted.
+Input Parameters:
+    value: The new value of the halted property.
+Return Value:
+    None.
+Pre-conditions:
+    None.
+Post-conditions:
+    The halted property is updated.
+\end{DoxyVerb}
+ Here is the call graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{classuvsim_1_1gui__memory_1_1_memory_a45bb046a206b8055903f42ece39c2bd1_cgraph}
+\end{center}
+\end{figure}
+Here is the caller graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{classuvsim_1_1gui__memory_1_1_memory_a45bb046a206b8055903f42ece39c2bd1_icgraph}
+\end{center}
+\end{figure}
 \label{classuvsim_1_1gui__memory_1_1_memory_ae1d3a912900644abdad05cec94cafcad} 
 \index{uvsim.gui\_memory.Memory@{uvsim.gui\_memory.Memory}!program\_counter@{program\_counter}}
 \index{program\_counter@{program\_counter}!uvsim.gui\_memory.Memory@{uvsim.gui\_memory.Memory}}
-\doxysubsubsection{program\_counter()}
+\doxysubsubsection{program\_counter()\hspace{0.1cm}{\footnotesize\ttfamily [1/2]}}
 {\footnotesize\ttfamily uvsim.\+gui\+\_\+memory.\+Memory.\+program\+\_\+counter (\begin{DoxyParamCaption}\item[{}]{self }\end{DoxyParamCaption})}
 
 \begin{DoxyVerb}Purpose:
@@ -189,6 +241,10 @@ Input Parameters:
     None.
 Return Value:
     The current value of the program counter.
+Pre-conditions:
+    The program counter must be a valid index.
+Post-conditions:
+    None.
 \end{DoxyVerb}
  Here is the caller graph for this function\+:
 \nopagebreak
@@ -196,6 +252,32 @@ Return Value:
 \begin{center}
 \leavevmode
 \includegraphics[width=350pt]{classuvsim_1_1gui__memory_1_1_memory_ae1d3a912900644abdad05cec94cafcad_icgraph}
+\end{center}
+\end{figure}
+\label{classuvsim_1_1gui__memory_1_1_memory_ab502b4ea4d364fd9547ef2cdc1aa56da} 
+\index{uvsim.gui\_memory.Memory@{uvsim.gui\_memory.Memory}!program\_counter@{program\_counter}}
+\index{program\_counter@{program\_counter}!uvsim.gui\_memory.Memory@{uvsim.gui\_memory.Memory}}
+\doxysubsubsection{program\_counter()\hspace{0.1cm}{\footnotesize\ttfamily [2/2]}}
+{\footnotesize\ttfamily uvsim.\+gui\+\_\+memory.\+Memory.\+program\+\_\+counter (\begin{DoxyParamCaption}\item[{}]{self,  }\item[{}]{value }\end{DoxyParamCaption})}
+
+\begin{DoxyVerb}Purpose:
+    Setter for the program counter property.
+    It updates the GUI to highlight the current program counter cell.
+Input Parameters:
+    value: The new value of the program counter.
+Return Value:
+    None.
+Pre-conditions:
+    The value must be a valid index.
+Post-conditions:
+    The program counter is updated.
+\end{DoxyVerb}
+ Here is the caller graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{classuvsim_1_1gui__memory_1_1_memory_ab502b4ea4d364fd9547ef2cdc1aa56da_icgraph}
 \end{center}
 \end{figure}
 

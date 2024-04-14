@@ -153,7 +153,7 @@ class Memory(tk.Frame):
             It updates the GUI to highlight the current program counter cell.
         Input Parameters:
             value: The new value of the program counter.
-        Return Value:  
+        Return Value:
             None.
         Pre-conditions:
             The value must be a valid index.

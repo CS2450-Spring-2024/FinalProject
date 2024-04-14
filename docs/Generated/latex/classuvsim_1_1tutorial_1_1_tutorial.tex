@@ -58,8 +58,12 @@ It creates a simple Tkinter GUI with buttons to navigate through the tutorial im
     Initializes the Tutorial class with the provided master widget and sets up the GUI elements for displaying tutorial images.
 Input Parameters:
     master: The master widget of the Tutorial frame.
-Return Value:
+Return Value: 
     None.
+Pre-conditions:
+    The master widget must be valid.
+Post-conditions:
+    The tutorial GUI is set up.
 \end{DoxyVerb}
  Here is the call graph for this function\+:
 \nopagebreak
@@ -84,6 +88,10 @@ Input Parameters:
     None.
 Return Value:
     None.
+Pre-conditions:
+    The tutorial must be initialized.
+Post-conditions:
+    The next image in the tutorial is displayed.
 \end{DoxyVerb}
  Here is the caller graph for this function\+:
 \nopagebreak
@@ -105,6 +113,10 @@ Input Parameters:
     None.
 Return Value:
     A list of Tkinter PhotoImage objects representing the tutorial images.
+Pre-conditions:
+    The tutorial images must be in the specified directory.
+Post-conditions:
+    The tutorial images are opened and converted into Tkinter PhotoImage objects.
 \end{DoxyVerb}
  Here is the caller graph for this function\+:
 \nopagebreak

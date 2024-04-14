@@ -1,0 +1,218 @@
+\doxysection{uvsim.\+editor.\+Editor Class Reference}
+\label{classuvsim_1_1editor_1_1_editor}\index{uvsim.editor.Editor@{uvsim.editor.Editor}}
+\doxysubsubsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\label{classuvsim_1_1editor_1_1_editor_a2e8e17c259c001e70f117be0ef317f4d} 
+None {\bfseries \+\_\+\+\_\+init\+\_\+\+\_\+} (self, tk.\+Tk master, tk.\+Tk parent, bool is\+\_\+main=False)
+\item 
+\textbf{ run} (self)
+\item 
+\textbf{ open\+\_\+file} (self, check\+\_\+6dp=True)
+\item 
+\textbf{ save} (self)
+\item 
+\textbf{ save\+\_\+as} (self)
+\item 
+\textbf{ copy} (self)
+\item 
+\textbf{ cut} (self)
+\item 
+\textbf{ paste} (self, event=None)
+\end{DoxyCompactItemize}
+\doxysubsubsection*{Public Attributes}
+\begin{DoxyCompactItemize}
+\item 
+\label{classuvsim_1_1editor_1_1_editor_a213ab435ce0424af7e1b4b0c9a4e14df} 
+{\bfseries master}
+\item 
+\label{classuvsim_1_1editor_1_1_editor_a9727dbc275ae29184e1bccc1839011f6} 
+{\bfseries parent}
+\item 
+\label{classuvsim_1_1editor_1_1_editor_a1cc4a3ffb85cfe12739c24aa5436a1c2} 
+{\bfseries open\+\_\+file\+\_\+path}
+\item 
+\label{classuvsim_1_1editor_1_1_editor_a94806e028671ee55df8d9d2a4a3de3cb} 
+{\bfseries master\+\_\+frame}
+\item 
+\label{classuvsim_1_1editor_1_1_editor_a70326acb38d8bacb4dc1638f5d70bf1d} 
+{\bfseries menu\+\_\+bar}
+\item 
+\label{classuvsim_1_1editor_1_1_editor_a0daf8ae053a09d5b87b7c00c58ab10d5} 
+{\bfseries file\+\_\+menu}
+\item 
+\label{classuvsim_1_1editor_1_1_editor_a96c6b6304625f79ffa657b31623e13a9} 
+{\bfseries edit\+\_\+menu}
+\item 
+\label{classuvsim_1_1editor_1_1_editor_a7c1d08949a90c806b7a70d2817a11a19} 
+{\bfseries help\+\_\+menu}
+\item 
+\label{classuvsim_1_1editor_1_1_editor_afeaa833f05b4cc0241a155d98d36a1c3} 
+{\bfseries upper\+\_\+frame}
+\item 
+\label{classuvsim_1_1editor_1_1_editor_a95569f6653deafc958ee67d884fd8b9b} 
+{\bfseries text\+\_\+box}
+\item 
+\label{classuvsim_1_1editor_1_1_editor_a8e2aa4165e3ad18ecd6517b5eb295736} 
+{\bfseries label}
+\item 
+\label{classuvsim_1_1editor_1_1_editor_a7b3c764f345e6d82debd6f4cc32f99df} 
+{\bfseries lower\+\_\+frame}
+\item 
+\label{classuvsim_1_1editor_1_1_editor_ad4ce79258d366eacba83e1a3d165498e} 
+{\bfseries bttn}
+\item 
+\label{classuvsim_1_1editor_1_1_editor_ad18e91103784dcb85d715b95a529ca9d} 
+{\bfseries program}
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+\begin{DoxyVerb}Editor Class
+Purpose of the Class:
+    The Editor class is used to create a GUI for the UVSim Editor. In the editor the user can write and edit programs.
+    The editor also allows the user to save and open files.
+\end{DoxyVerb}
+ 
+
+\doxysubsection{Member Function Documentation}
+\label{classuvsim_1_1editor_1_1_editor_aeda87169a5b4bc2a9bb91d91b943a1a5} 
+\index{uvsim.editor.Editor@{uvsim.editor.Editor}!copy@{copy}}
+\index{copy@{copy}!uvsim.editor.Editor@{uvsim.editor.Editor}}
+\doxysubsubsection{copy()}
+{\footnotesize\ttfamily uvsim.\+editor.\+Editor.\+copy (\begin{DoxyParamCaption}\item[{}]{self }\end{DoxyParamCaption})}
+
+\begin{DoxyVerb}Purpose:
+    Add the copy event to the text box.
+Input Parameters:
+    None.
+Return Value:
+    None.
+Pre-conditions:
+    the text box must exist. there must be text in the text box.
+Post-conditions:
+    the text in the text box is copied to the clipboard.
+\end{DoxyVerb}
+ \label{classuvsim_1_1editor_1_1_editor_aeb157c8a5406d5e390e57fbbe95e692a} 
+\index{uvsim.editor.Editor@{uvsim.editor.Editor}!cut@{cut}}
+\index{cut@{cut}!uvsim.editor.Editor@{uvsim.editor.Editor}}
+\doxysubsubsection{cut()}
+{\footnotesize\ttfamily uvsim.\+editor.\+Editor.\+cut (\begin{DoxyParamCaption}\item[{}]{self }\end{DoxyParamCaption})}
+
+\begin{DoxyVerb}Purpose:
+    Add the cut event to the text box.
+Input Parameters:
+    None.
+Return Value:
+    None.
+Pre-conditions:
+    the text box must exist. there must be text in the text box.
+Post-conditions:
+    the text in the text box is cut to the clipboard. The text is removed from the text box.
+\end{DoxyVerb}
+ \label{classuvsim_1_1editor_1_1_editor_a87672999146016e5cfb4dfd5c46639bf} 
+\index{uvsim.editor.Editor@{uvsim.editor.Editor}!open\_file@{open\_file}}
+\index{open\_file@{open\_file}!uvsim.editor.Editor@{uvsim.editor.Editor}}
+\doxysubsubsection{open\_file()}
+{\footnotesize\ttfamily uvsim.\+editor.\+Editor.\+open\+\_\+file (\begin{DoxyParamCaption}\item[{}]{self,  }\item[{}]{check\+\_\+6dp = {\ttfamily True} }\end{DoxyParamCaption})}
+
+\begin{DoxyVerb}Purpose:
+    Opens a file dialog to allow the user to select a file and loads its content into the CPU memory.
+Input Parameters:
+    None.
+Return Value:
+    None.
+Pre-conditions:
+    Needs to be selected from the menu.
+Post-conditions:
+    The memory content is set to the content of the selected file.
+\end{DoxyVerb}
+ \label{classuvsim_1_1editor_1_1_editor_afba1de11da88a57622f9a74ecb300a8d} 
+\index{uvsim.editor.Editor@{uvsim.editor.Editor}!paste@{paste}}
+\index{paste@{paste}!uvsim.editor.Editor@{uvsim.editor.Editor}}
+\doxysubsubsection{paste()}
+{\footnotesize\ttfamily uvsim.\+editor.\+Editor.\+paste (\begin{DoxyParamCaption}\item[{}]{self,  }\item[{}]{event = {\ttfamily None} }\end{DoxyParamCaption})}
+
+\begin{DoxyVerb}Purpose:
+    Add the paste event to the text box.
+Input Parameters:
+    None.
+Return Value:
+    None.
+Pre-conditions:
+    the clipboard must have text in it.
+Post-conditions:
+    the text in the clipboard is pasted into the text box.
+\end{DoxyVerb}
+ \label{classuvsim_1_1editor_1_1_editor_a6d6167d6c2823f85ac453201efd1e77f} 
+\index{uvsim.editor.Editor@{uvsim.editor.Editor}!run@{run}}
+\index{run@{run}!uvsim.editor.Editor@{uvsim.editor.Editor}}
+\doxysubsubsection{run()}
+{\footnotesize\ttfamily uvsim.\+editor.\+Editor.\+run (\begin{DoxyParamCaption}\item[{}]{self }\end{DoxyParamCaption})}
+
+\begin{DoxyVerb}Purpose:
+    Loads the content of the text box into the CPU memory.
+Input Parameters:
+    None.
+Return Value:
+    None.
+Pre-conditions:
+    Text box must have content.
+Post-conditions:
+    The CPU memory is set to the content of the text box.
+\end{DoxyVerb}
+ \label{classuvsim_1_1editor_1_1_editor_aa1a6e943cdc847c92b653ae736907087} 
+\index{uvsim.editor.Editor@{uvsim.editor.Editor}!save@{save}}
+\index{save@{save}!uvsim.editor.Editor@{uvsim.editor.Editor}}
+\doxysubsubsection{save()}
+{\footnotesize\ttfamily uvsim.\+editor.\+Editor.\+save (\begin{DoxyParamCaption}\item[{}]{self }\end{DoxyParamCaption})}
+
+\begin{DoxyVerb}Purpose:
+    Opens a file dialog to allow the user to save the current memory content to an existing file.
+Input Parameters:
+    None.
+Return Value:
+    None.
+Pre-conditions:
+    The memory content must be valid.
+Post-conditions:
+    The memory content is saved to an existing file.
+\end{DoxyVerb}
+ Here is the call graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{classuvsim_1_1editor_1_1_editor_aa1a6e943cdc847c92b653ae736907087_cgraph}
+\end{center}
+\end{figure}
+\label{classuvsim_1_1editor_1_1_editor_aabb091cdb2fc0c8f8f3cfac62217a16d} 
+\index{uvsim.editor.Editor@{uvsim.editor.Editor}!save\_as@{save\_as}}
+\index{save\_as@{save\_as}!uvsim.editor.Editor@{uvsim.editor.Editor}}
+\doxysubsubsection{save\_as()}
+{\footnotesize\ttfamily uvsim.\+editor.\+Editor.\+save\+\_\+as (\begin{DoxyParamCaption}\item[{}]{self }\end{DoxyParamCaption})}
+
+\begin{DoxyVerb}Purpose:
+    Opens a file dialog to allow the user to save the current memory content to a new file.
+Input Parameters:
+    None.
+Return Value:
+    None.
+Pre-conditions:
+    The memory content must be valid.
+Post-conditions:
+    The memory content is saved to a new file.
+\end{DoxyVerb}
+ Here is the caller graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{classuvsim_1_1editor_1_1_editor_aabb091cdb2fc0c8f8f3cfac62217a16d_icgraph}
+\end{center}
+\end{figure}
+
+
+The documentation for this class was generated from the following file\+:\begin{DoxyCompactItemize}
+\item 
+C\+:/code\+\_\+projects/school/\+CS2450/\+Final\+Project/uvsim/editor.\+py\end{DoxyCompactItemize}

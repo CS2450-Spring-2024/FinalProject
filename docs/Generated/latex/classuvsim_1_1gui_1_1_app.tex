@@ -25,6 +25,8 @@ Collaboration diagram for uvsim.\+gui.\+App\+:
 \item 
 None \textbf{ \+\_\+\+\_\+init\+\_\+\+\_\+} (self, list[int] memory, str$\vert$None screen\+Name=None, str$\vert$None base\+Name=None, str class\+Name="{}Tk"{}, bool use\+Tk=True, bool sync=False, str$\vert$None use=None)
 \item 
+\textbf{ change\+\_\+color} (self)
+\item 
 \textbf{ open} (self)
 \item 
 \textbf{ save} (self)
@@ -94,6 +96,9 @@ None \textbf{ \+\_\+\+\_\+init\+\_\+\+\_\+} (self, list[int] memory, str$\vert$N
 \label{classuvsim_1_1gui_1_1_app_ab064c68265cbdb89ca871beedf014891} 
 {\bfseries file\+\_\+menu}
 \item 
+\label{classuvsim_1_1gui_1_1_app_a15a07cb324dbf5c7fcfb4e03ae85e6b7} 
+{\bfseries edit\+\_\+menu}
+\item 
 \label{classuvsim_1_1gui_1_1_app_ac8ab826aa12f91632776b6d3af2e8b0c} 
 {\bfseries help\+\_\+menu}
 \item 
@@ -120,6 +125,12 @@ None \textbf{ \+\_\+\+\_\+init\+\_\+\+\_\+} (self, list[int] memory, str$\vert$N
 \item 
 \label{classuvsim_1_1gui_1_1_app_aa0a1730158fed03a169553ca56266ddc} 
 {\bfseries memory}
+\item 
+\label{classuvsim_1_1gui_1_1_app_aa8cb29f072e4954f096aee40f3a47932} 
+{\bfseries main\+\_\+editor}
+\item 
+\label{classuvsim_1_1gui_1_1_app_a36290331ffd44d0befa4dfcc7c473ead} 
+{\bfseries editors}
 \item 
 \label{classuvsim_1_1gui_1_1_app_a2d3a30c4a529938b4e7d2df909f0a590} 
 {\bfseries halted}
@@ -211,6 +222,10 @@ Input Parameters:
     None.
 Return Value:
     The current value of the accumulator.
+Pre-conditions:
+    None.
+Post-conditions:
+    None.
 \end{DoxyVerb}
  
 
@@ -230,7 +245,18 @@ Here is the caller graph for this function\+:
 \doxysubsubsection{accumulator()\hspace{0.1cm}{\footnotesize\ttfamily [2/2]}}
 {\footnotesize\ttfamily uvsim.\+gui.\+App.\+accumulator (\begin{DoxyParamCaption}\item[{}]{self,  }\item[{}]{value }\end{DoxyParamCaption})}
 
-
+\begin{DoxyVerb}Purpose:
+    Setter for the accumulator property.
+Input Parameters:
+    value: The new value of the accumulator.
+Return Value:
+    None.
+Pre-conditions:
+    None.
+Post-conditions:
+    The accumulator value is updated.
+\end{DoxyVerb}
+ 
 
 Reimplemented from \textbf{ uvsim.\+cpu.\+CPU} \doxyref{}{p.}{classuvsim_1_1cpu_1_1_c_p_u}.
 
@@ -240,6 +266,31 @@ Here is the caller graph for this function\+:
 \begin{center}
 \leavevmode
 \includegraphics[width=350pt]{classuvsim_1_1gui_1_1_app_a2d6326e55e4cd67221bb31a4e749676f_icgraph}
+\end{center}
+\end{figure}
+\label{classuvsim_1_1gui_1_1_app_a2e7a4cff0d99a091ad38d685a907c90b} 
+\index{uvsim.gui.App@{uvsim.gui.App}!change\_color@{change\_color}}
+\index{change\_color@{change\_color}!uvsim.gui.App@{uvsim.gui.App}}
+\doxysubsubsection{change\_color()}
+{\footnotesize\ttfamily uvsim.\+gui.\+App.\+change\+\_\+color (\begin{DoxyParamCaption}\item[{}]{self }\end{DoxyParamCaption})}
+
+\begin{DoxyVerb}Purpose:
+    Changes the color of the GUI.
+Input Parameters:
+    None.
+Return Value:
+    None.
+Pre-conditions:
+    Change color button is clicked from the menu.
+Post-conditions:
+    The color of the GUI is changed.
+\end{DoxyVerb}
+ Here is the caller graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=342pt]{classuvsim_1_1gui_1_1_app_a2e7a4cff0d99a091ad38d685a907c90b_icgraph}
 \end{center}
 \end{figure}
 \label{classuvsim_1_1gui_1_1_app_a5714c1d8ed0c17f98a0ecc54406455b5} 
@@ -254,19 +305,15 @@ Input Parameters:
     None.
 Return Value:
     True if the CPU is halted, False otherwise.
+Pre-conditions:
+    None.
+Post-conditions:
+    None.
 \end{DoxyVerb}
  
 
 Reimplemented from \textbf{ uvsim.\+cpu.\+CPU} \doxyref{}{p.}{classuvsim_1_1cpu_1_1_c_p_u}.
 
-Here is the call graph for this function\+:
-\nopagebreak
-\begin{figure}[H]
-\begin{center}
-\leavevmode
-\includegraphics[width=350pt]{classuvsim_1_1gui_1_1_app_a5714c1d8ed0c17f98a0ecc54406455b5_cgraph}
-\end{center}
-\end{figure}
 Here is the caller graph for this function\+:
 \nopagebreak
 \begin{figure}[H]
@@ -281,10 +328,29 @@ Here is the caller graph for this function\+:
 \doxysubsubsection{halted()\hspace{0.1cm}{\footnotesize\ttfamily [2/2]}}
 {\footnotesize\ttfamily uvsim.\+gui.\+App.\+halted (\begin{DoxyParamCaption}\item[{}]{self,  }\item[{}]{value }\end{DoxyParamCaption})}
 
-
+\begin{DoxyVerb}Purpose:
+    Setter for the halted property.
+Input Parameters:
+    value: The new value of the halted property.
+Return Value:
+    None.
+Pre-conditions:
+    None.
+Post-conditions:
+    The halted property is updated.
+\end{DoxyVerb}
+ 
 
 Reimplemented from \textbf{ uvsim.\+cpu.\+CPU} \doxyref{}{p.}{classuvsim_1_1cpu_1_1_c_p_u}.
 
+Here is the call graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{classuvsim_1_1gui_1_1_app_a30ad607bbce8a208f6454d1918a39042_cgraph}
+\end{center}
+\end{figure}
 Here is the caller graph for this function\+:
 \nopagebreak
 \begin{figure}[H]
@@ -305,6 +371,10 @@ Input Parameters:
     None.
 Return Value:
     None.
+Pre-conditions:
+    Needs to be selected from the menu.
+Post-conditions:
+    The memory content is set to the content of the selected file.
 \end{DoxyVerb}
  Here is the call graph for this function\+:
 \nopagebreak
@@ -312,14 +382,6 @@ Return Value:
 \begin{center}
 \leavevmode
 \includegraphics[width=350pt]{classuvsim_1_1gui_1_1_app_a240815789e5875f52a3e2e7052069cab_cgraph}
-\end{center}
-\end{figure}
-Here is the caller graph for this function\+:
-\nopagebreak
-\begin{figure}[H]
-\begin{center}
-\leavevmode
-\includegraphics[width=331pt]{classuvsim_1_1gui_1_1_app_a240815789e5875f52a3e2e7052069cab_icgraph}
 \end{center}
 \end{figure}
 \label{classuvsim_1_1gui_1_1_app_aed1a86502733fccd2cc02a3d2ae0b1bd} 
@@ -334,6 +396,10 @@ Input Parameters:
     None.
 Return Value:
     The current value of the program counter.
+Pre-conditions:
+    None.
+Post-conditions:
+    None.
 \end{DoxyVerb}
  
 
@@ -353,7 +419,16 @@ Here is the caller graph for this function\+:
 \doxysubsubsection{program\_counter()\hspace{0.1cm}{\footnotesize\ttfamily [2/2]}}
 {\footnotesize\ttfamily uvsim.\+gui.\+App.\+program\+\_\+counter (\begin{DoxyParamCaption}\item[{}]{self,  }\item[{}]{value }\end{DoxyParamCaption})}
 
-
+\begin{DoxyVerb}Purpose:
+    Setter for the program counter property.
+Input Parameters:
+    value: The new value of the program counter.
+Return Value:
+    None.
+Pre-conditions:
+    None.
+\end{DoxyVerb}
+ 
 
 Reimplemented from \textbf{ uvsim.\+cpu.\+CPU} \doxyref{}{p.}{classuvsim_1_1cpu_1_1_c_p_u}.
 
@@ -378,6 +453,10 @@ Input Parameters:
     user_input: User-provided input. If not provided, input is obtained through a popup.
 Return Value:
     An error code indicating the result of the operation.
+Pre-conditions:
+    None.
+Post-conditions:
+    Memory is updated with the user input.
 \end{DoxyVerb}
  
 
@@ -411,6 +490,10 @@ Input Parameters:
     None.
 Return Value:
     None.
+Pre-conditions:
+    The CPU is not halted.
+Post-conditions:
+    The CPU executes instructions until the program counter reaches the specified address.
 \end{DoxyVerb}
  Here is the call graph for this function\+:
 \nopagebreak
@@ -440,6 +523,10 @@ Input Parameters:
     None.
 Return Value:
     None.
+Pre-conditions:
+    The CPU is not halted.
+Post-conditions:
+    The CPU executes instructions until it is halted.
 \end{DoxyVerb}
  
 
@@ -473,21 +560,17 @@ Input Parameters:
     None.
 Return Value:
     None.
+Pre-conditions:
+    The memory content must be valid.
+Post-conditions:
+    The memory content is saved to the previously opened or saved file path.
 \end{DoxyVerb}
  Here is the call graph for this function\+:
 \nopagebreak
 \begin{figure}[H]
 \begin{center}
 \leavevmode
-\includegraphics[width=332pt]{classuvsim_1_1gui_1_1_app_ac60e06ab80504f8c974d819d14d6f2c9_cgraph}
-\end{center}
-\end{figure}
-Here is the caller graph for this function\+:
-\nopagebreak
-\begin{figure}[H]
-\begin{center}
-\leavevmode
-\includegraphics[width=330pt]{classuvsim_1_1gui_1_1_app_ac60e06ab80504f8c974d819d14d6f2c9_icgraph}
+\includegraphics[width=350pt]{classuvsim_1_1gui_1_1_app_ac60e06ab80504f8c974d819d14d6f2c9_cgraph}
 \end{center}
 \end{figure}
 \label{classuvsim_1_1gui_1_1_app_ac54a340d21303189deaba591120a34eb} 
@@ -502,6 +585,10 @@ Input Parameters:
     None.
 Return Value:
     None.
+Pre-conditions:
+    The memory content must be valid.
+Post-conditions:
+    The memory content is saved to a new file.
 \end{DoxyVerb}
  Here is the caller graph for this function\+:
 \nopagebreak
@@ -523,6 +610,10 @@ Input Parameters:
     None.
 Return Value:
     The result of the instruction execution.
+Pre-conditions:
+    The CPU is not halted.
+Post-conditions:
+    The CPU executes a single instruction.
 \end{DoxyVerb}
  Here is the call graph for this function\+:
 \nopagebreak
@@ -552,6 +643,10 @@ Input Parameters:
     data: The memory location of the word that will be written.
 Return Value:
     An error code indicating the result of the operation.
+Pre-conditions:
+    None.
+Post-conditions:
+    The word is displayed in a popup.
 \end{DoxyVerb}
  
 
