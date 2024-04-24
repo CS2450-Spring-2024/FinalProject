@@ -242,10 +242,13 @@ class App(CPU, tk.Tk):
         """
         top = tk.Toplevel()
         top.geometry('300x300')
+        
+        
         primary_ent = tk.Entry(top)
         secondary_ent =tk.Entry(top)
-
         #Goes through everything and sets their bg and forground
+    
+
         def insert_val():
 
 
@@ -258,10 +261,12 @@ class App(CPU, tk.Tk):
                     primary = f'#{primary}'
                 if secondary[0] != "#":
                     secondary = f'#{secondary}'
+                
                 self.config(bg=primary)
                 self.label.config(bg=primary)
                 self.master_frame.config(bg=secondary)
                 self.left_menu_frame.config(bg=secondary)
+
                 for i in self.left_side_elems:
                     if isinstance(i,(tk.Label, tk.Button)):
                         i.config(bg=primary, fg=secondary)
@@ -274,6 +279,15 @@ class App(CPU, tk.Tk):
                 top.destroy()
             else:
                 messagebox.showerror("ERROR", f"Please input color for all fields")
+        items = [
+        tk.Label(top,text="Enter Primary Color Hex code or Key word 'red' etc :"),
+        primary_ent,
+        tk.Label(top,text="Enter Secondary Hex code or Key word 'red' etc:"),
+        secondary_ent,
+        tk.Button(top, command=insert_val, text="Click to Submit")
+        ]
+        for i in items:
+            i.pack()
 
     def open(self):
         """
